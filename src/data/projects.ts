@@ -1,0 +1,60 @@
+export const projects = [
+  {
+    slug: 'votex',
+    name: 'Votex',
+    tech: ['Next.js', 'Firebase', 'Node.js','Blockchain'],
+    description:
+      'A secure, full-stack voting platform built for small-to-medium scale elections. Features preloaded voter data, admin controls for authentication and election setup, OTP-based identity verification, role-based session control to ensure only authorized users vote, and an extensible admin panel for adding parties and candidates.',
+    achievements: ['Top 10 — Brahmax Hackathon'],
+    github: 'https://github.com/Team-Vasiliades/VoteX',
+    live: '#',
+    images: ['/vote2.jpg', '/vote1.jpg', '/vote3.jpg'],
+  },
+  {
+    slug: 'algovisualizer',
+    name: 'AlgoVisualizer',
+    tech: ['React', 'WebSocket', 'Django','Gemini Api'],
+    description:
+      'Interactive DSA visualizer that runs live sorting and algorithm demonstrations. Users can input arrays or custom data and watch step-by-step visualizations (selection sort, bubble sort, etc.) in real time; the backend uses WebSockets for synchronized, low-latency updates and Django for persistence and instructor controls.',
+    achievements: ['Runner-up — Genethon'],
+    github: 'https://github.com/Team-Vasiliades/ALGOVisualizer',
+    live: 'https://algovisualizer.pythonanywhere.com/',
+    images: ['/algo1.jpg', '/algo2.jpg', '/algo3.jpg'],
+  },
+  {
+    slug: 'artmart',
+    name: 'ArtMart',
+    tech: ['React', 'Node.js', 'MongoDB','Django'],
+    description:
+      'An online marketplace focused on artists: upload artwork, add pricing, and manage a simple dashboard. Designed as a curated gallery where visitors can view artwork and creators can list items; includes secure payment flow scaffolding and artist profile features. Built to be extendable with P2P features and an integrated AI-assisted “recreation guide” for artists.',
+    achievements: ['Top 60 — PEER Global Hackathon'],
+    github: 'https://github.com/utkarshwrks/ArtMart',
+    live: 'https://artmart-9t6q.onrender.com/',
+    images: ['/am1.jpg', '/am2.jpg'],
+  },
+  // OTHER PROJECTS WITHOUT IMAGES
+  {
+    slug: 'water-quality',
+    name: 'Water Quality Prediction',
+    tech: ['Python', 'Flask', 'sklearn', 'AI/ML'],
+    description:
+      'ML project to predict water quality using supervised models; includes an API endpoint and dashboard for visualization.',
+    github: 'https://github.com/utkarshwrks/Water-Quality-Prediction',
+  },
+  {
+    slug: 'minicrm',
+    name: 'MiniCRM',
+    tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+    description:
+      'A lightweight CRM (Customer Relationship Management) application built with the MERN stack. Allows users to manage customers, leads, and interactions efficiently for learning or small-scale use.',
+    github: 'https://github.com/utkarshwrks/MINICRM',
+  },
+  {
+    slug: 'skillsync',
+    name: 'SkillSync',
+    tech: ['AI', 'Web Scraping', 'HR Tools'],
+    description:
+      'AI-powered resume analysis and correction platform with HR features, job/internship scraping, and candidate matching tools.',
+    github: 'https://github.com/saymanlal/SkillSync',
+  },
+]

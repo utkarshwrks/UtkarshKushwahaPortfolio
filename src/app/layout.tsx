@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         alt: 'Utkarsh Kushwaha Portfolio Preview',
       },
       {
-        url: 'https://utkarsh-kushwaha.vercel.app/logo.png',
+        url: 'https://utkarsh-kushwaha.vercel.app/logoo.png',
         width: 512,
         height: 512,
         alt: 'Utkarsh Logo',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     creator: '@utkarshwrks',
     images: [
       'https://utkarsh-kushwaha.vercel.app/preview.png',
-      'https://utkarsh-kushwaha.vercel.app/logo.png',
+      'https://utkarsh-kushwaha.vercel.app/logoo.png',
     ],
   },
 }
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* ✅ Favicon & Theme */}
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/logoo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="shortcut icon" href="/logo.png" />
         <meta name="theme-color" content="#0f172a" />

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: 'https://utkarsh-kushwaha.vercel.app/preview.png',
         width: 1200,
         height: 630,
-        alt: 'Utkarsh Kushwaha Portfolio',
+        alt: 'Utkarsh Kushwaha Portfolio Preview',
       },
     ],
     locale: 'en_IN',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: 'Utkarsh Kushwaha | Full Stack Developer',
     description:
       'Full Stack Developer | AI Enthusiast | Explore my portfolio, skills, and projects.',
-    creator: '@utkarshkushwaha',
+    creator: '@utkarshwrks',
     images: ['https://utkarsh-kushwaha.vercel.app/preview.png'],
   },
 }
@@ -56,24 +56,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* ✅ Google Search Console Verification */}
+        <meta
+          name="google-site-verification"
+          content="j-CdA2exKI_5a0knLXKPmPLAJrp-YpfO46mqJMtS6Ls"
+        />
+
+        {/* ✅ Favicon & Theme */}
         <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="shortcut icon" href="/logo.png" />
+        <meta name="theme-color" content="#0f172a" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {/* --- JSON-LD Structured Data --- */}
+        {/* ✅ Performance & Compatibility */}
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="index, follow" />
+
+        {/* ✅ JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
+              '@id': 'https://utkarsh-kushwaha.vercel.app/#person',
               name: 'Utkarsh Kushwaha',
               url: 'https://utkarsh-kushwaha.vercel.app/',
               sameAs: [
                 'https://www.linkedin.com/in/utkarshwrks',
                 'https://github.com/utkarshwrks',
                 'https://x.com/utkarshwrks',
-                'https://www.instagram.com/_.utkrashh._', // replace with real handle if any
+                'https://www.instagram.com/_.utkrashh._',
               ],
               jobTitle: 'Full Stack Developer & AI Enthusiast',
               worksFor: {
@@ -84,9 +98,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@type': 'CollegeOrUniversity',
                 name: 'RGPV University',
               },
-              image: 'https://utkarsh-kushwaha.vercel.app/preview.jpg',
+              image: 'https://utkarsh-kushwaha.vercel.app/preview.png',
               description:
-                'Utkarsh Kushwaha — Full Stack Developer skilled in Next.js, Django, and AI integration. Check out my portfolio, GitHub, and LinkedIn.',
+                'Utkarsh Kushwaha — Full Stack Developer skilled in Next.js, Django, and AI integration. Explore my portfolio, GitHub, and LinkedIn.',
             }),
           }}
         />

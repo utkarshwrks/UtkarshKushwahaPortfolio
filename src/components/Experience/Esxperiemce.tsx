@@ -4,7 +4,7 @@ import { ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-// Animation variants (smoothed out)
+// Animation variants (smoothed out) - FIXED VERSION
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -12,7 +12,7 @@ const containerVariants = {
     transition: {
       staggerChildren: 0.25,
       duration: 0.6,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -24,7 +24,7 @@ const itemVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 60,
       damping: 20,
       duration: 0.7
@@ -38,7 +38,7 @@ const slideInUp = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 70,
       damping: 18,
       duration: 0.7
@@ -52,7 +52,7 @@ const fadeIn = {
     opacity: 1,
     transition: {
       duration: 0.7,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -78,7 +78,7 @@ function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
           className="absolute -top-10 left-8 w-0.5 h-10 bg-gradient-to-b from-emerald-400/40 to-transparent md:left-1/2 md:-translate-x-1/2"
           initial={{ scaleY: 0 }}
           animate={inView ? { scaleY: 1 } : { scaleY: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" as const }}
         />
       )}
 
@@ -88,7 +88,7 @@ function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
                    backdrop-blur-sm hover:border-emerald-300 hover:bg-gray-900/40"
         whileHover={{
           y: -4,
-          transition: { type: "spring", stiffness: 200, damping: 20 }
+          transition: { type: "spring" as const, stiffness: 200, damping: 20 }
         }}
         whileTap={{ scale: 0.98 }}
       >
@@ -134,7 +134,7 @@ function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
             <span>View Certificate</span>
             <motion.span
               animate={{ x: [0, 3, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" as const }}
             >
               <ExternalLink size={16} />
             </motion.span>
@@ -147,7 +147,7 @@ function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
           whileHover={{
             scale: 1.05,
             rotate: 3,
-            transition: { type: "spring", stiffness: 300, damping: 20 }
+            transition: { type: "spring" as const, stiffness: 300, damping: 20 }
           }}
         >
           <div className="relative">
@@ -160,7 +160,7 @@ function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
               transition={{
                 duration: 4,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: "easeInOut" as const
               }}
             />
             <Image
@@ -229,12 +229,12 @@ export default function ExperienceSection() {
       <motion.div
         className="absolute top-1/4 -left-20 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl"
         animate={{ x: [0, 60, 0], y: [0, -40, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" as const }}
       />
       <motion.div
         className="absolute bottom-1/4 -right-20 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl"
         animate={{ x: [0, -60, 0], y: [0, 40, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const }}
       />
 
       {/* Heading */}
@@ -250,7 +250,7 @@ export default function ExperienceSection() {
           className="w-20 h-1 bg-gradient-to-r from-green-400 to-cyan-400 mx-auto my-3 rounded-full"
           initial={{ width: 0 }}
           animate={inView ? { width: 80 } : { width: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: "easeOut" as const }}
         />
 
         <motion.p variants={fadeIn} className="text-gray-400 italic">

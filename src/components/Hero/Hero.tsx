@@ -7,7 +7,7 @@ import Lottie from 'lottie-react'
 import laptopCoffee1 from '@/lottie/Green.json'
 import { useInView } from 'react-intersection-observer'
 
-// Animation variants
+// Animation variants - FIXED VERSION
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,7 +30,7 @@ const itemVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 12,
       duration: 0.8
@@ -49,7 +49,7 @@ const slideInLeft = {
     x: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 80,
       damping: 15,
       duration: 1
@@ -68,7 +68,7 @@ const slideInRight = {
     x: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 80,
       damping: 15,
       duration: 1
@@ -211,7 +211,7 @@ export default function Hero() {
                   rotate: 5
                 }}
                 whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400 }}
+                transition={{ type: "spring" as const, stiffness: 400 }}
               >
                 {social.icon}
               </motion.a>
@@ -239,8 +239,8 @@ export default function Hero() {
             y: {
               duration: 4,
               repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
+              repeatType: "reverse" as const,
+              ease: "easeInOut" as const
             }
           }}
         >

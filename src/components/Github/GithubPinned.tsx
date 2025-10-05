@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 import { FaCodeBranch, FaAward, FaLaptopCode, FaTools, FaFolderOpen } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { ReactElement } from 'react'
 
-// Animation variants
+// Animation variants - FIXED VERSION
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -27,7 +28,7 @@ const itemVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 12,
       duration: 0.8
@@ -46,7 +47,7 @@ const slideInLeft = {
     x: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 80,
       damping: 15,
       duration: 1
@@ -65,7 +66,7 @@ const slideInRight = {
     x: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 80,
       damping: 15,
       duration: 1
@@ -73,8 +74,15 @@ const slideInRight = {
   }
 }
 
+// Define the stats type
+interface StatItem {
+  icon: ReactElement;
+  label: string;
+  value: string;
+}
+
 // Animated components
-function AnimatedStats({ stats }: { stats: typeof stats }) {
+function AnimatedStats({ stats }: { stats: StatItem[] }) {
   const [ref, inView] = useInView({
     triggerOnce: false, // Changed to false to trigger every time
     threshold: 0.1,
@@ -95,7 +103,7 @@ function AnimatedStats({ stats }: { stats: typeof stats }) {
           whileHover={{ 
             scale: 1.1,
             y: -8,
-            transition: { type: "spring", stiffness: 300 }
+            transition: { type: "spring" as const, stiffness: 300 }
           }}
           className="flex-1 flex flex-col items-center text-center min-w-[140px] cursor-pointer"
         >
@@ -188,7 +196,7 @@ function AnimatedContentSection() {
             variants={itemVariants}
             whileHover={{ 
               x: 10,
-              transition: { type: "spring", stiffness: 400 }
+              transition: { type: "spring" as const, stiffness: 400 }
             }}
             className="flex items-center gap-4 cursor-pointer"
           >
@@ -219,7 +227,7 @@ export default function AboutGithubSection() {
     threshold: 0.1,
   })
 
-  const stats = [
+  const stats: StatItem[] = [
     { icon: <FaCodeBranch />, label: 'Open Source Contributions', value: '3+' },
     { icon: <FaLaptopCode />, label: 'Experience', value: '1.5+ Years' },
     { icon: <FaTools />, label: 'Tech Stack', value: '10+ Tools' },
@@ -241,7 +249,7 @@ export default function AboutGithubSection() {
         initial={{ opacity: 0, y: -50 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
         transition={{ 
-          type: "spring",
+          type: "spring" as const,
           stiffness: 100,
           damping: 15,
           duration: 0.8

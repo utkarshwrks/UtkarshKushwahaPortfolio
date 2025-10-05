@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useState } from 'react'
 
-// Animation variants
+// Fixed animation variants with TypeScript compatibility
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -28,7 +28,7 @@ const itemVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 20,
       duration: 0.7
@@ -45,7 +45,7 @@ const slideInUp = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 120,
       damping: 18,
       duration: 0.6
@@ -61,7 +61,7 @@ const fadeIn = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -98,7 +98,7 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
         y: -6,
         scale: 1.02,
         borderColor: "rgba(34, 197, 94, 0.3)",
-        transition: { type: "spring", stiffness: 400, damping: 15 }
+        transition: { type: "spring" as const, stiffness: 400, damping: 15 }
       }}
       whileTap={{ scale: 0.98 }}
     >
@@ -108,7 +108,7 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
         whileHover={{ 
           scale: 1.1,
           rotate: 5,
-          transition: { type: "spring", stiffness: 400 }
+          transition: { type: "spring" as const, stiffness: 400 }
         }}
         animate={{
           background: [
@@ -184,7 +184,7 @@ function AnimatedSocialLink({ social, index }: { social: any; index: number }) {
           opacity: 1, 
           scale: 1,
           transition: {
-            type: "spring",
+            type: "spring" as const,
             stiffness: 200,
             damping: 15
           }
@@ -196,13 +196,13 @@ function AnimatedSocialLink({ social, index }: { social: any; index: number }) {
         scale: 1.15,
         y: -2,
         borderColor: "rgba(34, 197, 94, 0.5)",
-        transition: { type: "spring", stiffness: 400 }
+        transition: { type: "spring" as const, stiffness: 400 }
       }}
       whileTap={{ scale: 0.9 }}
     >
       <motion.div
         whileHover={{ rotate: 360 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        transition={{ duration: 0.5, ease: "easeInOut" as const }}
       >
         {social.icon}
       </motion.div>
@@ -309,7 +309,7 @@ function StatusInfoCard({ icon, title, value }: { icon: any; title: string; valu
       whileHover={{ 
         y: -2,
         borderColor: "rgba(34, 197, 94, 0.3)",
-        transition: { type: "spring", stiffness: 400 }
+        transition: { type: "spring" as const, stiffness: 400 }
       }}
     >
       <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center text-white">
@@ -657,7 +657,7 @@ export default function Contact() {
                         whileHover={{ 
                           scale: isSubmitting ? 1 : 1.05,
                           boxShadow: isSubmitting ? "none" : "0 10px 30px rgba(16, 185, 129, 0.3)",
-                          transition: { type: "spring", stiffness: 400 }
+                          transition: { type: "spring" as const, stiffness: 400 }
                         }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -673,7 +673,7 @@ export default function Contact() {
                           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                           initial={{ x: "-100%" }}
                           whileHover={{ x: "100%" }}
-                          transition={{ duration: 0.8, ease: "easeInOut" }}
+                          transition={{ duration: 0.8, ease: "easeInOut" as const }}
                         />
                       </motion.button>
 

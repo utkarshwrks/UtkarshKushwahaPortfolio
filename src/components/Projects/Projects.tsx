@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-// Animation variants
+// Animation variants - FIXED VERSION
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,7 +30,7 @@ const itemVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 20,
       duration: 0.7
@@ -47,7 +47,7 @@ const slideInUp = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 120,
       damping: 18,
       duration: 0.6
@@ -63,7 +63,7 @@ const fadeIn = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -100,7 +100,7 @@ function AnimatedProjectCard({ project, index, isShowcase = false }: { project: 
         }`}
         whileHover={{ 
           y: -8,
-          transition: { type: "spring", stiffness: 400, damping: 15 }
+          transition: { type: "spring" as const, stiffness: 400, damping: 15 }
         }}
       >
         {/* Image Gallery */}
@@ -108,7 +108,7 @@ function AnimatedProjectCard({ project, index, isShowcase = false }: { project: 
           <motion.div 
             className="relative w-full lg:w-1/2 overflow-hidden rounded-xl flex-shrink-0"
             whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            transition={{ type: "spring" as const, stiffness: 300 }}
           >
             <Image
               src={project.images[imageIndex]}
@@ -290,7 +290,7 @@ function AnimatedProjectCard({ project, index, isShowcase = false }: { project: 
       className="p-6 rounded-xl border border-gray-700 shadow-sm hover:shadow-2xl transition-all duration-300 bg-gray-900/50 backdrop-blur-sm hover:border-green-500/50 flex flex-col justify-between"
       whileHover={{ 
         y: -6,
-        transition: { type: "spring", stiffness: 400, damping: 15 }
+        transition: { type: "spring" as const, stiffness: 400, damping: 15 }
       }}
     >
       <div className="flex flex-col flex-1 gap-3">
@@ -397,7 +397,7 @@ export default function Projects() {
         transition={{ 
           duration: 15,
           repeat: Infinity,
-          ease: "easeInOut" 
+          ease: "easeInOut" as const
         }}
       />
       
@@ -410,7 +410,7 @@ export default function Projects() {
         transition={{ 
           duration: 20,
           repeat: Infinity,
-          ease: "easeInOut" 
+          ease: "easeInOut" as const
         }}
       />
 

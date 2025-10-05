@@ -38,6 +38,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: 'Utkarsh Kushwaha Portfolio Preview',
       },
+      {
+        url: 'https://utkarsh-kushwaha.vercel.app/logo.png',
+        width: 512,
+        height: 512,
+        alt: 'Utkarsh Logo',
+      },
     ],
     locale: 'en_IN',
     type: 'website',
@@ -48,7 +54,10 @@ export const metadata: Metadata = {
     description:
       'Full Stack Developer | AI Enthusiast | Explore my portfolio, skills, and projects.',
     creator: '@utkarshwrks',
-    images: ['https://utkarsh-kushwaha.vercel.app/preview.png'],
+    images: [
+      'https://utkarsh-kushwaha.vercel.app/preview.png',
+      'https://utkarsh-kushwaha.vercel.app/logo.png',
+    ],
   },
 }
 
@@ -98,7 +107,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@type': 'CollegeOrUniversity',
                 name: 'RGPV University',
               },
-              image: 'https://utkarsh-kushwaha.vercel.app/preview.png',
+              image: [
+                'https://utkarsh-kushwaha.vercel.app/preview.png',
+                'https://utkarsh-kushwaha.vercel.app/logo.png',
+              ],
               description:
                 'Utkarsh Kushwaha — Full Stack Developer skilled in Next.js, Django, and AI integration. Explore my portfolio, GitHub, and LinkedIn.',
             }),

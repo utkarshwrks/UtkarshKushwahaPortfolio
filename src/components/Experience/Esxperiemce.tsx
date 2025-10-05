@@ -247,7 +247,7 @@ export default function ExperienceSection() {
         </motion.h2>
 
         <motion.div
-          className="w-20 h-1 bg-gradient-to-r from-green-400 to-cyan-400 mx-auto my-3 rounded-full"
+          className="w-20 h-1 bg-gray-600 mx-auto my-3 rounded-full"
           initial={{ width: 0 }}
           animate={inView ? { width: 80 } : { width: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" as const }}

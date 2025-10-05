@@ -427,7 +427,7 @@ export default function Projects() {
         </motion.h2>
         
         <motion.div 
-          className="w-20 h-1 bg-gradient-to-r from-green-400 to-cyan-400 mx-auto my-3 rounded-full"
+          className=" w-20 h-1 bg-gray-600 mx-auto my-3 rounded-full"
           initial={{ width: 0 }}
           animate={inView ? { width: 80 } : { width: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}

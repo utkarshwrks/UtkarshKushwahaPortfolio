@@ -59,7 +59,7 @@ export default function FooterTerminal() {
         setOutput(o => [...o, '💼 Tech Stack:', 'Frontend: React, Next.js, TypeScript, Tailwind', 'Backend: Node.js, Django, Python', 'Database: MongoDB, PostgreSQL, Firebase', 'Tools: Git, Docker, AWS, Vercel'])
         break
       case 'github':
-        window.open('https://github.com/utkarsh-246', '_blank')
+        window.open('https://github.com/utkarshwrks', '_blank')
         setOutput(o => [...o, '🔗 Opening GitHub profile...'])
         break
       default:
@@ -67,7 +67,7 @@ export default function FooterTerminal() {
           const dir = c.split(' ')[1]
           const sections: { [key: string]: string } = {
             home: 'home',
-            about: 'about',
+            about: '/about',
             projects: 'projects', 
             skills: 'skills',
             contact: 'contact'

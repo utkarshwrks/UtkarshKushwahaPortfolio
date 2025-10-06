@@ -65,10 +65,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/*  Search Console Verification */}
+        {/* ✅ Google Search Console Verification */}
         <meta
           name="google-site-verification"
-          content="j-CdA2exKI_5a0knLXKPmPLAJrp-YpfO46mqJMtS6Ls"
+          content="PzKFfW7jHV_W8o_xQ0j5kbcZDtIlGsqTd_dMbgmyo68"
         />
 
         {/* ✅ Favicon & Theme */}

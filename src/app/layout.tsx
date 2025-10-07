@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description:
       'Full Stack Developer & AI Enthusiast — building scalable web apps with modern technologies. Check out my portfolio, GitHub, and LinkedIn.',
     url: 'https://utkarsh-kushwaha.vercel.app/',
-    siteName: 'Utkarsh Kushwaha Portfolio',
+    siteName: 'Utkarsh Kushwaha',
     images: [
       {
         url: 'https://utkarsh-kushwaha.vercel.app/preview.png',
@@ -59,6 +59,11 @@ export const metadata: Metadata = {
       'https://utkarsh-kushwaha.vercel.app/logoo.png',
     ],
   },
+  icons: {
+    icon: '/logoo.png',
+    apple: '/logoo.png',
+    shortcut: '/logoo.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -73,8 +78,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* ✅ Favicon & Theme */}
         <link rel="icon" href="/logoo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="shortcut icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logoo.png" />
+        <link rel="shortcut icon" href="/logoo.png" />
         <meta name="theme-color" content="#0f172a" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -109,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               image: [
                 'https://utkarsh-kushwaha.vercel.app/preview.png',
-                'https://utkarsh-kushwaha.vercel.app/logo.png',
+                'https://utkarsh-kushwaha.vercel.app/logoo.png',
               ],
               description:
                 'Utkarsh Kushwaha — Full Stack Developer skilled in Next.js, Django, and AI integration. Explore my portfolio, GitHub, and LinkedIn.',

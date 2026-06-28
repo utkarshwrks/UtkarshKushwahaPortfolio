@@ -1,0 +1,76 @@
+{
+  "hero": {
+    "greeting": "Hi, I'm",
+    "firstName": "Utkarsh",
+    "nickname": "(ut-code-crush)",
+    "lastName": "Kushwaha",
+    "roles": [
+      "Full Stack Dev | Backend & AI Enthusiast",
+      "Building Scalable Apps & AI Solutions",
+      "Full Stack Engineer | Python, Node.js, Django",
+      "Creating Intelligent Web Experiences",
+      "Coder, Problem Solver, AI Explorer"
+    ],
+    "description": "I craft scalable web applications with a backend-first approach, integrating AI/ML solutions where they truly add value.",
+    "availableForWork": true,
+    "availabilityText": "Available for opportunities",
+    "primaryCtaLabel": "Contact",
+    "primaryCtaHref": "#contact",
+    "resumeHref": "/resume.pdf"
+  },
+  "socials": {
+    "github": "https://github.com/utkarshwrks",
+    "linkedin": "https://www.linkedin.com/in/utkarshwrks/",
+    "email": "utkarshkushwaha246@gmail.com",
+    "twitter": "https://x.com/utkarshwrks",
+    "instagram": "https://www.instagram.com/_.utkrashh._"
+  },
+  "about": {
+    "bio": "Hi! I'm Utkarsh — a full-stack developer passionate about building scalable applications and weaving AI/ML into real-world solutions. I thrive on exploring modern stacks, optimizing performance, and shipping work that makes an impact.",
+    "funFacts": [
+      "☕ Fueled by chai & curiosity",
+      "🎧 Music on while coding",
+      "🌙 Night owl — best code after midnight"
+    ]
+  },
+  "contact": {
+    "notes": [
+      "💼 Open for freelance work & full-time opportunities",
+      "🌍 Available for remote positions worldwide"
+    ]
+  },
+  "copy": {
+    "about": { "eyebrow": "About Me", "title": "Get to", "highlight": "Know Me", "subtitle": "" },
+    "projects": { "eyebrow": "Selected Work", "title": "", "highlight": "Projects", "subtitle": "Things I've built, broken, and rebuilt better — from hackathon wins to weekend experiments." },
+    "experience": { "eyebrow": "Experience", "title": "", "highlight": "Professional Journey", "subtitle": "Because chai and code is apparently a career path ☕💻" },
+    "skills": { "eyebrow": "Tech Stack", "title": "Skills &", "highlight": "Technologies", "subtitle": "Tools and technologies I use to bring ideas to life." },
+    "codingStats": { "eyebrow": "Live Data", "title": "Live", "highlight": "Coding Stats", "subtitle": "Pulled live from LeetCode & Codeforces — real numbers, not claims." },
+    "achievements": { "eyebrow": "Achievements", "title": "Wins &", "highlight": "Hackathons", "subtitle": "My journey through competitive programming and hackathons." },
+    "leadership": { "eyebrow": "Leadership", "title": "Community &", "highlight": "Leadership", "subtitle": "Strengthening the developer community through open-source work, mentoring, and thought leadership." },
+    "contact": { "eyebrow": "Contact", "title": "Get in", "highlight": "Touch", "subtitle": "Feel free to reach out for collaborations or just a friendly hello." },
+    "aboutExperienceValue": "1.5+ yrs",
+    "footerTagline": "> Made with Next.js, TypeScript & zero regard for deadlines ⏳",
+    "footerServices": [
+      { "label": "Projects", "href": "/#projects" },
+      { "label": "About", "href": "/about" },
+      { "label": "Contact", "href": "/#contact" }
+    ],
+    "contactDescriptions": {
+      "email": "Let's start a conversation",
+      "linkedin": "Connect professionally",
+      "github": "Check my work",
+      "instagram": "Daily updates"
+    },
+    "terminalWhoami": [
+      "👨‍💻 Utkarsh Kushwaha | Full-Stack Developer",
+      "Passionate about building digital experiences that matter 🚀"
+    ],
+    "terminalSkills": [
+      "💼 Tech Stack:",
+      "Frontend: React, Next.js, TypeScript, Tailwind",
+      "Backend: Node.js, Django, Python",
+      "Database: MongoDB, PostgreSQL, Firebase",
+      "Tools: Git, Docker, AWS, Vercel"
+    ]
+  }
+}

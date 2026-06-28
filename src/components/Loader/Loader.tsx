@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 const fakeLogs = [
-  { text: '▲ npm run dev', delay: 1200 },
-  { text: '○ Compiling / ...', delay: 1000 },
-  { text: '✓ Building components...', delay: 1100 },
-  { text: '✓ Optimizing assets...', delay: 900 },
-  { text: '✓ Starting development server...', delay: 800 },
-  { text: '🚀 Ready in 3.1s', delay: 700 },
+  { text: '▲ npm run dev', delay: 650 },
+  { text: '○ Compiling / ...', delay: 550 },
+  { text: '✓ Building components...', delay: 550 },
+  { text: '✓ Optimizing assets...', delay: 480 },
+  { text: '✓ Starting development server...', delay: 450 },
+  { text: '🚀 Ready in 1.4s', delay: 420 },
 ]
 
 export default function Loader() {
@@ -17,16 +18,32 @@ export default function Loader() {
   const [currentLine, setCurrentLine] = useState(0)
   const [completedLines, setCompletedLines] = useState<number[]>([])
   const [isClient, setIsClient] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     setIsClient(true)
+    // Only play the boot animation once per browser session.
+    try {
+      if (sessionStorage.getItem('portfolioLoaderShown') === '1') {
+        setLoading(false)
+      }
+    } catch {
+      /* sessionStorage unavailable — fall back to showing it */
+    }
   }, [])
 
   useEffect(() => {
-    if (!isClient) return
+    if (!isClient || !loading) return
 
     if (currentLine >= fakeLogs.length) {
-      setTimeout(() => setLoading(false), 1200)
+      setTimeout(() => {
+        setLoading(false)
+        try {
+          sessionStorage.setItem('portfolioLoaderShown', '1')
+        } catch {
+          /* ignore */
+        }
+      }, 600)
       return
     }
 
@@ -36,7 +53,10 @@ export default function Loader() {
     }, fakeLogs[currentLine].delay)
 
     return () => clearTimeout(timer)
-  }, [currentLine, isClient])
+  }, [currentLine, isClient, loading])
+
+  // No boot-loader animation inside the admin panel.
+  if (pathname?.startsWith('/admin')) return null
 
   // Terminal cursor animation
   const Cursor = () => (

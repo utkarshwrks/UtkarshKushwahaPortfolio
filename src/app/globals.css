@@ -1,64 +1,347 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   DESIGN TOKENS — single source of truth for the whole site.
+   Vibe: dark + emerald, modernized (glass, glow, motion, bento).
+   Everything (sections, primitives, admin) pulls from these tokens.
+   ========================================================================== */
+
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* ---- Brand (emerald) scale -------------------------------------------- */
+  --brand-50:  #ecfdf5;
+  --brand-100: #d1fae5;
+  --brand-200: #a7f3d0;
+  --brand-300: #6ee7b7;
+  --brand-400: #34d399;
+  --brand-500: #10b981; /* primary */
+  --brand-600: #059669;
+  --brand-700: #047857;
+  --brand-800: #065f46;
+  --brand-900: #064e3b;
+  --brand-neon: #22ff99; /* the signature accent used across the old site */
+
+  /* ---- Surfaces (dark base) --------------------------------------------- */
+  --bg:          #050607; /* page background, near-black with a hint of green-grey */
+  --bg-elevated: #0a0d0f;
+  --surface-1:   #0d1113; /* cards */
+  --surface-2:   #12171a; /* nested / hover */
+  --surface-3:   #181f23;
+  --border:      #1d262b;
+  --border-soft: #151c20;
+
+  /* ---- Text ------------------------------------------------------------- */
+  --text:        #f3f6f5;
+  --text-muted:  #9aa7a3;
+  --text-subtle: #62716c;
+  --text-onbrand:#04130d; /* dark text placed on emerald fills */
+
+  /* ---- Glass ------------------------------------------------------------ */
+  --glass-bg:     rgba(18, 23, 26, 0.55);
+  --glass-border: rgba(110, 231, 183, 0.12);
+  --glass-blur:   14px;
+
+  /* ---- Glow / brand alphas ---------------------------------------------- */
+  --glow-brand:   rgba(16, 185, 129, 0.45);
+  --glow-neon:    rgba(34, 255, 153, 0.40);
+  --brand-a08:    rgba(16, 185, 129, 0.08);
+  --brand-a15:    rgba(16, 185, 129, 0.15);
+  --brand-a25:    rgba(16, 185, 129, 0.25);
+
+  /* ---- Secondary accent (teal) — used sparingly for tasteful duotone ----- */
+  --accent-500:   #2dd4bf;
+  --accent-400:   #5eead4;
+  --accent-a10:   rgba(45, 212, 191, 0.10);
+
+  /* ---- Award / gold — winning-position highlights ----------------------- */
+  --gold-400:     #fbbf24;
+  --gold-300:     #fcd34d;
+  --gold-a10:     rgba(251, 191, 36, 0.10);
+  --gold-a30:     rgba(251, 191, 36, 0.30);
+
+  /* ---- Radii ------------------------------------------------------------ */
+  --r-sm: 0.5rem;
+  --r-md: 0.875rem;
+  --r-lg: 1.25rem;
+  --r-xl: 1.75rem;
+  --r-pill: 999px;
+
+  /* ---- Shadows / elevation ladder (1 = resting → 4 = floating) ---------- */
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 8px 24px -8px rgba(0, 0, 0, 0.6);
+  --shadow-lg:   0 24px 60px -20px rgba(0, 0, 0, 0.75);
+  --shadow-xl:   0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  --shadow-glow: 0 10px 40px -10px var(--glow-brand);
+
+  /* ---- Motion (easing + durations) -------------------------------------- */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);   /* smooth deceleration */
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:cubic-bezier(0.34, 1.56, 0.64, 1); /* gentle overshoot */
+  --dur-fast:   0.2s;
+  --dur-mid:    0.45s;
+  --dur-slow:   0.8s;
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --container: 1200px;
+}
+
+/* Expose tokens to Tailwind v4 utilities (bg-brand-500, text-muted, rounded-lg…) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+
+  --color-content: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-neon: var(--brand-neon);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+
+  --ease-out: var(--ease-out);
+  --ease-spring: var(--ease-spring);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
   overflow-x: hidden;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
+::selection {
+  background: var(--brand-a25);
+  color: var(--text);
+}
+
+/* ============================================================================
+   UTILITIES — small reusable building blocks every section can use.
+   ========================================================================== */
+
+/* Frosted-glass surface */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Card surface (solid, with soft border) */
+.surface-card {
+  background: linear-gradient(180deg, var(--surface-1), var(--bg-elevated));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+/* Brand glow shadow on hover targets */
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+.glow-hover {
+  transition: box-shadow var(--dur-mid) var(--ease-out),
+              transform var(--dur-mid) var(--ease-out);
+}
+.glow-hover:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px);
+}
+
+/* Emerald gradient text */
+.text-gradient {
+  background: linear-gradient(120deg, var(--brand-300), var(--brand-neon), var(--brand-500));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-animated {
+  background: linear-gradient(120deg, var(--brand-300), var(--brand-neon), var(--brand-500), var(--brand-300));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-move 6s linear infinite;
+}
+
+/* Gradient hairline border via mask (1px brand-tinted border on dark cards) */
+.border-gradient {
+  position: relative;
+}
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--brand-a25), transparent 40%, var(--brand-a15));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Section vertical rhythm */
+.section-pad {
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+
+/* Award / winning-position chip (gold) */
+.badge-award {
+  border: 1px solid var(--gold-a30);
+  background: var(--gold-a10);
+  color: var(--gold-300);
+  box-shadow: 0 4px 24px -8px var(--gold-a30);
+}
+
+/* Mouse-follow spotlight wash — set --mx/--my from JS or leave centered */
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    520px circle at var(--mx, 50%) var(--my, 0%),
+    var(--brand-a08),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-mid) var(--ease-out);
+  pointer-events: none;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Ultra-subtle film grain for premium depth on large surfaces */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Elevation helper for interactive surfaces */
+.elevate {
+  transition: transform var(--dur-mid) var(--ease-out),
+              box-shadow var(--dur-mid) var(--ease-out),
+              border-color var(--dur-mid) var(--ease-out);
+}
+.elevate:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================================
+   KEYFRAMES — shared motion library (used by bg engine + sections).
+   ========================================================================== */
+@keyframes gradient-move {
+  to { background-position: 300% center; }
 }
 
-/* Modern Dark Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
 }
 
-::-webkit-scrollbar-track {
-  background: #000000; /* black */
-  border-radius: 4px;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
 }
 
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-8%, -4%, 0) rotate(0deg) scale(1.1); }
+  50%  { transform: translate3d(6%, 6%, 0) rotate(8deg) scale(1.25); }
+  100% { transform: translate3d(-8%, -4%, 0) rotate(0deg) scale(1.1); }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Flowing gradient for the experience timeline spine */
+@keyframes spine-flow {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 200%; }
+}
+
+/* Slowly rotating conic glow for animated card borders */
+@keyframes border-spin {
+  to { transform: rotate(1turn); }
+}
+
+/* ============================================================================
+   SCROLLBAR — keep the signature emerald scrollbar.
+   ========================================================================== */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #10b981, #059669); /* green-500 to green-600 */
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--brand-400), var(--brand-600));
+  border-radius: var(--r-pill);
+  border: 2px solid var(--bg);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #34d399, #10b981); /* green-400 to green-500 */
+  background: linear-gradient(180deg, var(--brand-300), var(--brand-500));
 }
-
-::-webkit-scrollbar-corner {
-  background: #000000;
-}
-
-/* Firefox */
+::-webkit-scrollbar-corner { background: var(--bg); }
 * {
   scrollbar-width: thin;
-  scrollbar-color: #10b981 #000000;
+  scrollbar-color: var(--brand-500) var(--bg);
 }
 
-body {
-  scrollbar-width: thin;
-  scrollbar-color: #10b981 #000000;
-}
+/* ============================================================================
+   ADMIN MODE — when the admin panel is open (set via data-admin on <html>),
+   hide the public site chrome regardless of the URL (the admin route may be
+   served behind a secret path via middleware).
+   ========================================================================== */
+html[data-admin] [data-site-chrome] { display: none !important; }
+html[data-admin] main { padding-top: 0 !important; }

@@ -1,10 +1,10 @@
 'use client'
 import CertificatesSection from '@/components/Certificate/Certificate'
 import { motion } from 'framer-motion'
-import { 
-  SiPython, 
-  SiJavascript, 
-  SiC, 
+import {
+  SiPython,
+  SiJavascript,
+  SiC,
   SiCplusplus,
   SiMysql,
   SiHtml5,
@@ -16,248 +16,229 @@ import {
   SiFlask,
   SiFirebase,
   SiMongodb,
+  SiPostgresql,
   SiGit,
   SiGithub,
   SiPostman,
   SiVercel,
-  SiLinux
+  SiLinux,
+  SiDocker,
+  SiTwilio,
+  SiGo,
+  SiGooglegemini,
+  SiScikitlearn,
+  SiPandas,
 } from 'react-icons/si'
-import { VscVscode } from 'react-icons/vsc'
+import { VscVscode, VscAzure } from 'react-icons/vsc'
+import { FaCode } from 'react-icons/fa'
+import type { IconType } from 'react-icons'
+import skillsJson from '@/data/skills.json'
+import { siteCopy } from '@/lib/site-settings'
 
-const skillsData = {
-  programming: {
-    title: "Programming Languages",
-    color: "from-green-500 to-emerald-600",
-    items: [
-      { name: "Python", icon: SiPython },
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "C", icon: SiC },
-      { name: "C++", icon: SiCplusplus },
-      { name: "SQL", icon: SiMysql },
-    ]
-  },
-  web: {
-    title: "Web Technologies",
-    color: "from-blue-500 to-cyan-600", 
-    items: [
-      { name: "HTML5", icon: SiHtml5 },
-      { name: "CSS3", icon: SiCss3 },
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "Node.js", icon: SiNodedotjs },
-      { name: "Express", icon: SiExpress },
-      { name: "Django", icon: SiDjango },
-      { name: "Flask", icon: SiFlask },
-    ]
-  },
-  database: {
-    title: "Databases & Cloud",
-    color: "from-purple-500 to-pink-600",
-    items: [
-      { name: "Firebase", icon: SiFirebase },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "MySQL", icon: SiMysql },
-    ]
-  },
-  tools: {
-    title: "Tools & Platforms",
-    color: "from-orange-500 to-red-600",
-    items: [
-      { name: "Git", icon: SiGit },
-      { name: "GitHub", icon: SiGithub },
-      { name: "Postman", icon: SiPostman },
-      { name: "VS Code", icon: VscVscode },
-      { name: "Vercel", icon: SiVercel },
-      { name: "Linux", icon: SiLinux },
-    ]
-  }
+const EASE = [0.16, 1, 0.3, 1] as const
+
+// Maps the JSON "icon" string (a Simple-Icons slug) -> an icon component.
+// Unknown keys fall back to a generic code icon so nothing ever breaks.
+const iconMap: Record<string, IconType> = {
+  python: SiPython,
+  javascript: SiJavascript,
+  c: SiC,
+  cplusplus: SiCplusplus,
+  golang: SiGo,
+  mysql: SiMysql,
+  postgresql: SiPostgresql,
+  html5: SiHtml5,
+  css3: SiCss3,
+  nextdotjs: SiNextdotjs,
+  nodedotjs: SiNodedotjs,
+  express: SiExpress,
+  django: SiDjango,
+  flask: SiFlask,
+  firebase: SiFirebase,
+  mongodb: SiMongodb,
+  azure: VscAzure,
+  git: SiGit,
+  github: SiGithub,
+  postman: SiPostman,
+  vscode: VscVscode,
+  vercel: SiVercel,
+  linux: SiLinux,
+  docker: SiDocker,
+  twilio: SiTwilio,
+  googlegemini: SiGooglegemini,
+  scikitlearn: SiScikitlearn,
+  pandas: SiPandas,
+}
+
+// Title (and display order) per category. Adding a new category here +
+// tagging skills with it in skills.json is all it takes to surface a new group.
+const CATEGORY_META: Record<string, { title: string }> = {
+  programming: { title: 'Programming Languages' },
+  web: { title: 'Web & Backend' },
+  ai: { title: 'AI & GenAI' },
+  database: { title: 'Databases & Cloud' },
+  tools: { title: 'Tools & Platforms' },
+}
+
+type Skill = { name: string; icon: IconType }
+
+// Build the category list straight from the data, preserving CATEGORY_META order
+// and gracefully appending any category that isn't pre-registered.
+const categoryOrder = Object.keys(CATEGORY_META)
+const categories = Array.from(new Set(skillsJson.map((s) => s.category)))
+  .sort((a, b) => {
+    const ia = categoryOrder.indexOf(a)
+    const ib = categoryOrder.indexOf(b)
+    return (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib)
+  })
+  .map((key) => ({
+    key,
+    title: CATEGORY_META[key]?.title ?? key,
+    items: skillsJson
+      .filter((s) => s.category === key)
+      .map<Skill>((s) => ({ name: s.name, icon: iconMap[s.icon] ?? FaCode })),
+  }))
+
+function SkillTile({ item, index }: { item: Skill; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35, delay: Math.min(index * 0.025, 0.25), ease: EASE }}
+      whileHover={{ y: -4 }}
+      className="group flex aspect-square w-[88px] shrink-0 flex-col items-center justify-center gap-2 rounded-[var(--r-md)] border border-border bg-surface-2/50 p-2 transition-colors duration-300 hover:border-brand-500/40 hover:bg-surface-2"
+    >
+      <item.icon
+        size={24}
+        className="text-muted transition-colors duration-300 group-hover:text-brand-300"
+      />
+      <span className="px-1 text-center text-[0.7rem] leading-tight text-muted transition-colors duration-300 group-hover:text-content">
+        {item.name}
+      </span>
+    </motion.div>
+  )
+}
+
+// Designed bento cell width per category (on the 6-col desktop grid). Widths are
+// woven (wide/narrow → narrow/wide → full) for a horizontal+vertical mix. The
+// composition is fixed here, while skills inside each cell flow + center, so
+// adding a skill fills the cell without ever changing the layout. Unknown
+// categories fall back to a medium cell, so new groups still fit.
+const SPAN: Record<string, string> = {
+  programming: 'md:col-span-4',
+  ai: 'md:col-span-2',
+  web: 'md:col-span-2',
+  database: 'md:col-span-4',
+  tools: 'md:col-span-6',
+}
+const DEFAULT_SPAN = 'md:col-span-3'
+
+function BentoCard({
+  title,
+  items,
+  spanClass,
+  delay = 0,
+}: {
+  title: string
+  items: Skill[]
+  spanClass: string
+  delay?: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.55, delay, ease: EASE }}
+      className={`${spanClass} flex flex-col rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-6 backdrop-blur-sm transition-colors duration-300 hover:border-brand-500/30`}
+    >
+      <div className="mb-5 flex items-center gap-3">
+        <span className="h-7 w-1 shrink-0 rounded-full bg-gradient-to-b from-brand-400 to-brand-600" />
+        <h3 className="text-lg font-semibold text-content">{title}</h3>
+        <span className="ml-auto rounded-[var(--r-pill)] border border-border bg-surface-2/60 px-2 py-0.5 text-xs text-muted">
+          {items.length}
+        </span>
+      </div>
+
+      {/* flex-wrap centered both axes: tiles wrap to new rows and stay centered
+          with even gaps, and fill the card's height so nothing looks empty */}
+      <div className="flex flex-1 flex-wrap content-center items-center justify-center gap-4">
+        {items.map((item, i) => (
+          <SkillTile key={item.name} item={item} index={i} />
+        ))}
+      </div>
+    </motion.div>
+  )
 }
 
 export default function SkillsGrid() {
   return (
-    <div className="min-h-screen py-20 px-4 bg-black text-gray-300">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-            Skills & Technologies
-          </h2>
-           <div className="w-20 h-1 bg-gray-600 mx-auto my-3 rounded-full"></div>
-          <p className="text-gray-400 text-lg">Tools and technologies I use to bring ideas to life</p>
-        </motion.div>
-
-        {/* Swapped Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* Left Column - Databases & Cloud (Full Height) */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-1"
+    <div className="py-20">
+      <div className="mx-auto w-full max-w-[var(--container)] px-5 sm:px-8">
+        {/* Heading */}
+        <div className="mb-14 flex flex-col items-center gap-3 text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-300"
           >
-            <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 h-full">
-              <div className="flex items-center mb-6">
-                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${skillsData.database.color} mr-3`}></div>
-                <h3 className="text-xl font-bold text-white">{skillsData.database.title}</h3>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                {skillsData.database.items.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="group relative"
-                  >
-                    <div className="bg-gray-800/50 rounded-xl p-4 flex flex-col items-center justify-center aspect-square border border-gray-700 group-hover:border-gray-600 transition-all duration-300">
-                      <item.icon 
-                        size={24} 
-                        className="text-gray-400 group-hover:text-white transition-colors duration-300 mb-2" 
-                      />
-                      <span className="text-sm text-center text-gray-400 group-hover:text-white transition-colors duration-300">
-                        {item.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Columns - Other Skills in 2x2 Grid */}
-          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* Top Left - Web Technologies */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-gray-900 rounded-2xl p-6 border border-gray-800"
-            >
-              <div className="flex items-center mb-6">
-                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${skillsData.web.color} mr-3`}></div>
-                <h3 className="text-xl font-bold text-white">{skillsData.web.title}</h3>
-              </div>
-              
-              <div className="grid grid-cols-3 gap-4">
-                {skillsData.web.items.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="group relative"
-                  >
-                    <div className="bg-gray-800/50 rounded-xl p-4 flex flex-col items-center justify-center aspect-square border border-gray-700 group-hover:border-gray-600 transition-all duration-300">
-                      <item.icon 
-                        size={24} 
-                        className="text-gray-400 group-hover:text-white transition-colors duration-300 mb-2" 
-                      />
-                      <span className="text-sm text-center text-gray-400 group-hover:text-white transition-colors duration-300">
-                        {item.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Top Right - Tools & Platforms */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-gray-900 rounded-2xl p-6 border border-gray-800"
-            >
-              <div className="flex items-center mb-6">
-                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${skillsData.tools.color} mr-3`}></div>
-                <h3 className="text-xl font-bold text-white">{skillsData.tools.title}</h3>
-              </div>
-              
-              <div className="grid grid-cols-3 gap-4">
-                {skillsData.tools.items.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="group relative"
-                  >
-                    <div className="bg-gray-800/50 rounded-xl p-4 flex flex-col items-center justify-center aspect-square border border-gray-700 group-hover:border-gray-600 transition-all duration-300">
-                      <item.icon 
-                        size={24} 
-                        className="text-gray-400 group-hover:text-white transition-colors duration-300 mb-2" 
-                      />
-                      <span className="text-sm text-center text-gray-400 group-hover:text-white transition-colors duration-300">
-                        {item.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Bottom Full Width - Programming Languages (Responsive) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="md:col-span-2 bg-gray-900 rounded-2xl p-6 border border-gray-800"
-            >
-              <div className="flex items-center mb-6">
-                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${skillsData.programming.color} mr-3`}></div>
-                <h3 className="text-xl font-bold text-white">{skillsData.programming.title}</h3>
-              </div>
-              
-              {/* Responsive Programming Languages Grid */}
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4 md:gap-6 justify-items-center">
-                {skillsData.programming.items.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                    className="group relative"
-                  >
-                    <div className="bg-gray-800/50 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center aspect-square border border-gray-700 group-hover:border-gray-600 transition-all duration-300 w-16 sm:w-20 md:w-24">
-                      <item.icon 
-                        size={20} 
-                        className="text-gray-400 group-hover:text-white transition-colors duration-300 mb-1 sm:mb-2" 
-                      />
-                      <span className="text-xs sm:text-sm text-center text-gray-400 group-hover:text-white transition-colors duration-300">
-                        {item.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-          </div>
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-400 [animation:pulse-glow_2s_ease-in-out_infinite]" />
+            {siteCopy.skills.eyebrow}
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: EASE }}
+            className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
+          >
+            {siteCopy.skills.title}{siteCopy.skills.title ? ' ' : ''}
+            <span className="text-gradient-animated">{siteCopy.skills.highlight}</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+            className="max-w-xl text-base leading-relaxed text-muted"
+          >
+            {siteCopy.skills.subtitle}
+          </motion.p>
         </div>
 
-        {/* Decorative footer */}
+        {/* Bento grid — fixed woven composition; row-mates share height (items-stretch)
+            and tiles center inside, so cells stay filled. Adding skills fills a cell,
+            never reflows the layout. */}
+        <div className="grid grid-cols-1 gap-5 [grid-auto-flow:dense] md:grid-cols-6">
+          {categories.map((cat, i) => (
+            <BentoCard
+              key={cat.key}
+              title={cat.title}
+              items={cat.items}
+              spanClass={SPAN[cat.key] ?? DEFAULT_SPAN}
+              delay={Math.min(i * 0.06, 0.3)}
+            />
+          ))}
+        </div>
+
+        {/* Footer chip */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-14 text-center"
         >
-          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gray-900 border border-gray-800">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-3"></div>
-            <span className="text-gray-400">Always learning new technologies</span>
+          <div className="inline-flex items-center gap-3 rounded-[var(--r-pill)] border border-border bg-surface-1/60 px-6 py-3">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-brand-400" />
+            <span className="text-sm text-muted">Always learning new technologies</span>
           </div>
         </motion.div>
       </div>
+
       <CertificatesSection />
     </div>
   )

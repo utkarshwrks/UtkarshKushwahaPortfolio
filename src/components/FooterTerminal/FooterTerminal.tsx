@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { Terminal, X, Minimize2, Maximize2 } from 'lucide-react'
+import { siteCopy } from '@/lib/site-settings'
 
 const HELP = `Available commands:
 cd home     → Navigate to home section
@@ -53,10 +54,10 @@ export default function FooterTerminal() {
         setOutput([])
         break
       case 'whoami':
-        setOutput(o => [...o, '👨‍💻 Utkarsh Kushwaha | Full-Stack Developer', 'Passionate about building digital experiences that matter 🚀'])
+        setOutput(o => [...o, ...siteCopy.terminalWhoami])
         break
       case 'skills':
-        setOutput(o => [...o, '💼 Tech Stack:', 'Frontend: React, Next.js, TypeScript, Tailwind', 'Backend: Node.js, Django, Python', 'Database: MongoDB, PostgreSQL, Firebase', 'Tools: Git, Docker, AWS, Vercel'])
+        setOutput(o => [...o, ...siteCopy.terminalSkills])
         break
       case 'github':
         window.open('https://github.com/utkarshwrks', '_blank')
@@ -96,7 +97,7 @@ export default function FooterTerminal() {
       <div className="fixed bottom-4 right-4 z-50">
         <button
           onClick={() => setIsVisible(true)}
-          className="bg-gradient-to-r from-green-500 to-cyan-500 text-white p-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
+          className="flex items-center gap-2 rounded-[var(--r-md)] bg-brand-500 p-3 font-medium text-[var(--text-onbrand)] shadow-[0_8px_30px_-8px_var(--glow-brand)] transition-all duration-300 hover:scale-105 hover:bg-brand-400"
         >
           <Terminal className="w-5 h-5" />
           <span>Open Terminal</span>
@@ -110,30 +111,30 @@ export default function FooterTerminal() {
       isMinimized ? 'w-80' : 'w-96'
     }`}>
       {/* Terminal Header */}
-      <div className="bg-zinc-800 rounded-t-lg border-b border-zinc-700 px-4 py-2 flex items-center justify-between">
+      <div className="flex items-center justify-between rounded-t-lg border-b border-border bg-surface-2 px-4 py-2">
         <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-green-400" />
-          <span className="text-white text-sm font-medium">portfolio-terminal</span>
+          <Terminal className="w-4 h-4 text-brand-400" />
+          <span className="text-sm font-medium text-content">portfolio-terminal</span>
         </div>
         
         <div className="flex items-center gap-1">
           <button 
             onClick={() => setIsMinimized(!isMinimized)}
-            className="p-1 hover:bg-zinc-700 rounded transition-colors"
+            className="p-1 hover:bg-surface-3 rounded transition-colors"
           >
-            {isMinimized ? <Maximize2 className="w-3 h-3 text-zinc-400" /> : <Minimize2 className="w-3 h-3 text-zinc-400" />}
+            {isMinimized ? <Maximize2 className="w-3 h-3 text-muted" /> : <Minimize2 className="w-3 h-3 text-muted" />}
           </button>
           <button 
             onClick={() => setIsVisible(false)}
             className="p-1 hover:bg-red-500 rounded transition-colors"
           >
-            <X className="w-3 h-3 text-zinc-400 hover:text-white" />
+            <X className="w-3 h-3 text-muted hover:text-white" />
           </button>
         </div>
       </div>
 
       {/* Terminal Body */}
-      <div className="bg-zinc-900/95 backdrop-blur-sm border border-zinc-700 rounded-b-lg shadow-2xl">
+      <div className="rounded-b-lg border border-border bg-surface-1/95 shadow-2xl backdrop-blur-sm">
         {!isMinimized && (
           <>
             {/* Output Area */}
@@ -148,9 +149,9 @@ export default function FooterTerminal() {
                     line.startsWith('❌') ? 'text-red-400' : 
                     line.startsWith('📍') ? 'text-blue-400' :
                     line.startsWith('🔗') ? 'text-cyan-400' :
-                    line.startsWith('➜') ? 'text-green-400 font-semibold' :
-                    line.includes('🚀') ? 'text-yellow-400' :
-                    'text-zinc-300'
+                    line.startsWith('➜') ? 'text-brand-400 font-semibold' :
+                    line.includes('🚀') ? 'text-amber-400' :
+                    'text-muted'
                   }`}
                 >
                   {line}
@@ -159,12 +160,12 @@ export default function FooterTerminal() {
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-zinc-700 p-4">
+            <div className="border-t border-border p-4">
               <div className="flex items-center gap-2">
-                <span className="text-green-400 font-mono">➜</span>
+                <span className="font-mono text-brand-400">➜</span>
                 <input
                   ref={inputRef}
-                  className="flex-1 bg-transparent outline-none text-zinc-100 font-mono placeholder-zinc-500"
+                  className="flex-1 bg-transparent font-mono text-content outline-none placeholder:text-subtle"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => {
@@ -176,15 +177,15 @@ export default function FooterTerminal() {
                   placeholder="Type a command..."
                   autoFocus
                 />
-                <button 
+                <button
                   onClick={() => { run(input); setInput('') }}
-                  className="px-3 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors font-mono"
+                  className="rounded bg-brand-500 px-3 py-1 font-mono text-xs font-semibold text-[var(--text-onbrand)] transition-colors hover:bg-brand-400"
                 >
                   Run
                 </button>
               </div>
-              <div className="text-xs text-zinc-500 mt-2 font-mono">
-                Tip: Try "help" to see all commands • Press Enter to execute
+              <div className="mt-2 font-mono text-xs text-subtle">
+                Tip: Try &quot;help&quot; to see all commands • Press Enter to execute
               </div>
             </div>
           </>
@@ -192,7 +193,7 @@ export default function FooterTerminal() {
 
         {isMinimized && (
           <div className="p-4 text-center">
-            <div className="text-zinc-400 text-sm font-mono">
+            <div className="text-muted text-sm font-mono">
               Terminal minimized • Click maximize to open
             </div>
           </div>

@@ -1,0 +1,16 @@
+[
+  {
+    "title": "AIALCHEMIST",
+    "role": "Technical Lead",
+    "description": "Leading student org focused on AI & web dev, driving tech innovation & mentoring members.",
+    "icon": "users",
+    "link": "https://aialchemist.vercel.app/"
+  },
+  {
+    "title": "HackWithIndia GGITS",
+    "role": "Campus President",
+    "description": "Leading campus chapter, organizing hackathons & coding events for 500+ students.",
+    "icon": "target",
+    "link": "https://www.hackwithindia.in/"
+  }
+]

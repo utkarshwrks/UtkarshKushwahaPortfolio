@@ -7,6 +7,7 @@ import GithubPinned from '@/components/Github/GithubPinned'
 import Contact from '@/components/Contact/Contact'
 import FooterTerminal from '@/components/FooterTerminal/FooterTerminal'
 import Footer from '@/components/Footer/Footer'
+import LiveStats from '@/components/CodingStats/LiveStats'
 
 export default function HomePage() {
   return (
@@ -30,6 +31,10 @@ export default function HomePage() {
 
       <section id="skills" className="pt-24">
         <SkillsGrid />
+      </section>
+
+      <section id="coding-stats" className="pt-24">
+        <LiveStats />
       </section>
 
       <section id="achievements" className="pt-24">

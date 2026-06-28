@@ -1,84 +1,85 @@
 "use client";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+import { siteCopy } from "@/lib/site-settings";
+
+const socials = [
+  { icon: <FaGithub />, href: "https://github.com/utkarshwrks", label: "GitHub" },
+  { icon: <FaLinkedin />, href: "https://linkedin.com/in/utkarshwrks", label: "LinkedIn" },
+  { icon: <FaTwitter />, href: "https://x.com/utkarshwrks", label: "Twitter" },
+  { icon: <FaInstagram />, href: "https://www.instagram.com/_.utkrashh._", label: "Instagram" },
+];
+
+const linkCls = "text-muted transition-colors hover:text-brand-300";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-green-400 py-16 px-6 border-t border-gray-600"> {/* Changed py-12 to py-16 */}
-      <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12">
-        
-        {/* Left - About (wider column) */}
-        <div className="md:col-span-4 flex flex-col gap-5">
-          <h2 className="text-xl md:text-2xl font-bold flex items-center gap-1">
-            <Link href="/" className="flex items-center gap-1 group">
-              <span className="text-[#22ff99] group-hover:text-white transition-colors">$</span>
-              <span className="text-white group-hover:text-[#22ff99] transition-colors">Utkarsh</span>
-              <span className="text-[#22ff99] group-hover:text-white transition-colors">--dev</span>
-            </Link>
-          </h2>
+    <footer className="border-t border-border bg-bg-elevated px-6 py-16 text-content">
+      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-12">
+        {/* About */}
+        <div className="flex flex-col gap-5 md:col-span-4">
+          <Link href="/" className="group flex items-center gap-1 font-mono text-xl font-bold md:text-2xl">
+            <span className="text-brand-neon transition-colors group-hover:text-content">$</span>
+            <span className="text-content transition-colors group-hover:text-brand-neon">Utkarsh</span>
+            <span className="text-brand-neon transition-colors group-hover:text-content">--dev</span>
+          </Link>
 
-          <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-            I'm a Full-Stack Developer passionate about building scalable backend systems 
+          <p className="max-w-sm text-sm leading-relaxed text-muted">
+            I&apos;m a Full-Stack Developer passionate about building scalable backend systems
             and integrating AI to create smarter web experiences.
           </p>
 
-          {/* Social Icons */}
-          <div className="flex gap-6 mt-3 text-xl">
-            <a href="https://github.com/utkarshwrks" target="_blank" rel="noopener noreferrer" className="hover:text-green-200 transition-colors">
-              <FaGithub />
-            </a>
-            <a href="https://linkedin.com/in/utkarshwrks" target="_blank" rel="noopener noreferrer" className="hover:text-green-200 transition-colors">
-              <FaLinkedin />
-            </a>
-            <a href="https://www.instagram.com/_.utkrashh._" target="_blank" rel="noopener noreferrer" className="hover:text-green-200 transition-colors">
-              <FaTwitter />
-            </a>
-            <a href="https://linkedin.com/in/utkarshwrks" target="_blank" rel="noopener noreferrer" className="hover:text-green-200 transition-colors">
-              <FaInstagram />
-            </a>
+          <div className="mt-2 flex gap-3">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] border border-border bg-surface-1 text-lg text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/40 hover:text-brand-300"
+              >
+                {s.icon}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Middle - Quick Links */}
+        {/* Quick Links */}
         <div className="md:col-span-2">
-          <h2 className="text-xl font-bold mb-4 text-white">Quick Links</h2>
-          <ul className="space-y-3 text-white">
-            <li><Link href="/about" className="hover:text-green-200 transition-colors">About</Link></li>
-            <li><Link href="/#projects" className="hover:text-green-200 transition-colors">Projects</Link></li>
-            <li><Link href="/#skills" className="hover:text-green-200 transition-colors">Skills</Link></li>
-            <li><Link href="/#contact" className="hover:text-green-200 transition-colors">Contact</Link></li>
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-content">Quick Links</h2>
+          <ul className="space-y-3 text-sm">
+            <li><Link href="/about" className={linkCls}>About</Link></li>
+            <li><Link href="/#projects" className={linkCls}>Projects</Link></li>
+            <li><Link href="/#skills" className={linkCls}>Skills</Link></li>
+            <li><Link href="/#contact" className={linkCls}>Contact</Link></li>
           </ul>
         </div>
 
         {/* Resources */}
         <div className="md:col-span-3">
-          <h2 className="text-xl font-bold mb-4 text-white">Resources</h2>
-          <ul className="space-y-3 text-white">
-            <li>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-green-200 transition-colors">
-                Resume
-              </a>
-            </li>
-            <li>
-              <Link href="/#experience" className="hover:text-green-200 transition-colors">Experience</Link>
-            </li>
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-content">Resources</h2>
+          <ul className="space-y-3 text-sm">
+            <li><a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={linkCls}>Resume</a></li>
+            <li><Link href="/#experience" className={linkCls}>Experience</Link></li>
           </ul>
         </div>
 
         {/* Services */}
         <div className="md:col-span-3">
-          <h2 className="text-xl font-bold mb-4 text-white">Services</h2>
-          <ul className="space-y-3 text-white">
-            <li><Link href="/services/web-development" className="hover:text-green-200 transition-colors">Web Development</Link></li>
-            <li><Link href="/services/web-design" className="hover:text-green-200 transition-colors">Web Design</Link></li>
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-content">Services</h2>
+          <ul className="space-y-3 text-sm">
+            {siteCopy.footerServices.map((s) => (
+              <li key={s.label}><Link href={s.href} className={linkCls}>{s.label}</Link></li>
+            ))}
           </ul>
         </div>
       </div>
 
-      {/* Bottom Bar - Increased spacing */}
-      <div className="mt-12 border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400"> {/* Changed mt-8 to mt-12 and pt-4 to pt-8 */}
-        <p>© {new Date().getFullYear()} <span className="text-green-500 font-semibold">Utkarsh Kushwaha</span>. All rights reserved.</p>
-        <p className="mt-2 md:mt-0 text-green-500">&gt; Made with Next.js, TypeScript & zero regard for deadlines ⏳</p>
+      {/* Bottom bar */}
+      <div className="mx-auto mt-12 flex max-w-7xl flex-col items-center justify-between gap-2 border-t border-border pt-8 text-sm text-subtle md:flex-row">
+        <p>© {new Date().getFullYear()} <span className="font-semibold text-brand-300">Utkarsh Kushwaha</span>. All rights reserved.</p>
+        <p className="font-mono text-subtle">{siteCopy.footerTagline}</p>
       </div>
     </footer>
   );

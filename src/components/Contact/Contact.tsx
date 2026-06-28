@@ -4,6 +4,11 @@ import { Mail, Linkedin, MapPin, Calendar, Github, Instagram, Twitter } from 'lu
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useState } from 'react'
+import { defaultSettings, siteCopy } from '@/lib/site-settings'
+
+const SOCIALS = defaultSettings.socials
+const CONTACT_NOTES = defaultSettings.contact?.notes ?? []
+const CDESC = siteCopy.contactDescriptions
 
 // Fixed animation variants with TypeScript compatibility
 const containerVariants = {
@@ -78,7 +83,10 @@ const staggerContainer = {
 }
 
 // Animated Contact Card Component
-function AnimatedContactCard({ method, index }: { method: any; index: number }) {
+type ContactMethod = { icon: React.ReactNode; title: string; value: string; link: string; description: string }
+type SocialLink = { icon: React.ReactNode; name: string; link: string; color: string }
+
+function AnimatedContactCard({ method }: { method: ContactMethod; index: number }) {
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
@@ -93,7 +101,7 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
       href={method.link}
       target={method.link.startsWith('http') ? '_blank' : '_self'}
       rel="noreferrer"
-      className="flex items-center gap-3 p-4 bg-zinc-800/50 rounded-lg border border-zinc-700/50 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer w-full backdrop-blur-sm"
+      className="flex items-center gap-3 p-4 bg-surface-1/60 rounded-lg border border-border shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer w-full backdrop-blur-sm"
       whileHover={{ 
         y: -6,
         scale: 1.02,
@@ -104,7 +112,7 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
     >
       {/* Animated Icon */}
       <motion.div 
-        className="w-10 h-10 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md"
+        className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center text-white shadow-md"
         whileHover={{ 
           scale: 1.1,
           rotate: 5,
@@ -133,19 +141,19 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
       {/* Content */}
       <div className="flex-1">
         <motion.h3 
-          className="text-sm font-bold text-white mb-1"
+          className="text-sm font-bold text-content mb-1"
           whileHover={{ x: 2 }}
         >
           {method.title}
         </motion.h3>
         <motion.p 
-          className="text-green-400 font-semibold text-xs mb-1"
+          className="text-brand-300 font-semibold text-xs mb-1"
           whileHover={{ x: 1 }}
         >
           {method.value}
         </motion.p>
         <motion.p 
-          className="text-zinc-400 text-xs leading-tight"
+          className="text-muted text-xs leading-tight"
           variants={fadeIn}
         >
           {method.description}
@@ -165,7 +173,7 @@ function AnimatedContactCard({ method, index }: { method: any; index: number }) 
 }
 
 // Animated Social Link Component
-function AnimatedSocialLink({ social, index }: { social: any; index: number }) {
+function AnimatedSocialLink({ social }: { social: SocialLink; index: number }) {
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
@@ -177,7 +185,7 @@ function AnimatedSocialLink({ social, index }: { social: any; index: number }) {
       href={social.link}
       target="_blank"
       rel="noreferrer"
-      className={`p-3 bg-zinc-700/50 rounded-lg border border-zinc-600 text-zinc-400 transition-all duration-300 backdrop-blur-sm ${social.color}`}
+      className={`p-3 bg-surface-2/50 rounded-lg border border-border text-muted transition-all duration-300 backdrop-blur-sm ${social.color}`}
       variants={{
         hidden: { opacity: 0, scale: 0.8 },
         visible: { 
@@ -225,7 +233,7 @@ function AnimatedInput({ label, id, type = "text", placeholder, value, onChange 
       animate={inView ? "visible" : "hidden"}
       className="relative"
     >
-      <label htmlFor={id} className="block text-sm font-medium text-zinc-300 mb-2">
+      <label htmlFor={id} className="block text-sm font-medium text-muted mb-2">
         {label}
       </label>
       <motion.input
@@ -235,7 +243,7 @@ function AnimatedInput({ label, id, type = "text", placeholder, value, onChange 
         value={value}
         onChange={onChange}
         required
-        className="w-full px-4 py-3 bg-zinc-700/50 border border-zinc-600 rounded-xl text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+        className="w-full px-4 py-3 bg-surface-2/50 border border-border rounded-xl text-content placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
         placeholder={placeholder}
         whileFocus={{
           scale: 1.02,
@@ -266,7 +274,7 @@ function AnimatedTextarea({ label, id, placeholder, rows = 8, value, onChange }:
       animate={inView ? "visible" : "hidden"}
       className="relative"
     >
-      <label htmlFor={id} className="block text-sm font-medium text-zinc-300 mb-2">
+      <label htmlFor={id} className="block text-sm font-medium text-muted mb-2">
         {label}
       </label>
       <motion.textarea
@@ -276,7 +284,7 @@ function AnimatedTextarea({ label, id, placeholder, rows = 8, value, onChange }:
         value={value}
         onChange={onChange}
         required
-        className="w-full px-4 py-3 bg-zinc-700/50 border border-zinc-600 rounded-xl text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 resize-none backdrop-blur-sm"
+        className="w-full px-4 py-3 bg-surface-2/50 border border-border rounded-xl text-content placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-300 resize-none backdrop-blur-sm"
         placeholder={placeholder}
         whileFocus={{
           scale: 1.01,
@@ -293,7 +301,7 @@ function AnimatedTextarea({ label, id, placeholder, rows = 8, value, onChange }:
 }
 
 // Status Info Card Component
-function StatusInfoCard({ icon, title, value }: { icon: any; title: string; value: string }) {
+function StatusInfoCard({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
@@ -302,7 +310,7 @@ function StatusInfoCard({ icon, title, value }: { icon: any; title: string; valu
   return (
     <motion.div 
       ref={ref}
-      className="flex items-center gap-3 p-3 bg-zinc-700/30 rounded-lg border border-zinc-600/50 backdrop-blur-sm"
+      className="flex items-center gap-3 p-3 bg-surface-2/40 rounded-lg border border-border backdrop-blur-sm"
       variants={itemVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
@@ -312,12 +320,12 @@ function StatusInfoCard({ icon, title, value }: { icon: any; title: string; valu
         transition: { type: "spring" as const, stiffness: 400 }
       }}
     >
-      <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center text-white">
+      <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center text-white">
         {icon}
       </div>
       <div>
-        <p className="text-xs font-semibold text-white">{title}</p>
-        <p className="text-green-400 text-[10px] font-medium">{value}</p>
+        <p className="text-xs font-semibold text-content">{title}</p>
+        <p className="text-brand-300 text-[10px] font-medium">{value}</p>
       </div>
     </motion.div>
   )
@@ -339,34 +347,36 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
+  // Links derive from editable Site settings → socials, so updating socials
+  // in the admin keeps these contact cards in sync.
   const contactMethods = [
     {
       icon: <Mail className="w-4 h-4" />,
       title: "Email",
-      value: "utkarshkushwaha246@gmail.com",
-      link: "mailto:utkarshkushwaha246@gmail.com",
-      description: "Let's start a conversation"
+      value: SOCIALS.email,
+      link: `mailto:${SOCIALS.email}`,
+      description: CDESC.email
     },
     {
       icon: <Linkedin className="w-4 h-4" />,
-      title: "LinkedIn", 
+      title: "LinkedIn",
       value: "View Profile",
-      link: "https://www.linkedin.com/in/utkarshwrks/",
-      description: "Connect professionally"
+      link: SOCIALS.linkedin,
+      description: CDESC.linkedin
     },
     {
       icon: <Github className="w-4 h-4" />,
-      title: "GitHub", 
+      title: "GitHub",
       value: "View Repositories",
-      link: "https://github.com/utkarshwrks",
-      description: "Check my work"
+      link: SOCIALS.github,
+      description: CDESC.github
     },
     {
       icon: <Instagram className="w-4 h-4" />,
-      title: "Instagram", 
+      title: "Instagram",
       value: "Follow me",
-      link: "https://www.instagram.com/_.utkrashh._",
-      description: "Daily updates"
+      link: SOCIALS.instagram,
+      description: CDESC.instagram
     }
   ]
 
@@ -459,61 +469,24 @@ export default function Contact() {
       variants={containerVariants}
       className="w-full py-16 relative overflow-hidden"
     >
-      {/* Background Gradients */}
-      <motion.div
-        className="absolute top-20 left-10 w-96 h-96 bg-green-400/10 rounded-full blur-3xl -z-10"
-        animate={{ 
-          x: [0, 50, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{ 
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut" 
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl -z-10"
-        animate={{ 
-          x: [0, -50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ 
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut" 
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Header */}
         <motion.div
           variants={slideInUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          className="mb-14 flex flex-col items-center gap-3 text-center"
         >
-          <motion.h2 
-            className="text-4xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-4"
-            whileHover={{ scale: 1.02 }}
-          >
-            Get in Touch
+          <span className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-300">
+            <Mail className="h-3.5 w-3.5" />
+            {siteCopy.contact.eyebrow}
+          </span>
+          <motion.h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+            {siteCopy.contact.title}{siteCopy.contact.title ? ' ' : ''}
+            <span className="text-gradient-animated">{siteCopy.contact.highlight}</span>
           </motion.h2>
-          
-          <motion.div 
-            className="w-20 h-1 bg-gradient-to-r from-green-400 to-cyan-400 mx-auto my-3 rounded-full"
-            initial={{ width: 0 }}
-            animate={inView ? { width: 80 } : { width: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          />
-          
-          <motion.p 
-            variants={fadeIn}
-            className="text-xl text-zinc-300 max-w-2xl mx-auto italic"
-            whileHover={{ scale: 1.01 }}
-          >
-            Feel free to reach out for collaborations or just a friendly hello
+          <motion.p variants={fadeIn} className="max-w-2xl text-base leading-relaxed text-muted">
+            {siteCopy.contact.subtitle}
           </motion.p>
         </motion.div>
 
@@ -537,7 +510,7 @@ export default function Contact() {
           className="w-full"
         >
           <motion.div 
-            className="p-8 bg-zinc-800/50 rounded-2xl border border-zinc-700/50 shadow-lg backdrop-blur-sm"
+            className="p-8 bg-surface-1/60 rounded-2xl border border-border shadow-lg backdrop-blur-sm"
             whileHover={{ 
               boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
               transition: { duration: 0.3 }
@@ -605,7 +578,7 @@ export default function Contact() {
                       initial="hidden"
                       animate={inView ? "visible" : "hidden"}
                     >
-                      <p className="text-sm font-medium text-zinc-300 mb-3">Follow me on</p>
+                      <p className="text-sm font-medium text-muted mb-3">Follow me on</p>
                       <motion.div 
                         className="flex gap-3"
                         variants={containerVariants}
@@ -644,16 +617,17 @@ export default function Contact() {
                     initial="hidden"
                     animate={inView ? "visible" : "hidden"}
                   >
-                    <div className="text-xs text-zinc-400 text-center sm:text-left">
-                      <p>💼 Open for freelance work & full-time opportunities</p>
-                      <p className="mt-1">🌍 Available for remote positions worldwide</p>
+                    <div className="text-xs text-muted text-center sm:text-left">
+                      {CONTACT_NOTES.map((note, i) => (
+                        <p key={i} className={i > 0 ? 'mt-1' : ''}>{note}</p>
+                      ))}
                     </div>
                     
                     <div className="flex flex-col items-center gap-2">
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        className="px-8 py-4 bg-gradient-to-r from-green-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 text-base w-full sm:w-auto backdrop-blur-sm relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-8 py-4 bg-gradient-to-r from-brand-500 to-brand-700 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 text-base w-full sm:w-auto backdrop-blur-sm relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                         whileHover={{ 
                           scale: isSubmitting ? 1 : 1.05,
                           boxShadow: isSubmitting ? "none" : "0 10px 30px rgba(16, 185, 129, 0.3)",
@@ -684,7 +658,7 @@ export default function Contact() {
                           animate={{ opacity: 1, y: 0 }}
                           className="text-center text-green-400 text-sm mt-2"
                         >
-                          ✓ Message sent successfully! I'll get back to you soon.
+                          ✓ Message sent successfully! I&apos;ll get back to you soon.
                         </motion.div>
                       )}
                       

@@ -1,75 +1,73 @@
 'use client'
 
-import { ExternalLink, Users, Target } from 'lucide-react'
+import { ExternalLink, Users, Target, Rocket, Code2, Flag, Star, Crown, Award } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import leadershipData from '@/data/leadership.json'
+import { siteCopy } from '@/lib/site-settings'
+
+// Map the admin "icon" string -> a lucide icon. Unknown keys fall back to Users.
+const ICONS: Record<string, LucideIcon> = {
+  users: Users,
+  target: Target,
+  rocket: Rocket,
+  code: Code2,
+  flag: Flag,
+  star: Star,
+  crown: Crown,
+  award: Award,
+}
 
 export default function Leadership() {
-  const leaderships = [
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: "AIALCHEMIST",
-      role: "Technical Lead",
-      description: "Leading student org focused on AI & web dev, driving tech innovation & mentoring members.",
-      link: "https://aialchemist.vercel.app/"
-    },
-    {
-      icon: <Target className="w-6 h-6" />,
-      title: "HackWithIndia GGITS", 
-      role: "Campus President",
-      description: "Leading campus chapter, organizing hackathons & coding events for 500+ students.",
-      link: "https://www.hackwithindia.in/"
-    }
-  ]
+  const leaderships = leadershipData
 
   return (
     <div className="w-full py-12">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="mx-auto max-w-6xl px-2 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-            Community & Leadership
+        <div className="mb-12 flex flex-col items-center gap-3 text-center">
+          <span className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-300">
+            <Users className="h-3.5 w-3.5" />
+            {siteCopy.leadership.eyebrow}
+          </span>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+            {siteCopy.leadership.title}{siteCopy.leadership.title ? ' ' : ''}
+            <span className="text-gradient-animated">{siteCopy.leadership.highlight}</span>
           </h2>
-                   <div className="w-20 h-1 bg-gray-600 mx-auto my-3 rounded-full"></div>
-          <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-           Engaged in strengthening the developer community through open-source contributions, mentoring, and thought leadership
+          <p className="max-w-2xl text-base leading-relaxed text-muted">
+            {siteCopy.leadership.subtitle}
           </p>
-         
         </div>
 
-        {/* Horizontal Rectangular Layout */}
-        <div className="flex flex-col md:flex-row gap-16">
-          {leaderships.map((leadership, index) => (
-            <div 
+        {/* Cards */}
+        <div className="flex flex-col gap-5 md:flex-row md:gap-6">
+          {leaderships.map((leadership, index) => {
+            const Icon = ICONS[leadership.icon] ?? Users
+            return (
+            <div
               key={index}
-              className="flex-1 relative p-6 bg-zinc-800/30 rounded-2xl border border-zinc-700/50 shadow-lg hover:shadow-xl transition-all duration-500 hover:translate-y-[-4px] group"
+              className="group relative flex-1 overflow-hidden rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-6 backdrop-blur-sm transition-all duration-300 hover:translate-y-[-4px] hover:border-brand-500/30 hover:shadow-[var(--shadow-md)]"
             >
               {/* Icon */}
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-cyan-500 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-105 transition-transform duration-300 shadow-md">
-                {leadership.icon}
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-brand-500 to-brand-700 text-[var(--text-onbrand)] shadow-md transition-transform duration-300 group-hover:scale-105">
+                <Icon className="h-6 w-6" />
               </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-bold text-white mb-2">
-                {leadership.title}
-              </h3>
-              
-              <p className="text-green-400 font-semibold mb-3">
-                {leadership.role}
-              </p>
-              
-              <p className="text-zinc-300 leading-relaxed mb-4 text-sm">
-                {leadership.description}
-              </p>
+              <h3 className="mb-1 text-xl font-bold text-content">{leadership.title}</h3>
+              <p className="mb-3 font-semibold text-brand-300">{leadership.role}</p>
+              <p className="mb-4 text-sm leading-relaxed text-muted">{leadership.description}</p>
 
-              {/* Link */}
-              <a 
+              <a
                 href={leadership.link}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-700/30 rounded-lg hover:bg-green-500 transition-all duration-300 group-hover:scale-105 text-white text-sm font-medium shadow-sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-border bg-surface-2 px-3 py-1.5 text-sm font-medium text-content transition-all duration-300 hover:border-brand-500/40 hover:bg-surface-3"
               >
-                <ExternalLink className="w-3 h-3" />
+                <ExternalLink className="h-3.5 w-3.5" />
                 Learn More
               </a>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>

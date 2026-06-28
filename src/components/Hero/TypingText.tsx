@@ -2,21 +2,28 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const phrases = [
+const DEFAULT_PHRASES = [
   'Full Stack Dev | Backend & AI Enthusiast',
-  'Building Scalable Apps & AI Solutions', 
+  'Building Scalable Apps & AI Solutions',
   'Full Stack Engineer | Python, Node.js, Django',
   'Creating Intelligent Web Experiences',
   'Coder, Problem Solver, AI Explorer',
 ]
 
-export default function TypingText({ className = '' }: { className?: string }) {
+export default function TypingText({
+  className = '',
+  phrases = DEFAULT_PHRASES,
+}: {
+  className?: string
+  phrases?: string[]
+}) {
+  const list = phrases.length ? phrases : DEFAULT_PHRASES
   const [index, setIndex] = useState(0)
   const [text, setText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
-    const currentPhrase = phrases[index]
+    const currentPhrase = list[index]
     let timeout: NodeJS.Timeout
 
     if (!isDeleting && text !== currentPhrase) {
@@ -35,11 +42,11 @@ export default function TypingText({ className = '' }: { className?: string }) {
     } else if (isDeleting && text === '') {
       // Move to next phrase after deleting
       setIsDeleting(false)
-      setIndex((index + 1) % phrases.length)
+      setIndex((index + 1) % list.length)
     }
 
     return () => clearTimeout(timeout)
-  }, [text, isDeleting, index])
+  }, [text, isDeleting, index, list])
 
   return (
     <div className={`text-sm sm:text-base font-medium ${className}`}>

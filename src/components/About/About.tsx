@@ -1,469 +1,220 @@
 'use client'
+
 import Image from 'next/image'
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { SiGithub, SiLinkedin } from 'react-icons/si'
+import { Mail, FileText } from 'lucide-react'
+import { siteCopy, defaultSettings } from '@/lib/site-settings'
+import LifeScene from './LifeScene'
 
-// Fixed animation variants with TypeScript compatibility
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      duration: 0.5
-    }
-  }
-}
+const EASE = [0.16, 1, 0.3, 1] as const
 
-const itemVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 30
+const { about, socials, hero } = defaultSettings
+
+// "1.5+ yrs" -> "1.5+"
+const expValue = siteCopy.aboutExperienceValue.replace(/yrs?|years?/i, '').trim()
+
+// split the bio into two paragraphs for the reference's rhythm
+const sentences = about.bio.split(/(?<=\.)\s+/).filter(Boolean)
+const mid = Math.ceil(sentences.length / 2)
+const para1 = sentences.slice(0, mid).join(' ')
+const para2 = sentences.slice(mid).join(' ')
+
+const education = [
+  {
+    title: 'B.Tech — CSE (AI & ML)',
+    period: '2024 – 2028',
+    org: 'Gyan Ganga Institute of Technology & Science, Jabalpur',
+    meta: 'CGPA 7.33',
   },
-  visible: {
+  {
+    title: 'Class XII — PCM + IP',
+    period: 'CBSE',
+    org: 'Nachiketa Sr. Sec. School, Jabalpur',
+    meta: '84%',
+  },
+  {
+    title: 'Class X — IT',
+    period: 'CBSE',
+    org: 'Nachiketa Sr. Sec. School, Jabalpur',
+    meta: '80%',
+  },
+]
+
+const reveal = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut" as const
-    }
-  }
-}
-
-const slideInLeft = {
-  hidden: { 
-    opacity: 0, 
-    x: -40 
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const
-    }
-  }
-}
-
-const slideInRight = {
-  hidden: { 
-    opacity: 0, 
-    x: 40 
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const
-    }
-  }
-}
-
-const fadeInUp = {
-  hidden: { 
-    opacity: 0, 
-    y: 20 
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut" as const
-    }
-  }
-}
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.2
-    }
-  }
-}
-
-// Animated Profile Card Component
-function AnimatedProfileCard() {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  })
-
-  return (
-    <motion.div
-      ref={ref}
-      variants={slideInLeft}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="bg-gray-900 border border-green-500/50 rounded-2xl p-6 flex flex-col items-center text-center shadow-lg w-full h-full min-h-[500px]"
-      whileHover={{ 
-        y: -3,
-        transition: { duration: 0.3 }
-      }}
-    >
-      {/* Profile Image */}
-      <motion.div 
-        className="w-32 h-32 rounded-full overflow-hidden border-2 border-green-500 shadow-md mb-4"
-        variants={fadeInUp}
-        whileHover={{ 
-          scale: 1.03,
-          transition: { duration: 0.3 }
-        }}
-      >
-        <Image
-          src="/saru.jpg"
-          alt="Utkarsh Kushwaha"
-          width={128}
-          height={128}
-          className="object-cover w-full h-full"
-          priority
-        />
-      </motion.div>
-
-      {/* Name */}
-      <motion.h2 
-        className="text-xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-2"
-        variants={fadeInUp}
-      >
-        UTKARSH KUSHWAHA
-      </motion.h2>
-      
-      <motion.p 
-        className="text-sm text-gray-400 mb-4"
-        variants={fadeInUp}
-      >
-        Full-Stack Developer | AI/ML Enthusiast
-      </motion.p>
-
-      {/* Contact Info */}
-      <motion.div 
-        className="w-full mt-4 text-gray-300 text-sm space-y-3 flex-grow"
-        variants={staggerContainer}
-      >
-        <motion.div 
-          className="flex items-center justify-center gap-2"
-          variants={fadeInUp}
-          whileHover={{ color: "#4ade80" }}
-        >
-          <MapPin size={16} />
-          <span>Jabalpur, Madhya Pradesh</span>
-        </motion.div>
-        <motion.div 
-          className="flex items-center justify-center gap-2"
-          variants={fadeInUp}
-          whileHover={{ color: "#4ade80" }}
-        >
-          <Mail size={16} />
-          <span>utkarshkushwaha246@gmail.com</span>
-        </motion.div>
-        <motion.div 
-          className="flex items-center justify-center gap-2"
-          variants={fadeInUp}
-          whileHover={{ color: "#4ade80" }}
-        >
-          <Phone size={16} />
-          <span>+91 8305212146</span>
-        </motion.div>
-      </motion.div>
-
-      {/* Connect Button */}
-      <motion.a
-        href="#contact"
-        className="mt-6 w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-400 hover:to-cyan-400 text-black px-4 py-2 rounded-lg font-semibold shadow-md transition-all duration-200 text-center"
-        variants={fadeInUp}
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        Connect With Me
-      </motion.a>
-
-      {/* Social Icons */}
-      <motion.div 
-        className="flex gap-4 mt-6 text-gray-300"
-        variants={staggerContainer}
-      >
-        {[
-          { icon: <FaGithub size={20} />, href: "https://github.com/utkarshwrks" },
-          { icon: <FaLinkedin size={20} />, href: "https://linkedin.com/in/utkarshwrks" },
-          { icon: <FaTwitter size={20} />, href: "https://x.com/utkarshwrks" }
-        ].map((social, index) => (
-          <motion.a 
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            variants={fadeInUp}
-            whileHover={{ 
-              scale: 1.2,
-              color: "#4ade80",
-              transition: { duration: 0.2 }
-            }}
-            className="p-2 rounded-lg hover:bg-green-500/10 transition-colors"
-          >
-            {social.icon}
-          </motion.a>
-        ))}
-      </motion.div>
-    </motion.div>
-  )
-}
-
-// Animated Skill Card Component
-function AnimatedSkillCard({ title, description, delay }: { title: string; description: string; delay: number }) {
-  return (
-    <motion.div
-      className="bg-gray-800 border border-green-500/30 rounded-lg p-4 h-full"
-      variants={itemVariants}
-      whileHover={{ 
-        y: -4,
-        borderColor: "#4ade80",
-        transition: { duration: 0.3 }
-      }}
-      transition={{ delay }}
-    >
-      <h3 className="font-semibold text-green-400 mb-2">{title}</h3>
-      <p className="text-sm text-gray-400 leading-relaxed">{description}</p>
-    </motion.div>
-  )
-}
-
-// Animated Stat Component
-function AnimatedStat({ number, text, delay }: { number: string; text: string; delay: number }) {
-  return (
-    <motion.div
-      variants={fadeInUp}
-      transition={{ delay }}
-      whileHover={{ scale: 1.05 }}
-      className="text-center"
-    >
-      <p className="text-2xl font-bold text-green-400">{number}</p>
-      <p className="text-sm text-gray-400 mt-1">{text}</p>
-    </motion.div>
-  )
-}
-
-// Animated Education Section
-function AnimatedEducation() {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  })
-
-  const educationItems = [
-    {
-      icon: "🎓",
-      institution: "Gyan Ganga Institute of Technology & Science, Jabalpur",
-      details: "B.Tech CSE-AIML | CGPA: 7.33 | 2024 - 2028"
-    },
-    {
-      icon: "🏫",
-      institution: "Nachiketa Senior Secondary School, Jabalpur",
-      details: "Class 12 (PCM+IP) | 84% | CBSE"
-    },
-    {
-      icon: "🏫",
-      institution: "Nachiketa Senior Secondary School, Jabalpur",
-      details: "Class 10 (IT) | 80% | CBSE"
-    }
-  ]
-
-  return (
-    <motion.div
-      ref={ref}
-      variants={slideInRight}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="mt-8 bg-gray-900 border border-green-500/50 rounded-2xl p-6 shadow-lg w-full"
-      whileHover={{ 
-        y: -3,
-        transition: { duration: 0.3 }
-      }}
-    >
-      <motion.h2 
-        className="text-xl font-semibold text-green-400 mb-6 text-center"
-        variants={fadeInUp}
-      >
-        Education
-      </motion.h2>
-      
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-300"
-        variants={containerVariants}
-      >
-        {educationItems.map((item, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            className="text-center"
-            whileHover={{ y: -2 }}
-          >
-            <div className="text-2xl mb-2">{item.icon}</div>
-            <p className="font-semibold text-sm mb-2 leading-tight">
-              {item.institution}
-            </p>
-            <p className="text-xs text-gray-400 leading-relaxed">{item.details}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
-  )
-}
-
-// Main Content Card Component
-function MainContentCard() {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  })
-
-  const skills = [
-    {
-      title: "Web Development",
-      description: "Building responsive and interactive web applications with modern frameworks."
-    },
-    {
-      title: "AI / ML",
-      description: "Exploring intelligent systems, machine learning models and AI applications."
-    },
-    {
-      title: "Backend Systems",
-      description: "Designing scalable APIs & microservices with robust architecture."
-    }
-  ]
-
-  const stats = [
-    { number: "5+", text: "Projects" },
-    { number: "1.5+", text: "Years Experience" },
-    { number: "10+", text: "Certifications" }
-  ]
-
-  return (
-    <motion.div
-      ref={ref}
-      variants={slideInRight}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="bg-gray-900 border border-green-500/50 rounded-2xl p-6 lg:p-8 shadow-lg w-full h-full min-h-[500px] flex flex-col"
-      whileHover={{ 
-        y: -3,
-        transition: { duration: 0.3 }
-      }}
-    >
-      {/* Header */}
-      <motion.h1 
-        className="text-2xl lg:text-3xl font-bold mb-4 text-green-400"
-        variants={fadeInUp}
-      >
-        Hello!
-      </motion.h1>
-      
-      <motion.p 
-        className="text-gray-300 leading-relaxed mb-6 text-sm lg:text-base flex-grow"
-        variants={fadeInUp}
-      >
-        I'm <span className="text-green-400 font-semibold">Utkarsh Kushwaha</span>, 
-        a Full-Stack Developer passionate about building scalable applications and 
-        exploring AI/ML. I specialize in combining clean backend logic with seamless 
-        frontend experiences to deliver powerful products.
-      </motion.p>
-
-      {/* Skills / Focus Areas */}
-      <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
-        variants={staggerContainer}
-      >
-        {skills.map((skill, index) => (
-          <AnimatedSkillCard
-            key={index}
-            title={skill.title}
-            description={skill.description}
-            delay={index * 0.05}
-          />
-        ))}
-      </motion.div>
-
-      {/* Stats */}
-      <motion.div 
-        className="flex justify-around gap-4 mb-8 py-4 border-t border-b border-gray-700"
-        variants={staggerContainer}
-      >
-        {stats.map((stat, index) => (
-          <AnimatedStat
-            key={index}
-            number={stat.number}
-            text={stat.text}
-            delay={index * 0.05}
-          />
-        ))}
-      </motion.div>
-
-      {/* Resume Button */}
-      <motion.div 
-        className="text-center mt-auto"
-        variants={fadeInUp}
-      >
-        <motion.a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-400 hover:to-cyan-400 text-black px-6 py-3 rounded-lg font-semibold shadow-md transition-all duration-200"
-          whileHover={{ 
-            scale: 1.03,
-          }}
-          whileTap={{ scale: 0.98 }}
-        >
-          View Resume
-        </motion.a>
-      </motion.div>
-    </motion.div>
-  )
+    transition: { duration: 0.6, ease: EASE, delay: i * 0.12 },
+  }),
 }
 
 export default function About() {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  })
-
   return (
-    <motion.section
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={containerVariants}
-      className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-8 relative overflow-hidden"
-      id="about"
-    >
-      {/* Background Elements */}
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-green-400/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-10 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl"></div>
+    <section className="relative px-5 pb-20 pt-28 text-content sm:px-8 sm:pt-32">
+      <div className="mx-auto max-w-[var(--container)]">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="mb-10 font-mono text-xs tracking-[0.25em] text-brand-300"
+        >
+          $ cat about.md
+        </motion.p>
 
-      <div className="max-w-6xl w-full relative z-10">
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-          
-          {/* Left Sidebar - Profile Card */}
-          <div className="lg:col-span-1">
-            <AnimatedProfileCard />
-          </div>
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          {/* ---------------- Left: experience + photo ---------------- */}
+          <motion.div
+            variants={reveal}
+            custom={0}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="lg:col-span-5"
+          >
+            <div className="mb-7 flex items-center gap-4">
+              <span className="text-gradient text-6xl font-bold leading-none sm:text-7xl">{expValue}</span>
+              <div className="leading-tight">
+                <div className="text-lg font-semibold text-content">Years</div>
+                <div className="text-lg font-semibold text-content">Experience</div>
+                <div className="mt-1 text-sm text-muted">Full-Stack &amp; AI Developer</div>
+              </div>
+            </div>
 
-          {/* Right Content */}
-          <div className="lg:col-span-2">
-            <MainContentCard />
-          </div>
+            <div className="relative mx-auto max-w-[360px]">
+              <div className="relative aspect-[486/640] overflow-hidden rounded-[var(--r-xl)] border border-border bg-surface-1">
+                <Image
+                  src="/saru.jpg"
+                  alt="Utkarsh Kushwaha"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 360px"
+                  className="object-cover"
+                  priority
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg)]/70 via-transparent to-transparent" />
+              </div>
+
+              {/* floating tag pills */}
+              <Pill className="-right-3 top-10" accent>
+                Backend &amp; AI
+              </Pill>
+              <Pill className="-left-3 top-1/3">#utkarshwrks</Pill>
+              <Pill className="-right-4 bottom-28">Full-Stack Dev</Pill>
+              <Pill className="-left-2 bottom-12">DSA · 400+</Pill>
+            </div>
+          </motion.div>
+
+          {/* ---------------- Middle: About me ---------------- */}
+          <motion.div
+            variants={reveal}
+            custom={1}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="lg:col-span-4"
+          >
+            <h2 className="text-3xl font-bold text-content sm:text-4xl">About me</h2>
+
+            <p className="mt-5 text-2xl font-bold">
+              <span className="text-gradient-animated">Hello, I&apos;m {hero.firstName ?? 'Utkarsh'} {hero.lastName ?? 'Kushwaha'}</span>
+            </p>
+            <p className="mt-1 text-sm text-muted">(Full-Stack &amp; AI Developer)</p>
+
+            <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
+              <p>{para1}</p>
+              {para2 && <p>{para2}</p>}
+            </div>
+
+            {/* connect row */}
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              {hero.resumeHref && (
+                <a
+                  href={hero.resumeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-[var(--r-pill)] bg-brand-500 px-4 py-2 text-sm font-semibold text-[var(--text-onbrand)] shadow-lg shadow-brand-500/25 transition-colors hover:bg-brand-400"
+                >
+                  <FileText className="h-4 w-4" /> Resume
+                </a>
+              )}
+              {socials.github && <IconLink href={socials.github} label="GitHub"><SiGithub className="h-4 w-4" /></IconLink>}
+              {socials.linkedin && <IconLink href={socials.linkedin} label="LinkedIn"><SiLinkedin className="h-4 w-4" /></IconLink>}
+              {socials.email && (
+                <IconLink href={`mailto:${socials.email}`} label="Email">
+                  <Mail className="h-4 w-4" />
+                </IconLink>
+              )}
+            </div>
+          </motion.div>
+
+          {/* ---------------- Right: Education ---------------- */}
+          <motion.div
+            variants={reveal}
+            custom={2}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="lg:col-span-3"
+          >
+            <h2 className="text-3xl font-bold text-content sm:text-4xl">Education</h2>
+
+            <div className="mt-6 space-y-6">
+              {education.map((e) => (
+                <div key={`${e.title}-${e.org}`} className="border-l-2 border-brand-500/30 pl-4">
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <h3 className="font-semibold text-content">{e.title}</h3>
+                    <span className="text-xs text-brand-300">({e.period})</span>
+                  </div>
+                  <p className="mt-1 text-sm leading-snug text-muted">{e.org}</p>
+                  <span className="mt-2 inline-block rounded-[var(--r-pill)] border border-border bg-surface-2/60 px-2 py-0.5 text-xs text-subtle">
+                    {e.meta}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
-        {/* Education Section */}
-        <div className="mt-8">
-          <AnimatedEducation />
-        </div>
+        {/* animated "a day in my life" scene fills the lower landscape area */}
+        <LifeScene />
       </div>
-    </motion.section>
+    </section>
+  )
+}
+
+function Pill({
+  children,
+  className = '',
+  accent = false,
+}: {
+  children: React.ReactNode
+  className?: string
+  accent?: boolean
+}) {
+  return (
+    <span
+      className={`absolute z-10 whitespace-nowrap rounded-[var(--r-pill)] px-3 py-1.5 text-xs font-medium shadow-lg backdrop-blur-sm ${
+        accent
+          ? 'border border-brand-500/40 bg-brand-500/15 text-brand-200'
+          : 'border border-border bg-surface-2/90 text-content'
+      } ${className}`}
+    >
+      {children}
+    </span>
+  )
+}
+
+function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-pill)] border border-border bg-surface-1/60 text-muted transition-colors hover:border-brand-500/40 hover:text-content"
+    >
+      {children}
+    </a>
   )
 }

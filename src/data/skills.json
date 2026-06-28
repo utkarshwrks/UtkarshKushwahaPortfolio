@@ -1,0 +1,35 @@
+[
+  { "category": "programming", "name": "Python", "icon": "python" },
+  { "category": "programming", "name": "C++", "icon": "cplusplus" },
+  { "category": "programming", "name": "C", "icon": "c" },
+  { "category": "programming", "name": "JavaScript", "icon": "javascript" },
+  { "category": "programming", "name": "SQL", "icon": "mysql" },
+  { "category": "programming", "name": "Golang", "icon": "golang" },
+
+  { "category": "web", "name": "HTML5", "icon": "html5" },
+  { "category": "web", "name": "CSS3", "icon": "css3" },
+  { "category": "web", "name": "Next.js", "icon": "nextdotjs" },
+  { "category": "web", "name": "Node.js", "icon": "nodedotjs" },
+  { "category": "web", "name": "Express", "icon": "express" },
+  { "category": "web", "name": "Django", "icon": "django" },
+  { "category": "web", "name": "Flask", "icon": "flask" },
+
+  { "category": "ai", "name": "Gemini", "icon": "googlegemini" },
+  { "category": "ai", "name": "scikit-learn", "icon": "scikitlearn" },
+  { "category": "ai", "name": "pandas", "icon": "pandas" },
+
+  { "category": "database", "name": "Firebase", "icon": "firebase" },
+  { "category": "database", "name": "MongoDB", "icon": "mongodb" },
+  { "category": "database", "name": "MySQL", "icon": "mysql" },
+  { "category": "database", "name": "PostgreSQL", "icon": "postgresql" },
+  { "category": "database", "name": "Azure", "icon": "azure" },
+
+  { "category": "tools", "name": "Git", "icon": "git" },
+  { "category": "tools", "name": "GitHub", "icon": "github" },
+  { "category": "tools", "name": "Docker", "icon": "docker" },
+  { "category": "tools", "name": "Postman", "icon": "postman" },
+  { "category": "tools", "name": "Vercel", "icon": "vercel" },
+  { "category": "tools", "name": "Linux", "icon": "linux" },
+  { "category": "tools", "name": "Twilio", "icon": "twilio" },
+  { "category": "tools", "name": "VS Code", "icon": "vscode" }
+]

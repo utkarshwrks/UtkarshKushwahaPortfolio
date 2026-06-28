@@ -1,285 +1,225 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { FaCodeBranch, FaAward, FaLaptopCode, FaTools, FaFolderOpen } from 'react-icons/fa'
 import { motion } from 'framer-motion'
+import { ArrowRight, FolderGit2, Star, Users, Activity, Wrench, Briefcase, Trophy } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
-import { ReactElement } from 'react'
+import CountUp from '@/components/Hero/CountUp'
+import LocalTimeWidget from './LocalTimeWidget'
+import skills from '@/data/skills.json'
+import achievements from '@/data/achievements.json'
+import { defaultSettings, siteCopy } from '@/lib/site-settings'
 
-// Animation variants - FIXED VERSION
-const containerVariants = {
+const ABOUT = defaultSettings.about ?? { bio: '', funFacts: [] }
+const C = siteCopy.about
+
+// Split a "☕ Fueled by chai" fun-fact string into emoji + label.
+function splitFact(s: string): { emoji: string; label: string } {
+  const trimmed = s.trim()
+  const space = trimmed.indexOf(' ')
+  if (space === -1) return { emoji: '', label: trimmed }
+  return { emoji: trimmed.slice(0, space), label: trimmed.slice(space + 1) }
+}
+
+const FUN_HOVER = { rotate: [0, -12, 12, 0], y: [0, -4, 0], transition: { duration: 0.6 } }
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+const container = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      duration: 0.8
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+}
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 }
 
-const itemVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 50,
-    scale: 0.8
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 12,
-      duration: 0.8
-    }
-  }
-}
+type Profile = { ok: boolean; repos?: number; stars?: number; followers?: number; contributions?: number }
 
-const slideInLeft = {
-  hidden: { 
-    opacity: 0, 
-    x: -80,
-    scale: 0.9
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 80,
-      damping: 15,
-      duration: 1
-    }
-  }
-}
+// Shown if the GitHub API is unreachable (e.g. no token in a given env).
+const FALLBACK = { repos: 25, contributions: 200, stars: 8, followers: 20 }
 
-const slideInRight = {
-  hidden: { 
-    opacity: 0, 
-    x: 80,
-    scale: 0.9
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 80,
-      damping: 15,
-      duration: 1
-    }
-  }
-}
-
-// Define the stats type
-interface StatItem {
-  icon: ReactElement;
-  label: string;
-  value: string;
-}
-
-// Animated components
-function AnimatedStats({ stats }: { stats: StatItem[] }) {
-  const [ref, inView] = useInView({
-    triggerOnce: false, // Changed to false to trigger every time
-    threshold: 0.1,
-  })
-
+function GitHubStat({
+  icon,
+  value,
+  label,
+  loading,
+  live,
+  suffix = '',
+}: {
+  icon: React.ReactNode
+  value: number
+  label: string
+  loading: boolean
+  live: boolean
+  suffix?: string
+}) {
   return (
     <motion.div
-      ref={ref}
-      variants={containerVariants}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="flex flex-wrap justify-around items-center mb-24 max-w-6xl mx-auto gap-8"
+      variants={item}
+      whileHover={{ y: -5 }}
+      className="group relative flex flex-col items-center gap-1.5 overflow-hidden rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-5 text-center backdrop-blur-sm transition-colors duration-300 hover:border-brand-500/30"
     >
-      {stats.map((s, i) => (
-        <motion.div
-          key={i}
-          variants={itemVariants}
-          whileHover={{ 
-            scale: 1.1,
-            y: -8,
-            transition: { type: "spring" as const, stiffness: 300 }
-          }}
-          className="flex-1 flex flex-col items-center text-center min-w-[140px] cursor-pointer"
-        >
-          <motion.div 
-            className="text-3xl text-[#22ff99] mb-2"
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.6 }}
-          >
-            {s.icon}
-          </motion.div>
-          <motion.div 
-            className="text-xl font-semibold"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.5 + i * 0.1 }}
-          >
-            {s.value}
-          </motion.div>
-          <div className="text-gray-500 text-sm">{s.label}</div>
-        </motion.div>
-      ))}
+      {live && (
+        <span className="absolute right-2.5 top-2.5 flex items-center gap-1 text-[10px] font-medium text-brand-300/80">
+          <span className="h-1 w-1 animate-pulse rounded-full bg-brand-400" /> live
+        </span>
+      )}
+      <span className="text-2xl text-brand-400 transition-transform duration-500 group-hover:scale-110">{icon}</span>
+      {loading ? (
+        <span className="my-1 h-7 w-12 animate-pulse rounded bg-surface-3" />
+      ) : (
+        <span className="text-2xl font-bold text-gradient sm:text-[1.65rem]">
+          <CountUp to={value} suffix={suffix} />
+        </span>
+      )}
+      <span className="text-xs leading-tight text-muted">{label}</span>
     </motion.div>
   )
 }
 
-function AnimatedContentSection() {
-  const [leftRef, leftInView] = useInView({
-    triggerOnce: false, // Changed to false to trigger every time
-    threshold: 0.2,
-  })
-
-  const [rightRef, rightInView] = useInView({
-    triggerOnce: false, // Changed to false to trigger every time
-    threshold: 0.2,
-  })
-
-  const funFacts = [
-    { icon: '☕', label: 'Fueled by Chai & Curiosity' },
-    { icon: '🎧', label: 'Music Played While Coding' },
-    { icon: '🌙', label: 'Night Owl: Best Code After Midnight' },
-  ]
-
+function MiniStat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="flex flex-col md:flex-row max-w-6xl mx-auto mb-24 md:justify-between gap-12">
-      {/* Left: Who Am I */}
-      <motion.div
-        ref={leftRef}
-        variants={slideInLeft}
-        initial="hidden"
-        animate={leftInView ? "visible" : "hidden"}
-        className="md:w-1/2 text-center md:text-left"
-      >
-        <motion.h3 
-          className="text-2xl font-semibold mb-6 text-[#22ff99]"
-          whileHover={{ scale: 1.05 }}
-        >
-          Who Am I?
-        </motion.h3>
-        <motion.p 
-          className="leading-relaxed text-lg text-gray-700 dark:text-gray-300"
-          initial={{ opacity: 0 }}
-          animate={leftInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          Hi! I'm Utkarsh, a full-stack developer passionate about building scalable applications
-          and integrating AI/ML to solve real-world problems. I thrive on exploring modern tech stacks,
-          optimizing performance, and delivering impactful solutions.{" "}
-          <motion.a 
-            href="/about" 
-            className="text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 font-medium transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            know more...
-          </motion.a>
-        </motion.p>
-      </motion.div>
-
-      {/* Right: Fun Facts */}
-      <motion.div
-        ref={rightRef}
-        variants={slideInRight}
-        initial="hidden"
-        animate={rightInView ? "visible" : "hidden"}
-        className="md:w-1/3 flex flex-col items-center md:items-start gap-8"
-      >
-        {funFacts.map((fact, i) => (
-          <motion.div
-            key={i}
-            variants={itemVariants}
-            whileHover={{ 
-              x: 10,
-              transition: { type: "spring" as const, stiffness: 400 }
-            }}
-            className="flex items-center gap-4 cursor-pointer"
-          >
-            <motion.div 
-              className="text-3xl"
-              whileHover={{ scale: 1.3, rotate: 10 }}
-            >
-              {fact.icon}
-            </motion.div>
-            <motion.div 
-              className="text-gray-100 font-medium"
-              initial={{ opacity: 0 }}
-              animate={rightInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ delay: 0.6 + i * 0.2 }}
-            >
-              {fact.label}
-            </motion.div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
+    <motion.div
+      variants={item}
+      whileHover={{ y: -4 }}
+      className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-4 backdrop-blur-sm transition-colors duration-300 hover:border-brand-500/30"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-brand-500/10 text-brand-400 transition-transform duration-300 group-hover:scale-110">
+        {icon}
+      </span>
+      <div>
+        <div className="text-lg font-bold text-content">{value}</div>
+        <div className="text-xs text-muted">{label}</div>
+      </div>
+    </motion.div>
   )
 }
 
-export default function AboutGithubSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: false, // Changed to false to trigger every time
-    threshold: 0.1,
-  })
+const FUN_FACTS = ABOUT.funFacts.map(splitFact)
 
-  const stats: StatItem[] = [
-    { icon: <FaCodeBranch />, label: 'Open Source Contributions', value: '3+' },
-    { icon: <FaLaptopCode />, label: 'Experience', value: '1.5+ Years' },
-    { icon: <FaTools />, label: 'Tech Stack', value: '10+ Tools' },
-    { icon: <FaFolderOpen />, label: 'Repositories', value: '25+' }, 
-    { icon: <FaAward />, label: 'Achievements', value: '5+' },
-  ]
+export default function AboutGithubSection() {
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [statsRef, statsInView] = useInView({ triggerOnce: true, threshold: 0.2 })
+  const [bentoRef, bentoInView] = useInView({ triggerOnce: true, threshold: 0.15 })
+
+  useEffect(() => {
+    let alive = true
+    fetch('/api/github/profile')
+      .then((r) => r.json())
+      .then((d) => alive && setProfile(d))
+      .catch(() => alive && setProfile({ ok: false }))
+      .finally(() => alive && setLoading(false))
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  const live = !!profile?.ok
+  const v = live ? profile! : FALLBACK
+  const repos = v.repos ?? FALLBACK.repos
+  const contributions = v.contributions ?? FALLBACK.contributions
+  const stars = v.stars ?? FALLBACK.stars
+  const followers = v.followers ?? FALLBACK.followers
 
   return (
-    <motion.section
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.8 }}
-      className="py-24 px-6 md:px-12"
-    >
+    <section className="relative mx-auto w-full max-w-[var(--container)] px-5 py-20 sm:px-8">
       {/* Heading */}
-      <motion.h2 
-        className="text-3xl md:text-4xl font-bold text-center mb-20"
-        initial={{ opacity: 0, y: -50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
-        transition={{ 
-          type: "spring" as const,
-          stiffness: 100,
-          damping: 15,
-          duration: 0.8
-        }}
+      <div className="mb-12 flex flex-col items-center gap-3 text-center">
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-300"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-400 [animation:pulse-glow_2s_ease-in-out_infinite]" />
+          {C.eyebrow}
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
+        >
+          {C.title} <span className="text-gradient-animated">{C.highlight}</span>
+        </motion.h2>
+      </div>
+
+      {/* Live GitHub stats */}
+      <motion.div
+        ref={statsRef}
+        variants={container}
+        initial="hidden"
+        animate={statsInView ? 'visible' : 'hidden'}
+        className="grid grid-cols-2 gap-3 sm:grid-cols-4"
       >
-        <motion.span 
-          className="text-[#22ff99]"
-          whileHover={{ scale: 1.1 }}
-        >
-          Get to{" "}
-        </motion.span>
-        <motion.span 
-          className="text-white"
-          whileHover={{ scale: 1.1 }}
-        >
-          Know{" "}
-        </motion.span>
-        <motion.span 
-          className="text-[#22ff99]"
-          whileHover={{ scale: 1.1 }}
-        >
-          Me
-        </motion.span>
-      </motion.h2>
+        <GitHubStat icon={<FolderGit2 />} value={repos} suffix="+" label="Public Repositories" loading={loading} live={live} />
+        <GitHubStat icon={<Activity />} value={contributions} label="Contributions (1y)" loading={loading} live={live} />
+        <GitHubStat icon={<Star />} value={stars} label="Stars Earned" loading={loading} live={live} />
+        <GitHubStat icon={<Users />} value={followers} label="GitHub Followers" loading={loading} live={live} />
+      </motion.div>
 
-      {/* Animated Stats Section */}
-      <AnimatedStats stats={stats} />
+      {/* Bento */}
+      <motion.div
+        ref={bentoRef}
+        variants={container}
+        initial="hidden"
+        animate={bentoInView ? 'visible' : 'hidden'}
+        className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3"
+      >
+        {/* Who am I — wide anchor */}
+        <motion.div
+          variants={item}
+          className="rounded-[var(--r-lg)] border border-border bg-surface-1/40 p-6 backdrop-blur-sm sm:p-8 lg:col-span-2"
+        >
+          <h3 className="mb-4 text-2xl font-semibold text-content">
+            Who am <span className="text-gradient">I?</span>
+          </h3>
+          <p className="text-base leading-relaxed text-muted">{ABOUT.bio}</p>
+          <a
+            href="/about"
+            className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-neon"
+          >
+            Know more
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+        </motion.div>
 
-      {/* Animated Content Section */}
-      <AnimatedContentSection />
-    </motion.section>
+        {/* Local time */}
+        <motion.div variants={item} className="lg:col-span-1">
+          <LocalTimeWidget />
+        </motion.div>
+
+        {/* Derived mini stats */}
+        <MiniStat icon={<Wrench className="h-5 w-5" />} value={`${skills.length}+`} label="Tools in Stack" />
+        <MiniStat icon={<Briefcase className="h-5 w-5" />} value={siteCopy.aboutExperienceValue} label="Experience" />
+        <MiniStat icon={<Trophy className="h-5 w-5" />} value={`${achievements.length}`} label="Hackathon Wins" />
+      </motion.div>
+
+      {/* Fun facts with playful hover */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="mt-4 grid gap-4 sm:grid-cols-3"
+      >
+        {FUN_FACTS.map((fact) => (
+          <motion.div
+            key={fact.label}
+            variants={item}
+            whileHover="hover"
+            className="flex items-center gap-4 rounded-[var(--r-lg)] border border-border bg-surface-1/40 px-5 py-4 backdrop-blur-sm transition-colors hover:border-brand-500/30"
+          >
+            <motion.span className="text-2xl" variants={{ hover: FUN_HOVER }}>
+              {fact.emoji}
+            </motion.span>
+            <span className="font-medium text-content">{fact.label}</span>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
   )
 }

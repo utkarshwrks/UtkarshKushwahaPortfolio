@@ -1,269 +1,282 @@
 'use client'
 import Image from 'next/image'
-import { ExternalLink } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { ExternalLink, Briefcase } from 'lucide-react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useRef, type ReactNode } from 'react'
+import experiencesData from '@/data/experience.json'
+import { siteCopy } from '@/lib/site-settings'
 
-// Animation variants (smoothed out) - FIXED VERSION
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.25,
-      duration: 0.6,
-      ease: "easeOut" as const
-    }
-  }
+const EASE = [0.16, 1, 0.3, 1] as const
+
+type Experience = {
+  logo: string
+  company: string
+  role: string
+  time: string
+  points: string[]
+  certLink?: string
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 60,
-      damping: 20,
-      duration: 0.7
-    }
-  }
+// Per-role accent (cohesive emerald → teal → cyan family) so the section
+// has life and rhythm without turning into a rainbow.
+const ACCENTS = [
+  { rgb: '16, 185, 129', text: 'text-brand-300', dot: 'bg-brand-400' }, // emerald
+  { rgb: '45, 212, 191', text: 'text-teal-300', dot: 'bg-teal-400' }, // teal
+  { rgb: '34, 211, 238', text: 'text-cyan-300', dot: 'bg-cyan-400' }, // cyan
+]
+
+// Highlight numeric metrics inline (92%, 40%, 5+, 500+) — skips 4-digit years.
+// (?!\d) ensures we don't grab "202" out of "2025".
+function highlightMetrics(text: string, accentText: string): ReactNode[] {
+  const parts = text.split(/(\b\d{1,3}(?!\d)\+?%?)/g)
+  return parts.map((p, i) =>
+    /^\d{1,3}\+?%?$/.test(p) ? (
+      <span key={i} className={`font-semibold ${accentText}`}>
+        {p}
+      </span>
+    ) : (
+      <span key={i}>{p}</span>
+    ),
+  )
 }
 
-const slideInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 70,
-      damping: 18,
-      duration: 0.7
-    }
+// Pick the headline metric for the big watermark (first metric-looking token).
+function headlineMetric(points: string[]): string | null {
+  for (const p of points) {
+    const m = p.match(/\b\d{1,3}(?!\d)\+?%?/)
+    if (m) return m[0]
   }
+  return null
 }
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.7,
-      ease: "easeOut" as const
-    }
-  }
-}
+function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.25 })
+  const cardRef = useRef<HTMLDivElement>(null)
+  const accent = ACCENTS[index % ACCENTS.length]
+  const isCurrent = /present|current/i.test(exp.time)
+  const watermark = headlineMetric(exp.points)
 
-// Animated Experience Card Component
-function AnimatedExperienceCard({ exp, index }: { exp: any; index: number }) {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  })
+  // 3D tilt driven by cursor position.
+  const mx = useMotionValue(0.5)
+  const my = useMotionValue(0.5)
+  const rotateX = useSpring(useTransform(my, [0, 1], [7, -7]), { stiffness: 150, damping: 18 })
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-7, 7]), { stiffness: 150, damping: 18 })
+
+  function onMove(e: React.MouseEvent) {
+    const el = cardRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width
+    const y = (e.clientY - r.top) / r.height
+    mx.set(x)
+    my.set(y)
+    el.style.setProperty('--mx', `${x * 100}%`)
+    el.style.setProperty('--my', `${y * 100}%`)
+  }
+  function onLeave() {
+    mx.set(0.5)
+    my.set(0.5)
+  }
 
   return (
     <motion.div
       ref={ref}
-      variants={itemVariants}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="relative"
+      initial={{ opacity: 0, y: 36 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: EASE, delay: index * 0.08 }}
+      className="relative pl-16 sm:pl-20"
+      style={{ perspective: 1000 }}
     >
-      {/* Timeline connector */}
-      {index !== 0 && (
-        <motion.div
-          className="absolute -top-10 left-8 w-0.5 h-10 bg-gradient-to-b from-emerald-400/40 to-transparent md:left-1/2 md:-translate-x-1/2"
-          initial={{ scaleY: 0 }}
-          animate={inView ? { scaleY: 1 } : { scaleY: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" as const }}
+      {/* Node: logo on the spine with accent glow ring */}
+      <div className="absolute left-0 top-1 z-10 flex h-12 w-12 items-center justify-center sm:h-14 sm:w-14">
+        <span
+          className="absolute inset-0 rounded-full blur-md"
+          style={{ background: `rgba(${accent.rgb}, 0.25)` }}
         />
-      )}
+        <div
+          className="relative h-12 w-12 overflow-hidden rounded-full bg-surface-2 p-1.5 transition-transform duration-300 hover:scale-110 sm:h-14 sm:w-14"
+          style={{ border: `1px solid rgba(${accent.rgb}, 0.5)` }}
+        >
+          <Image
+            src={exp.logo}
+            alt={`${exp.company} logo`}
+            width={56}
+            height={56}
+            className="h-full w-full rounded-full object-cover"
+          />
+        </div>
+        {isCurrent && (
+          <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
+            <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${accent.dot} opacity-60`} />
+            <span className={`relative inline-flex h-3.5 w-3.5 rounded-full ${accent.dot}`} />
+          </span>
+        )}
+      </div>
 
+      {/* Card with tilt */}
       <motion.div
-        className="relative flex flex-col md:flex-row items-center justify-between gap-6 bg-gray-900/30 p-6 rounded-2xl shadow-md 
-                   border-l-4 border-emerald-400 transition-all duration-300 group hover:scale-[1.01] hover:shadow-lg
-                   backdrop-blur-sm hover:border-emerald-300 hover:bg-gray-900/40"
-        whileHover={{
-          y: -4,
-          transition: { type: "spring" as const, stiffness: 200, damping: 20 }
-        }}
-        whileTap={{ scale: 0.98 }}
+        ref={cardRef}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        className="group relative overflow-hidden rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-5 backdrop-blur-sm transition-shadow duration-300 sm:p-6"
+        whileHover={{ boxShadow: `0 24px 60px -20px rgba(${accent.rgb}, 0.35)` }}
       >
-        {/* Glow effect on hover */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400/5 to-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Animated gradient-glow border (revealed on hover) */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[var(--r-lg)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            padding: '1px',
+            background: `linear-gradient(130deg, rgba(${accent.rgb},0.6), transparent 35%, transparent 65%, rgba(${accent.rgb},0.4))`,
+            WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+          }}
+        />
 
-        {/* Left content */}
-        <div className="flex-1 text-left relative z-10">
-          <motion.h3
-            className="text-xl font-semibold transition-all duration-300 group-hover:text-emerald-300"
+        {/* Cursor-follow spotlight */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[var(--r-lg)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(${accent.rgb}, 0.14), transparent 60%)`,
+          }}
+        />
+
+        {/* Giant metric watermark */}
+        {watermark && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-2 -top-5 select-none text-[6.5rem] font-black leading-none tracking-tighter opacity-[0.07] sm:text-[8rem]"
+            style={{ color: `rgb(${accent.rgb})` }}
           >
-            {exp.company}
-          </motion.h3>
+            {watermark}
+          </span>
+        )}
 
-          <p className="text-emerald-400 transition-all duration-300 group-hover:text-emerald-300">
-            {exp.role}
-          </p>
+        {/* Content */}
+        <div className="relative" style={{ transform: 'translateZ(40px)' }}>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-content transition-colors group-hover:text-content sm:text-xl">
+                  {exp.company}
+                </h3>
+                {isCurrent && (
+                  <span
+                    className="inline-flex items-center gap-1 rounded-[var(--r-pill)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
+                    style={{
+                      color: `rgb(${accent.rgb})`,
+                      background: `rgba(${accent.rgb}, 0.12)`,
+                      border: `1px solid rgba(${accent.rgb}, 0.3)`,
+                    }}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${accent.dot} [animation:pulse-glow_1.6s_ease-in-out_infinite]`} />
+                    Now
+                  </span>
+                )}
+              </div>
+              <p className={`mt-0.5 text-sm font-medium ${accent.text}`}>{exp.role}</p>
+            </div>
+            <span className="shrink-0 rounded-[var(--r-pill)] border border-border bg-surface-2 px-3 py-1 font-mono text-xs font-medium text-muted">
+              {exp.time}
+            </span>
+          </div>
 
-          <p className="text-gray-400 text-sm mb-2">
-            {exp.time}
-          </p>
-
-          <ul className="list-disc list-inside text-gray-300 space-y-1 mb-3">
-            {exp.points.map((point: string, idx: number) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 + idx * 0.05 }}
-                className="transition-all duration-300 hover:text-white hover:translate-x-1"
-                dangerouslySetInnerHTML={{ __html: point }}
-              />
+          <ul className="mt-4 flex flex-col gap-2">
+            {exp.points.map((point, idx) => (
+              <li key={idx} className="flex items-start gap-2.5 text-sm leading-relaxed text-muted">
+                <span
+                  className="mt-2 h-1 w-1 shrink-0 rounded-full"
+                  style={{ background: `rgb(${accent.rgb})` }}
+                />
+                <span>{highlightMetrics(point, accent.text)}</span>
+              </li>
             ))}
           </ul>
 
-          <motion.a
-            href={exp.certLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors"
-            whileHover={{ x: 4 }}
-          >
-            <span>View Certificate</span>
-            <motion.span
-              animate={{ x: [0, 3, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" as const }}
+          {exp.certLink && (
+            <a
+              href={exp.certLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-4 inline-flex items-center gap-2 text-sm font-medium ${accent.text} transition-opacity hover:opacity-80`}
             >
-              <ExternalLink size={16} />
-            </motion.span>
-          </motion.a>
+              View Certificate
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          )}
         </div>
-
-        {/* Logo */}
-        <motion.div
-          className="flex-shrink-0 relative z-10"
-          whileHover={{
-            scale: 1.05,
-            rotate: 3,
-            transition: { type: "spring" as const, stiffness: 300, damping: 20 }
-          }}
-        >
-          <div className="relative">
-            <motion.div
-              className="absolute inset-0 rounded-full bg-emerald-400/15 blur-md"
-              animate={{
-                scale: [1, 1.15, 1],
-                opacity: [0.4, 0.6, 0.4]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut" as const
-              }}
-            />
-            <Image
-              src={exp.logo}
-              alt={`${exp.company} Logo`}
-              width={70}
-              height={70}
-              className="rounded-full border border-emerald-400 p-2 bg-gray-800 relative z-10 group-hover:border-emerald-300 transition-colors"
-            />
-          </div>
-        </motion.div>
       </motion.div>
     </motion.div>
   )
 }
 
 export default function ExperienceSection() {
-  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.1 })
-
-  const experiences = [
-    {
-      logo: '/edunetfoundation_logo.jpeg',
-      company: 'Edunet Foundation – SHEEL',
-      role: 'Artificial Intelligence & Machine Learning Intern',
-      time: 'June 2025 – July 2025 • Remote',
-      points: [
-        'Engineered a Water Quality Prediction System with 92% accuracy using Python, Pandas, and Scikit-learn.',
-        'Reduced manual testing time by 40% and boosted reliability by 25% through feature engineering.'
-      ],
-      certLink: 'https://www.linkedin.com/posts/utkarshwrks_certificate-activity-7353861656130572302-VdI9'
-    },
-    {
-      logo: '/tvlogo.jpg',
-      company: 'Team Vasiliades',
-      role: 'Backend Developer',
-      time: 'Dec 2024 – Present • Remote/Onsite',
-      points: [
-        'Developed and maintained 5+ projects including AlgoVisualizer and VoteX.',
-        'Built interactive backends and real-time systems using React, Next.js, Django, and FastAPI.'
-      ],
-      certLink: 'https://www.linkedin.com/posts/utkarshwrks_teamvasiliades-genethon2024-proudmoment-activity-7278720420164390913-wNb3'
-    },
-    {
-      logo: '/girlscriptsoc_logo.jpeg',
-      company: 'GirlScript Summer of Code (GSSoC)',
-      role: 'Open Source Contributor',
-      time: '2025 • Remote',
-      points: [
-        'Selected as a Contributor in GSSoC 2025.',
-        'Contributed to 2 repositories with meaningful pull requests and feature improvements.'
-      ],
-      certLink: 'https://www.linkedin.com/posts/utkarshwrks_gssoc-opensource-developerjourney-activity-7352636000742879232-jwb6'
-    }
-  ]
+  const experiences = experiencesData as Experience[]
 
   return (
-    <motion.section
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={containerVariants}
+    <section
       id="experience"
-      className="min-h-screen flex flex-col px-6 md:px-20 py-16 text-white relative overflow-hidden"
+      className="relative mx-auto w-full max-w-[var(--container)] px-5 py-16 sm:px-8"
     >
-      {/* Background blobs (softer motion) */}
-      <motion.div
-        className="absolute top-1/4 -left-20 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl"
-        animate={{ x: [0, 60, 0], y: [0, -40, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" as const }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 -right-20 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl"
-        animate={{ x: [0, -60, 0], y: [0, 40, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const }}
-      />
-
       {/* Heading */}
-      <motion.div variants={slideInUp} className="text-center mb-16 relative z-10">
-        <motion.h2
-          className="text-4xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-4"
-          whileHover={{ scale: 1.03 }}
+      <div className="mb-14 flex flex-col items-center gap-3 text-center">
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-300"
         >
-          Professional Experience
+          <Briefcase className="h-3.5 w-3.5" />
+          {siteCopy.experience.eyebrow}
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
+        >
+          {siteCopy.experience.title}{siteCopy.experience.title ? ' ' : ''}
+          <span className="text-gradient-animated">{siteCopy.experience.highlight}</span>
         </motion.h2>
-
-        <motion.div
-          className="w-20 h-1 bg-gray-600 mx-auto my-3 rounded-full"
-          initial={{ width: 0 }}
-          animate={inView ? { width: 80 } : { width: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" as const }}
-        />
-
-        <motion.p variants={fadeIn} className="text-gray-400 italic">
-          Because Chai and code is apparently a career path ☕💻
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+          className="max-w-xl text-base leading-relaxed text-muted"
+        >
+          {siteCopy.experience.subtitle}
         </motion.p>
-      </motion.div>
+      </div>
 
-      {/* Cards */}
-      <motion.div variants={containerVariants} className="flex flex-col gap-16 w-full relative z-10">
-        {experiences.map((exp, i) => (
-          <AnimatedExperienceCard key={i} exp={exp} index={i} />
-        ))}
-      </motion.div>
-    </motion.section>
+      {/* Timeline */}
+      <div className="relative mx-auto max-w-3xl">
+        {/* Flowing gradient spine */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 1.1, ease: EASE }}
+          className="absolute bottom-2 left-6 top-3 w-[2px] origin-top rounded-full sm:left-7"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(16,185,129,0.6), rgba(45,212,191,0.45), rgba(34,211,238,0.3), transparent)',
+            backgroundSize: '100% 200%',
+            animation: 'spine-flow 6s linear infinite',
+          }}
+        />
+        <div className="flex flex-col gap-8">
+          {experiences.map((exp, i) => (
+            <TimelineItem key={i} exp={exp} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

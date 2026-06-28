@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Genethon - a 24-hour National Level Hackathon",
+    "year": "2024",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    "project": "AlgoVisualizer",
+    "desc": "A web app to visualize data structures and algorithms with interactive controls, animations and real-time performance metrics.",
+    "prize": "₹70,000",
+    "rank": "1st Runner Up",
+    "rankType": "success",
+    "tech": ["Django", "Node.js", "MySQL", "TailwindCSS"],
+    "badge": "🏆",
+    "gradient": "from-green-400 to-cyan-400",
+    "liveLink": "https://algovisualizer.pythonanywhere.com/",
+    "codeLink": "https://github.com/Team-Vasiliades/ALGOVisualizer"
+  },
+  {
+    "title": "BrahmX - 36 hour National Hackathon",
+    "year": "2025",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    "project": "VoteX",
+    "desc": "An online voting platform ensuring secure, transparent elections with real-time results and user-friendly interface.",
+    "prize": "Certificate & Swags",
+    "rank": "Top 10",
+    "rankType": "warning",
+    "tech": ["Next.js", "Tailwind", "Blockchain", "JavaScript"],
+    "badge": "💡",
+    "gradient": "from-yellow-400 to-orange-400",
+    "liveLink": "#",
+    "codeLink": "https://github.com/Team-Vasiliades/VoteX"
+  },
+  {
+    "title": "Code Nakshatra 2025",
+    "year": "2025",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    "project": "ArtMart",
+    "desc": "An AI-powered platform connecting artists with buyers, offering personalized art recommendations and seamless transactions.",
+    "prize": "Certificate & Swags",
+    "rank": "Top 10 Finalist",
+    "rankType": "warning",
+    "tech": ["Django", "RazorPay", "Tailwind", "JavaScript"],
+    "badge": "🎨",
+    "gradient": "from-purple-400 to-pink-400",
+    "liveLink": "https://artmart-9t6q.onrender.com",
+    "codeLink": "https://github.com/utkarshwrks/ArtMart"
+  },
+  {
+    "title": "Pears Global Hackathon",
+    "year": "2024",
+    "location": "Virtual",
+    "project": "SkillSync",
+    "desc": "A platform connecting freelancers with clients through AI-driven skill matching and project recommendations.",
+    "prize": "₹1000 Amazon Voucher",
+    "rank": "Top 20",
+    "rankType": "neutral",
+    "tech": ["React.js", "Tailwind", "Django", "MySQL"],
+    "badge": "🌐",
+    "gradient": "from-blue-400 to-indigo-400",
+    "liveLink": "#",
+    "codeLink": "https://github.com/saymanlal/SkillSync"
+  }
+]

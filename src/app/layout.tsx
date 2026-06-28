@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   // favicon/apple-icon come from app/icon.png + app/apple-icon.png; the web app
   // manifest comes from app/manifest.ts — all auto-injected by Next.
-  verification: { google: 'PzKFfW7jHV_W8o_xQ0j5kbcZDtIlGsqTd_dMbgmyo68' },
+  verification: { google: 'j-CdA2exKI_5a0knLXKPmPLAJrp-YpfO46mqJMtS6Ls' },
   robots: {
     index: true,
     follow: true,

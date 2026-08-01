@@ -115,6 +115,7 @@ export const SCHEMA: Record<CollectionKey, { titleKey: string; subtitleKey?: str
     subtitleKey: 'rank',
     fields: [
       { key: 'title', label: 'Title', type: 'text', placeholder: 'Hackathon / award name' },
+      { key: 'category', label: 'Section', type: 'select', options: ['Hackathons & Awards', 'Competitive Programming'], help: 'Which section this achievement appears in on the site' },
       { key: 'badge', label: 'Badge (emoji)', type: 'text', placeholder: '🏆' },
       { key: 'rank', label: 'Rank', type: 'text', placeholder: '1st Runner Up' },
       { key: 'rankType', label: 'Rank type', type: 'select', options: ['success', 'warning', 'neutral'], help: 'Controls badge color: success=green, warning=yellow, neutral=gray' },
@@ -122,11 +123,38 @@ export const SCHEMA: Record<CollectionKey, { titleKey: string; subtitleKey?: str
       { key: 'location', label: 'Location', type: 'text' },
       { key: 'project', label: 'Project', type: 'text' },
       { key: 'desc', label: 'Description', type: 'textarea' },
+      { key: 'images', label: 'Images', type: 'images', help: 'Upload one or more images for the card. If you add more than one, they rotate automatically. Leave empty to show the default award icon.' },
       { key: 'prize', label: 'Prize', type: 'text', placeholder: '₹70,000 / Certificate…' },
       { key: 'tech', label: 'Tech stack', type: 'list', help: 'One per line' },
       { key: 'gradient', label: 'Gradient', type: 'text', placeholder: 'from-green-400 to-cyan-400' },
       { key: 'liveLink', label: 'Live link', type: 'text' },
       { key: 'codeLink', label: 'Code link', type: 'text' },
+    ],
+  },
+  coding_milestones: {
+    titleKey: 'title',
+    subtitleKey: 'platform',
+    fields: [
+      {
+        key: 'platform',
+        label: 'Platform',
+        type: 'select',
+        options: ['LeetCode', 'Codeforces', 'Custom'],
+        help: 'Which platform this milestone is from',
+      },
+      { key: 'badge', label: 'Badge (emoji)', type: 'text', placeholder: '🏆', help: 'Optional emoji shown as accent' },
+      { key: 'title', label: 'Title', type: 'text', placeholder: 'Problems Solved', required: true },
+      { key: 'value', label: 'Value (big stat)', type: 'text', placeholder: '400+', help: 'The headline number / stat shown large on the card', required: true },
+      { key: 'subtitle', label: 'Subtitle', type: 'text', placeholder: 'Across Easy, Medium & Hard', help: 'Supporting line under the value' },
+      {
+        key: 'icon',
+        label: 'Icon',
+        type: 'select',
+        options: ['code', 'trophy', 'zap', 'star', 'target', 'flame', 'cpu', 'activity'],
+        help: 'Lucide icon shown on the card',
+      },
+      { key: 'color', label: 'Gradient color', type: 'text', placeholder: 'from-brand-400 to-brand-600', help: 'Tailwind gradient classes for the card accent' },
+      { key: 'link', label: 'Profile / proof link', type: 'text', placeholder: 'https://leetcode.com/u/...' },
     ],
   },
 }
@@ -139,8 +167,9 @@ export function blankItem(key: CollectionKey): Record<string, unknown> {
     else obj[f.key] = ''
   }
   if (key === 'certificates') obj.icon = 'certificate'
-  if (key === 'achievements') obj.rankType = 'neutral'
+  if (key === 'achievements') { obj.rankType = 'neutral'; obj.category = 'Hackathons & Awards' }
   if (key === 'skills') obj.category = 'programming'
   if (key === 'leadership') obj.icon = 'users'
+  if (key === 'coding_milestones') { obj.platform = 'LeetCode'; obj.icon = 'code' }
   return obj
 }

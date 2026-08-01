@@ -1,0 +1,2958 @@
+
+
+
+
+
+
+
+Pasted text(16).txt
+Document
+
+I got the file—it looks like an export of your LeetCode practice history (problems solved, dates, difficulty, submissions, acceptance rate, etc.). 
+
+
+What do you want me to do with it?
+
+For example, I can:
+
+Analyze your strengths and weaknesses by topic.
+
+Find patterns (which topics you're avoiding or struggling with).
+
+Create a personalized roadmap to reach Knight/Guardian or crack top MNC interviews.
+
+Estimate your interview readiness (Google, Microsoft, Amazon, Goldman Sachs, etc.).
+
+Generate a PDF report with actionable insights.
+
+Recommend the next 100 problems based on your history.
+
+Identify important patterns you've missed (DP, Graphs, Trees, Greedy, etc.).
+
+Just tell me your goal, or simply say "analyze everything", and I'll do a deep analysis of your entire LeetCode history.
+
+
+Yesterday
+1768. Merge Strings Alternately
+Easy
+Accepted
+1
+Yesterday
+3867. Sum of GCD of Formed Pairs
+Med.
+Accepted
+2
+Wed
+3658. GCD of Odd and Even Sums
+Easy
+Accepted
+1
+Wed
+1291. Sequential Digits
+Med.
+Accepted
+2
+Mon
+1025. Divisor Game
+Easy
+Accepted
+1
+Sun
+3988. Create Grid With Exactly K Paths I
+Med.
+Accepted
+2
+Sun
+3987. Minimum Total Cost to Process All Elements
+Med.
+Accepted
+3
+Sun
+3986. Number of Elapsed Seconds Between Two Times
+Easy
+Accepted
+2
+Sun
+1331. Rank Transform of an Array
+Easy
+Accepted
+1
+Jul 11
+2685. Count the Number of Complete Components
+Med.
+Accepted
+2
+Jul 11
+133. Clone Graph
+Med.
+Accepted
+1
+Jul 9
+6. Zigzag Conversion
+Med.
+Accepted
+1
+Jul 9
+3756. Concatenate Non-Zero Digits and Multiply by Sum II
+Med.
+Accepted
+1
+Jul 9
+3754. Concatenate Non-Zero Digits and Multiply by Sum I
+Easy
+Accepted
+3
+Jul 6
+1288. Remove Covered Intervals
+Med.
+Accepted
+2
+Jul 5
+3982. Sum of Integers with Maximum Digit Range
+Easy
+Accepted
+2
+Jul 4
+3979. Maximum Valid Pair Sum
+Med.
+Accepted
+2
+Jul 4
+3978. Unique Middle Element
+Easy
+Accepted
+2
+Jul 4
+189. Rotate Array
+Med.
+Accepted
+3
+Jul 3
+3286. Find a Safe Walk Through a Grid
+Med.
+Accepted
+1
+Jul 2
+62. Unique Paths
+Med.
+Accepted
+2
+Jul 1
+315. Count of Smaller Numbers After Self
+Hard
+Accepted
+2
+Jul 1
+520. Detect Capital
+Easy
+Accepted
+1
+Jun 30
+1358. Number of Substrings Containing All Three Characters
+Med.
+Accepted
+3
+Jun 29
+1967. Number of Strings That Appear as Substrings in Word
+Easy
+Accepted
+1
+Jun 28
+1846. Maximum Element After Decreasing and Rearranging
+Med.
+Accepted
+1
+Jun 28
+3975. Filter Occupied Intervals
+Med.
+Accepted
+2
+Jun 28
+3974. Maximum Total Sum of K Selected Elements
+Med.
+Accepted
+2
+Jun 27
+3020. Find the Maximum Number of Elements in Subset
+Med.
+Accepted
+2
+Jun 26
+148. Sort List
+Med.
+Accepted
+1
+Jun 25
+3737. Count Subarrays With Majority Element I
+Med.
+Accepted
+2
+Jun 25
+1160. Find Words That Can Be Formed by Characters
+Easy
+Accepted
+1
+Jun 24
+2287. Rearrange Characters to Make Target String
+Easy
+Accepted
+1
+Jun 23
+2390. Removing Stars From a String
+Med.
+Accepted
+1
+Jun 22
+1189. Maximum Number of Balloons
+Easy
+Accepted
+1
+Jun 22
+1833. Maximum Ice Cream Bars
+Med.
+Accepted
+1
+Jun 20
+3964. Minimum Lights to Illuminate a Road
+Med.
+Accepted
+1
+Jun 20
+3963. Create Grid With Exactly One Path
+Easy
+Accepted
+1
+Jun 19
+1732. Find the Highest Altitude
+Easy
+Accepted
+2
+Jun 18
+1344. Angle Between Hands of a Clock
+Med.
+Accepted
+1
+Jun 17
+1281. Subtract the Product and Sum of Digits of an Integer
+Easy
+Accepted
+1
+Jun 17
+3612. Process String with Special Operations I
+Med.
+Accepted
+1
+Jun 15
+2095. Delete the Middle Node of a Linked List
+Med.
+Accepted
+2
+Jun 14
+2130. Maximum Twin Sum of a Linked List
+Med.
+Accepted
+1
+Jun 14
+3960. Frequency Balance Subarray
+Med.
+Accepted
+4
+Jun 14
+3959. Check Good Integer
+Easy
+Accepted
+1
+Jun 13
+3838. Weighted Word Mapping
+Easy
+Accepted
+2
+Jun 12
+2139. Minimum Moves to Reach Target Score
+Med.
+Accepted
+5
+Jun 12
+2769. Find the Maximum Achievable Number
+Easy
+Accepted
+1
+Jun 10
+1342. Number of Steps to Reduce a Number to Zero
+Easy
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+EaProblems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+Jun 10
+2169. Count Operations to Obtain Zero
+Easy
+Accepted
+2
+Jun 10
+1991. Find the Middle Index in Array
+Easy
+Accepted
+1
+Jun 10
+3689. Maximum Total Subarray Value I
+Med.
+Accepted
+1
+Jun 8
+2161. Partition Array According to Given Pivot
+Med.
+Accepted
+1
+Jun 7
+3955. Valid Binary Strings With Cost Limit
+Med.
+Accepted
+1
+Jun 7
+3954. Sum of Compatible Numbers in Range I
+Easy
+Accepted
+1
+Jun 6
+3950. Exactly One Consecutive Set Bits Pair
+Easy
+Accepted
+3
+Jun 6
+2574. Left and Right Sum Differences
+Easy
+Accepted
+2
+Jun 5
+1502. Can Make Arithmetic Progression From Sequence
+Easy
+Accepted
+2
+Jun 4
+3751. Total Waviness of Numbers in Range I
+Med.
+Accepted
+1
+Jun 3
+73. Set Matrix Zeroes
+Med.
+Accepted
+2
+Jun 3
+3633. Earliest Finish Time for Land and Water Rides I
+Easy
+Accepted
+2
+Jun 1
+2144. Minimum Cost of Buying Candies With Discount
+Easy
+Accepted
+2
+May 31
+2126. Destroying Asteroids
+Med.
+Accepted
+3
+May 31
+3945. Digit Frequency Score
+Easy
+Accepted
+1
+May 31
+767. Reorganize String
+Med.
+Accepted
+1
+May 29
+3300. Minimum Element After Replacement With Digit Sum
+Easy
+Accepted
+1
+May 28
+3932. Count K-th Roots in a Range
+Med.
+Accepted
+1
+May 28
+3121. Count the Number of Special Characters II
+Med.
+Accepted
+1
+May 26
+3120. Count the Number of Special Characters I
+Easy
+Accepted
+3
+May 25
+3043. Find the Length of the Longest Common Prefix
+Med.
+Accepted
+2
+May 24
+3941. Password Strength
+Med.
+Accepted
+1
+May 24
+3940. Limit Occurrences in Sorted Array
+Easy
+Accepted
+1
+May 23
+1752. Check if Array Is Sorted and Rotated
+Easy
+Accepted
+1
+May 23
+3937. Minimum Operations to Make Array Modulo Alternating I
+Med.
+Accepted
+3
+May 23
+3936. Minimum Swaps to Move Zeros to End
+Easy
+Accepted
+1
+May 22
+33. Search in Rotated Sorted Array
+Med.
+Accepted
+2
+May 21
+2657. Find the Prefix Common Array of Two Arrays
+Med.
+Accepted
+4
+May 21
+2351. First Letter to Appear Twice
+Easy
+Accepted
+2
+May 19
+2540. Minimum Common Value
+Easy
+Accepted
+3
+May 18
+1838. Frequency of the Most Frequent Element
+Med.
+Accepted
+2
+May 17
+3931. Check Adjacent Digit Differences
+Easy
+Accepted
+1
+May 16
+154. Find Minimum in Rotated Sorted Array II
+Hard
+Accepted
+3
+May 15
+153. Find Minimum in Rotated Sorted Array
+Med.
+Accepted
+2
+May 14
+229. Majority Element II
+Med.
+Accepted
+3
+May 13
+1347. Minimum Number of Steps to Make Two Strings Anagram
+Med.
+Accepted
+1
+May 13
+2553. Separate the Digits in an Array
+Easy
+Accepted
+2
+May 10
+3927. Minimize Array Sum Using Divisible Replacements
+Med.
+Accepted
+4
+May 10
+3926. Count Valid Word Occurrences
+Med.
+Accepted
+1
+May 10
+3925. Concatenate Array With Reverse
+Easy
+Accepted
+1
+May 9
+3921. Score Validator
+Easy
+Accepted
+1
+May 8
+2164. Sort Even and Odd Indices Independently
+Easy
+Accepted
+2
+May 7
+78. Subsets
+Med.
+Accepted
+3
+May 6
+15. 3Sum
+Med.
+Accepted
+2
+May 5
+67. Add Binary
+Easy
+Accepted
+1
+May 5
+796. Rotate String
+Easy
+Accepted
+2
+May 4
+918. Maximum Sum Circular Subarray
+Med.
+Accepted
+2
+May 4
+53. Maximum Subarray
+Med.
+Accepted
+2
+May 3
+3918. Sum of Primes Between Number and Its Reverse
+Med.
+Accepted
+1
+May 3
+3917. Count Indices With Opposite Parity
+Easy
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+May 2
+695. Max Area of Island
+Med.
+Accepted
+1
+May 2
+200. Number of Islands
+Med.
+Accepted
+2
+May 1
+746. Min Cost Climbing Stairs
+Easy
+Accepted
+4
+Apr 30
+921. Minimum Add to Make Parentheses Valid
+Med.
+Accepted
+2
+Apr 28
+653. Two Sum IV - Input is a BST
+Easy
+Accepted
+1
+Apr 27
+1029. Two City Scheduling
+Med.
+Accepted
+1
+Apr 27
+455. Assign Cookies
+Easy
+Accepted
+4
+Apr 26
+3914. Minimum Operations to Make Array Non Decreasing
+Med.
+Accepted
+1
+Apr 26
+3913. Sort Vowels by Frequency
+Med.
+Accepted
+2
+Apr 26
+3912. Valid Elements in an Array
+Easy
+Accepted
+1
+Apr 25
+3909. Compare Sums of Bitonic Parts
+Med.
+Accepted
+2
+Apr 25
+3908. Valid Digit Number
+Easy
+Accepted
+1
+Apr 24
+2833. Furthest Point From Origin
+Easy
+Accepted
+5
+Apr 23
+1137. N-th Tribonacci Number
+Easy
+Accepted
+6
+Apr 22
+2460. Apply Operations to an Array
+Easy
+Accepted
+1
+Apr 21
+2461. Maximum Sum of Distinct Subarrays With Length K
+Med.
+Accepted
+1
+Apr 20
+2078. Two Furthest Houses With Different Colors
+Easy
+Accepted
+1
+Apr 19
+3904. Smallest Stable Index II
+Med.
+Accepted
+1
+Apr 19
+3903. Smallest Stable Index I
+Easy
+Accepted
+1
+Apr 19
+3783. Mirror Distance of an Integer
+Easy
+Accepted
+1
+Apr 18
+643. Maximum Average Subarray I
+Easy
+Accepted
+1
+Apr 16
+1195. Fizz Buzz Multithreaded
+Med.
+Accepted
+1
+Apr 16
+1720. Decode XORed Array
+Easy
+Accepted
+1
+Apr 16
+2515. Shortest Distance to Target String in a Circular Array
+Easy
+Accepted
+2
+Apr 14
+1480. Running Sum of 1d Array
+Easy
+Accepted
+1
+Apr 13
+412. Fizz Buzz
+Easy
+Accepted
+1
+Apr 13
+220. Contains Duplicate III
+Hard
+Accepted
+1
+Apr 12
+3899. Angles of a Triangle
+Med.
+Accepted
+2
+Apr 12
+3898. Find the Degree of Each Vertex
+Easy
+Accepted
+1
+Apr 11
+3896. Minimum Operations to Transform Array into Alternating Prime
+Med.
+Accepted
+1
+Apr 11
+3895. Count Digit Appearances
+Med.
+Accepted
+1
+Apr 11
+3894. Traffic Signal Color
+Easy
+Accepted
+1
+Apr 10
+3740. Minimum Distance Between Three Equal Elements I
+Easy
+Accepted
+3
+Apr 8
+451. Sort Characters By Frequency
+Med.
+Accepted
+1
+Apr 7
+2006. Count Number of Pairs With Absolute Difference K
+Easy
+Accepted
+1
+Apr 7
+74. Search a 2D Matrix
+Med.
+Accepted
+2
+Apr 6
+3890. Integers With Multiple Sum of Two Cubes
+Med.
+Accepted
+1
+Apr 5
+3889. Mirror Frequency Distance
+Med.
+Accepted
+1
+Apr 4
+3142. Check if Grid Satisfies Conditions
+Easy
+Accepted
+4
+Apr 3
+575. Distribute Candies
+Easy
+Accepted
+2
+Apr 1
+44. Wildcard Matching
+Hard
+Accepted
+3
+Apr 1
+3000. Maximum Area of Longest Diagonal Rectangle
+Easy
+Accepted
+6
+Mar 31
+2840. Check if Strings Can be Made Equal With Operations II
+Med.
+Accepted
+1
+Mar 30
+72. Edit Distance
+Med.
+Accepted
+3
+Mar 29
+2839. Check if Strings Can be Made Equal With Operations I
+Easy
+Accepted
+2
+Mar 29
+516. Longest Palindromic Subsequence
+Med.
+Accepted
+1
+Mar 27
+1143. Longest Common Subsequence
+Med.
+Accepted
+4
+Mar 26
+714. Best Time to Buy and Sell Stock with Transaction Fee
+Med.
+Accepted
+1
+Mar 25
+188. Best Time to Buy and Sell Stock IV
+Hard
+Accepted
+4
+Mar 24
+123. Best Time to Buy and Sell Stock III
+Hard
+Accepted
+4
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+May 2
+695. Max Area of Island
+Med.
+Accepted
+1
+May 2
+200. Number of Islands
+Med.
+Accepted
+2
+May 1
+746. Min Cost Climbing Stairs
+Easy
+Accepted
+4
+Apr 30
+921. Minimum Add to Make Parentheses Valid
+Med.
+Accepted
+2
+Apr 28
+653. Two Sum IV - Input is a BST
+Easy
+Accepted
+1
+Apr 27
+1029. Two City Scheduling
+Med.
+Accepted
+1
+Apr 27
+455. Assign Cookies
+Easy
+Accepted
+4
+Apr 26
+3914. Minimum Operations to Make Array Non Decreasing
+Med.
+Accepted
+1
+Apr 26
+3913. Sort Vowels by Frequency
+Med.
+Accepted
+2
+Apr 26
+3912. Valid Elements in an Array
+Easy
+Accepted
+1
+Apr 25
+3909. Compare Sums of Bitonic Parts
+Med.
+Accepted
+2
+Apr 25
+3908. Valid Digit Number
+Easy
+Accepted
+1
+Apr 24
+2833. Furthest Point From Origin
+Easy
+Accepted
+5
+Apr 23
+1137. N-th Tribonacci Number
+Easy
+Accepted
+6
+Apr 22
+2460. Apply Operations to an Array
+Easy
+Accepted
+1
+Apr 21
+2461. Maximum Sum of Distinct Subarrays With Length K
+Med.
+Accepted
+1
+Apr 20
+2078. Two Furthest Houses With Different Colors
+Easy
+Accepted
+1
+Apr 19
+3904. Smallest Stable Index II
+Med.
+Accepted
+1
+Apr 19
+3903. Smallest Stable Index I
+Easy
+Accepted
+1
+Apr 19
+3783. Mirror Distance of an Integer
+Easy
+Accepted
+1
+Apr 18
+643. Maximum Average Subarray I
+Easy
+Accepted
+1
+Apr 16
+1195. Fizz Buzz Multithreaded
+Med.
+Accepted
+1
+Apr 16
+1720. Decode XORed Array
+Easy
+Accepted
+1
+Apr 16
+2515. Shortest Distance to Target String in a Circular Array
+Easy
+Accepted
+2
+Apr 14
+1480. Running Sum of 1d Array
+Easy
+Accepted
+1
+Apr 13
+412. Fizz Buzz
+Easy
+Accepted
+1
+Apr 13
+220. Contains Duplicate III
+Hard
+Accepted
+1
+Apr 12
+3899. Angles of a Triangle
+Med.
+Accepted
+2
+Apr 12
+3898. Find the Degree of Each Vertex
+Easy
+Accepted
+1
+Apr 11
+3896. Minimum Operations to Transform Array into Alternating Prime
+Med.
+Accepted
+1
+Apr 11
+3895. Count Digit Appearances
+Med.
+Accepted
+1
+Apr 11
+3894. Traffic Signal Color
+Easy
+Accepted
+1
+Apr 10
+3740. Minimum Distance Between Three Equal Elements I
+Easy
+Accepted
+3
+Apr 8
+451. Sort Characters By Frequency
+Med.
+Accepted
+1
+Apr 7
+2006. Count Number of Pairs With Absolute Difference K
+Easy
+Accepted
+1
+Apr 7
+74. Search a 2D Matrix
+Med.
+Accepted
+2
+Apr 6
+3890. Integers With Multiple Sum of Two Cubes
+Med.
+Accepted
+1
+Apr 5
+3889. Mirror Frequency Distance
+Med.
+Accepted
+1
+Apr 4
+3142. Check if Grid Satisfies Conditions
+Easy
+Accepted
+4
+Apr 3
+575. Distribute Candies
+Easy
+Accepted
+2
+Apr 1
+44. Wildcard Matching
+Hard
+Accepted
+3
+Apr 1
+3000. Maximum Area of Longest Diagonal Rectangle
+Easy
+Accepted
+6
+Mar 31
+2840. Check if Strings Can be Made Equal With Operations II
+Med.
+Accepted
+1
+Mar 30
+72. Edit Distance
+Med.
+Accepted
+3
+Mar 29
+2839. Check if Strings Can be Made Equal With Operations I
+Easy
+Accepted
+2
+Mar 29
+516. Longest Palindromic Subsequence
+Med.
+Accepted
+1
+Mar 27
+1143. Longest Common Subsequence
+Med.
+Accepted
+4
+Mar 26
+714. Best Time to Buy and Sell Stock with Transaction Fee
+Med.
+Accepted
+1
+Mar 25
+188. Best Time to Buy and Sell Stock IV
+Hard
+Accepted
+4
+Mar 24
+123. Best Time to Buy and Sell Stock III
+Hard
+Accepted
+4
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+Mar 24
+122. Best Time to Buy and Sell Stock II
+Med.
+Accepted
+3
+Mar 22
+3877. Minimum Removals to Achieve Target XOR
+Med.
+Accepted
+2
+Mar 22
+3876. Construct Uniform Parity Array II
+Med.
+Accepted
+3
+Mar 22
+3875. Construct Uniform Parity Array I
+Easy
+Accepted
+1
+Mar 21
+1130. Minimum Cost Tree From Leaf Values
+Med.
+Accepted
+1
+Mar 20
+374. Guess Number Higher or Lower
+Easy
+Accepted
+1
+Mar 20
+375. Guess Number Higher or Lower II
+Med.
+Accepted
+2
+Mar 19
+172. Factorial Trailing Zeroes
+Med.
+Accepted
+1
+Mar 18
+96. Unique Binary Search Trees
+Med.
+Accepted
+2
+Mar 17
+1218. Longest Arithmetic Subsequence of Given Difference
+Med.
+Accepted
+1
+Mar 17
+801. Minimum Swaps To Make Sequences Increasing
+Hard
+Accepted
+3
+Mar 15
+3745. Maximize Expression of Three Elements
+Easy
+Accepted
+1
+Mar 15
+3871. Count Commas in Range II
+Med.
+Accepted
+5
+Mar 15
+3870. Count Commas in Range
+Easy
+Accepted
+1
+Mar 14
+3868. Minimum Cost to Equalize Arrays Using Swaps
+Med.
+Accepted
+3
+Mar 14
+3866. First Unique Even Element
+Easy
+Accepted
+2
+Mar 13
+1388. Pizza With 3n Slices
+Hard
+Accepted
+3
+Mar 12
+300. Longest Increasing Subsequence
+Med.
+Accepted
+1
+Mar 11
+1691. Maximum Height by Stacking Cuboids
+Hard
+Accepted
+1
+Mar 10
+354. Russian Doll Envelopes
+Hard
+Accepted
+1
+Mar 9
+1402. Reducing Dishes
+Hard
+Accepted
+4
+Mar 8
+1824. Minimum Sideway Jumps
+Med.
+Accepted
+5
+Mar 8
+3861. Minimum Capacity Box
+Easy
+Accepted
+1
+Mar 8
+1039. Minimum Score Triangulation of Polygon
+Med.
+Accepted
+3
+Mar 6
+221. Maximal Square
+Med.
+Accepted
+2
+Mar 5
+377. Combination Sum IV
+Med.
+Accepted
+1
+Mar 5
+45. Jump Game II
+Med.
+Accepted
+1
+Mar 4
+279. Perfect Squares
+Med.
+Accepted
+1
+Mar 3
+983. Minimum Cost For Tickets
+Med.
+Accepted
+4
+Mar 2
+55. Jump Game
+Med.
+Accepted
+2
+Mar 1
+3857. Minimum Cost to Split into Ones
+Med.
+Accepted
+1
+Mar 1
+3856. Trim Trailing Vowels
+Easy
+Accepted
+1
+Feb 28
+3853. Merge Close Characters
+Med.
+Accepted
+1
+Feb 28
+3852. Smallest Pair With Different Frequencies
+Easy
+Accepted
+1
+Feb 27
+976. Largest Perimeter Triangle
+Easy
+Accepted
+1
+Feb 26
+888. Fair Candy Swap
+Easy
+Accepted
+2
+Feb 25
+2644. Find the Maximum Divisibility Score
+Easy
+Accepted
+1
+Feb 25
+79. Word Search
+Med.
+Accepted
+1
+Feb 23
+213. House Robber II
+Med.
+Accepted
+1
+Feb 22
+198. House Robber
+Med.
+Accepted
+1
+Feb 22
+3848. Check Digitorial Permutation
+Med.
+Accepted
+1
+Feb 22
+3847. Find the Score Difference in a Game
+Med.
+Accepted
+1
+Feb 21
+3. Longest Substring Without Repeating Characters
+Med.
+Accepted
+4
+Feb 20
+322. Coin Change
+Med.
+Accepted
+3
+Feb 19
+3194. Minimum Average of Smallest and Largest Elements
+Easy
+Accepted
+1
+Feb 18
+49. Group Anagrams
+Med.
+Accepted
+2
+Feb 17
+383. Ransom Note
+Easy
+Accepted
+1
+Feb 16
+2828. Check if a String Is an Acronym of Words
+Easy
+Accepted
+1
+Feb 15
+3842. Toggle Light Bulbs
+Easy
+Accepted
+2
+Feb 14
+3839. Number of Prefix Connected Groups
+Med.
+Accepted
+3
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+Feb 13
+3713. Longest Balanced Substring I
+Med.
+Accepted
+1
+Feb 12
+205. Isomorphic Strings
+Easy
+Accepted
+1
+Feb 11
+208. Implement Trie (Prefix Tree)
+Med.
+Accepted
+2
+Feb 10
+3719. Longest Balanced Subarray I
+Med.
+Accepted
+1
+Feb 9
+1382. Balance a Binary Search Tree
+Med.
+Accepted
+1
+Feb 9
+617. Merge Two Binary Trees
+Easy
+Accepted
+1
+Feb 9
+110. Balanced Binary Tree
+Easy
+Accepted
+2
+Feb 8
+3834. Merge Adjacent Equal Elements
+Med.
+Accepted
+3
+Feb 8
+3833. Count Dominant Indices
+Easy
+Accepted
+1
+Feb 7
+632. Smallest Range Covering Elements from K Lists
+Hard
+Accepted
+2
+Feb 6
+3634. Minimum Removals to Balance Array
+Med.
+Accepted
+1
+Feb 6
+226. Invert Binary Tree
+Easy
+Accepted
+1
+Feb 5
+3379. Transformed Array
+Easy
+Accepted
+1
+Feb 4
+958. Check Completeness of a Binary Tree
+Med.
+Accepted
+1
+Feb 4
+23. Merge k Sorted Lists
+Hard
+Accepted
+1
+Feb 3
+3637. Trionic Array I
+Easy
+Accepted
+3
+Feb 3
+506. Relative Ranks
+Easy
+Accepted
+1
+Feb 2
+3828. Final Element After Subarray Deletions
+Med.
+Accepted
+2
+Feb 1
+3829. Design Ride Sharing System
+Med.
+Accepted
+2
+Feb 1
+3827. Count Monobit Integers
+Easy
+Accepted
+1
+Jan 31
+3824. Minimum K to Reduce Array Within Limit
+Med.
+Accepted
+7
+Jan 31
+3823. Reverse Letters Then Special Characters in a String
+Easy
+Accepted
+1
+Jan 31
+744. Find Smallest Letter Greater Than Target
+Easy
+Accepted
+1
+Jan 31
+1192. Critical Connections in a Network
+Hard
+Accepted
+3
+Jan 30
+222. Count Complete Tree Nodes
+Easy
+Accepted
+1
+Jan 30
+162. Find Peak Element
+Med.
+Accepted
+1
+Jan 30
+81. Search in Rotated Sorted Array II
+Med.
+Accepted
+3
+Jan 29
+414. Third Maximum Number
+Easy
+Accepted
+1
+Jan 26
+1200. Minimum Absolute Difference
+Easy
+Accepted
+4
+Jan 26
+1984. Minimum Difference Between Highest and Lowest of K Scores
+Easy
+Accepted
+1
+Jan 25
+3819. Rotate Non Negative Elements
+Med.
+Accepted
+1
+Jan 25
+3818. Minimum Prefix Removal to Make Array Strictly Increasing
+Med.
+Accepted
+1
+Jan 24
+442. Find All Duplicates in an Array
+Med.
+Accepted
+2
+Jan 24
+1877. Minimize Maximum Pair Sum in Array
+Med.
+Accepted
+1
+Jan 24
+41. First Missing Positive
+Hard
+Accepted
+2
+Jan 24
+3507. Minimum Pair Removal to Sort Array I
+Easy
+Accepted
+1
+Jan 23
+113. Path Sum II
+Med.
+Accepted
+1
+Jan 23
+112. Path Sum
+Easy
+Accepted
+1
+Jan 23
+3814. Maximum Capacity Within Budget
+Med.
+Accepted
+2
+Jan 23
+463. Island Perimeter
+Easy
+Accepted
+1
+Jan 21
+733. Flood Fill
+Easy
+Accepted
+1
+Jan 21
+210. Course Schedule II
+Med.
+Accepted
+1
+Jan 21
+207. Course Schedule
+Med.
+Accepted
+1
+Jan 20
+590. N-ary Tree Postorder Traversal
+Easy
+Accepted
+2
+Jan 20
+589. N-ary Tree Preorder Traversal
+Easy
+Accepted
+2
+Jan 18
+994. Rotting Oranges
+Med.
+Accepted
+2
+Jan 18
+3813. Vowel-Consonant Score
+Easy
+Accepted
+2
+Jan 17
+513. Find Bottom Left Tree Value
+Med.
+Accepted
+1
+Jan 17
+145. Binary Tree Postorder Traversal
+Easy
+Accepted
+1
+Jan 17
+429. N-ary Tree Level Order Traversal
+Med.
+Accepted
+2
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+Jan 16
+199. Binary Tree Right Side View
+Med.
+Accepted
+2
+Jan 16
+160. Intersection of Two Linked Lists
+Easy
+Accepted
+2
+Jan 16
+349. Intersection of Two Arrays
+Easy
+Accepted
+4
+Jan 16
+350. Intersection of Two Arrays II
+Easy
+Accepted
+1
+Jan 15
+680. Valid Palindrome II
+Easy
+Accepted
+1
+Jan 15
+925. Long Pressed Name
+Easy
+Accepted
+2
+Jan 15
+103. Binary Tree Zigzag Level Order Traversal
+Med.
+Accepted
+1
+Jan 15
+107. Binary Tree Level Order Traversal II
+Med.
+Accepted
+1
+Jan 14
+173. Binary Search Tree Iterator
+Med.
+Accepted
+3
+Jan 14
+116. Populating Next Right Pointers in Each Node
+Med.
+Accepted
+2
+Jan 13
+99. Recover Binary Search Tree
+Med.
+Accepted
+1
+Jan 12
+1008. Construct Binary Search Tree from Preorder Traversal
+Med.
+Accepted
+1
+Jan 12
+235. Lowest Common Ancestor of a Binary Search Tree
+Med.
+Accepted
+1
+Jan 11
+94. Binary Tree Inorder Traversal
+Easy
+Accepted
+1
+Jan 11
+85. Maximal Rectangle
+Hard
+Accepted
+2
+Jan 11
+215. Kth Largest Element in an Array
+Med.
+Accepted
+1
+Jan 11
+230. Kth Smallest Element in a BST
+Med.
+Accepted
+1
+Jan 11
+783. Minimum Distance Between BST Nodes
+Easy
+Accepted
+1
+Jan 10
+1523. Count Odd Numbers in an Interval Range
+Easy
+Accepted
+1
+Jan 9
+102. Binary Tree Level Order Traversal
+Med.
+Accepted
+1
+Jan 9
+98. Validate Binary Search Tree
+Med.
+Accepted
+1
+Jan 9
+108. Convert Sorted Array to Binary Search Tree
+Easy
+Accepted
+1
+Jan 9
+106. Construct Binary Tree from Inorder and Postorder Traversal
+Med.
+Accepted
+1
+Jan 8
+114. Flatten Binary Tree to Linked List
+Med.
+Accepted
+1
+Jan 8
+700. Search in a Binary Search Tree
+Easy
+Accepted
+2
+Jan 8
+144. Binary Tree Preorder Traversal
+Easy
+Accepted
+1
+Jan 8
+662. Maximum Width of Binary Tree
+Med.
+Accepted
+1
+Jan 7
+101. Symmetric Tree
+Easy
+Accepted
+1
+Jan 7
+104. Maximum Depth of Binary Tree
+Easy
+Accepted
+1
+Jan 6
+1161. Maximum Level Sum of a Binary Tree
+Med.
+Accepted
+1
+Jan 6
+257. Binary Tree Paths
+Easy
+Accepted
+1
+Jan 6
+105. Construct Binary Tree from Preorder and Inorder Traversal
+Med.
+Accepted
+1
+Jan 6
+236. Lowest Common Ancestor of a Binary Tree
+Med.
+Accepted
+1
+Jan 6
+5. Longest Palindromic Substring
+Med.
+Accepted
+2
+Jan 5
+219. Contains Duplicate II
+Easy
+Accepted
+1
+Jan 4
+167. Two Sum II - Input Array Is Sorted
+Med.
+Accepted
+1
+Jan 4
+2270. Number of Ways to Split Array
+Med.
+Accepted
+2
+Jan 4
+389. Find the Difference
+Easy
+Accepted
+3
+Jan 4
+404. Sum of Left Leaves
+Easy
+Accepted
+1
+Jan 4
+1390. Four Divisors
+Med.
+Accepted
+1
+Jan 4
+543. Diameter of Binary Tree
+Easy
+Accepted
+2
+Jan 4
+572. Subtree of Another Tree
+Easy
+Accepted
+1
+Jan 4
+100. Same Tree
+Easy
+Accepted
+1
+Jan 2
+961. N-Repeated Element in Size 2N Array
+Easy
+Accepted
+1
+Jan 2
+387. First Unique Character in a String
+Easy
+Accepted
+1
+Jan 1
+66. Plus One
+Easy
+Accepted
+3
+Jan 1
+232. Implement Queue using Stacks
+Easy
+Accepted
+1
+Jan 1
+345. Reverse Vowels of a String
+Easy
+Accepted
+1
+2025.12.31
+134. Gas Station
+Med.
+Accepted
+2
+2025.12.31
+239. Sliding Window Maximum
+Hard
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+2025.12.31
+225. Implement Stack using Queues
+Easy
+Accepted
+1
+2025.12.30
+150. Evaluate Reverse Polish Notation
+Med.
+Accepted
+2
+2025.12.30
+1441. Build an Array With Stack Operations
+Med.
+Accepted
+2
+2025.12.30
+155. Min Stack
+Med.
+Accepted
+1
+2025.12.30
+371. Sum of Two Integers
+Med.
+Accepted
+1
+2025.12.29
+29. Divide Two Integers
+Med.
+Accepted
+2
+2025.12.29
+146. LRU Cache
+Med.
+Accepted
+1
+2025.12.28
+448. Find All Numbers Disappeared in an Array
+Easy
+Accepted
+1
+2025.12.28
+1365. How Many Numbers Are Smaller Than the Current Number
+Easy
+Accepted
+1
+2025.12.28
+1351. Count Negative Numbers in a Sorted Matrix
+Easy
+Accepted
+1
+2025.12.28
+645. Set Mismatch
+Easy
+Accepted
+3
+2025.12.28
+42. Trapping Rain Water
+Hard
+Accepted
+2
+2025.12.27
+485. Max Consecutive Ones
+Easy
+Accepted
+1
+2025.12.27
+1470. Shuffle the Array
+Easy
+Accepted
+1
+2025.12.27
+1929. Concatenation of Array
+Easy
+Accepted
+1
+2025.12.27
+503. Next Greater Element II
+Med.
+Accepted
+1
+2025.12.26
+2483. Minimum Penalty for a Shop
+Med.
+Accepted
+2
+2025.12.26
+8. String to Integer (atoi)
+Med.
+Accepted
+2
+2025.12.25
+84. Largest Rectangle in Histogram
+Hard
+Accepted
+1
+2025.12.25
+13. Roman to Integer
+Easy
+Accepted
+1
+2025.12.25
+3075. Maximize Happiness of Selected Children
+Med.
+Accepted
+3
+2025.12.25
+12. Integer to Roman
+Med.
+Accepted
+1
+2025.12.25
+724. Find Pivot Index
+Easy
+Accepted
+2
+2025.12.24
+43. Multiply Strings
+Med.
+Accepted
+2
+2025.12.24
+58. Length of Last Word
+Easy
+Accepted
+1
+2025.12.24
+2942. Find Words Containing Character
+Easy
+Accepted
+1
+2025.12.24
+3074. Apple Redistribution into Boxes
+Easy
+Accepted
+1
+2025.12.24
+3110. Score of a String
+Easy
+Accepted
+1
+2025.12.23
+496. Next Greater Element I
+Easy
+Accepted
+1
+2025.12.23
+203. Remove Linked List Elements
+Easy
+Accepted
+1
+2025.12.23
+83. Remove Duplicates from Sorted List
+Easy
+Accepted
+2
+2025.12.23
+20. Valid Parentheses
+Easy
+Accepted
+1
+2025.12.22
+2. Add Two Numbers
+Med.
+Accepted
+1
+2025.12.21
+944. Delete Columns to Make Sorted
+Easy
+Accepted
+1
+2025.12.21
+912. Sort an Array
+Med.
+Accepted
+1
+2025.12.21
+283. Move Zeroes
+Easy
+Accepted
+2
+2025.12.20
+17. Letter Combinations of a Phone Number
+Med.
+Accepted
+1
+2025.12.20
+977. Squares of a Sorted Array
+Easy
+Accepted
+1
+2025.12.20
+24. Swap Nodes in Pairs
+Med.
+Accepted
+1
+2025.12.19
+61. Rotate List
+Med.
+Accepted
+1
+2025.12.19
+392. Is Subsequence
+Easy
+Accepted
+4
+2025.12.19
+3583. Count Special Triplets
+Med.
+Accepted
+2
+2025.12.18
+3452. Sum of Good Numbers
+Easy
+Accepted
+1
+2025.12.18
+633. Sum of Square Numbers
+Med.
+Accepted
+1
+2025.12.17
+25. Reverse Nodes in k-Group
+Hard
+Accepted
+1
+2025.12.17
+2778. Sum of Squares of Special Elements
+Easy
+Accepted
+1
+2025.12.17
+430. Flatten a Multilevel Doubly Linked List
+Med.
+Accepted
+2
+2025.12.15
+138. Copy List with Random Pointer
+Med.
+Accepted
+1
+2025.12.14
+142. Linked List Cycle II
+Med.
+Accepted
+1
+2025.12.14
+141. Linked List Cycle
+Easy
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+2025.12.13
+19. Remove Nth Node From End of List
+Med.
+Accepted
+2
+2025.12.13
+21. Merge Two Sorted Lists
+Easy
+Accepted
+1
+2025.12.13
+28. Find the Index of the First Occurrence in a String
+Easy
+Accepted
+1
+2025.12.12
+202. Happy Number
+Easy
+Accepted
+3
+2025.12.12
+69. Sqrt(x)
+Easy
+Accepted
+3
+2025.12.11
+3731. Find Missing Elements
+Easy
+Accepted
+2
+2025.12.11
+1539. Kth Missing Positive Number
+Easy
+Accepted
+1
+2025.12.11
+70. Climbing Stairs
+Easy
+Accepted
+1
+2025.12.11
+876. Middle of the Linked List
+Easy
+Accepted
+1
+2025.12.11
+206. Reverse Linked List
+Easy
+Accepted
+1
+2025.12.09
+242. Valid Anagram
+Easy
+Accepted
+3
+2025.12.09
+22. Generate Parentheses
+Med.
+Accepted
+1
+2025.12.08
+268. Missing Number
+Easy
+Accepted
+3
+2025.12.07
+48. Rotate Image
+Med.
+Accepted
+1
+2025.12.06
+50. Pow(x, n)
+Med.
+Accepted
+3
+2025.12.05
+2596. Check Knight Tour Configuration
+Med.
+Accepted
+2
+2025.12.04
+59. Spiral Matrix II
+Med.
+Accepted
+1
+2025.12.03
+40. Combination Sum II
+Med.
+Accepted
+2
+2025.12.02
+36. Valid Sudoku
+Med.
+Accepted
+1
+2025.12.01
+231. Power of Two
+Easy
+Accepted
+2
+2025.11.30
+326. Power of Three
+Easy
+Accepted
+2
+2025.11.29
+342. Power of Four
+Easy
+Accepted
+5
+2025.11.28
+131. Palindrome Partitioning
+Med.
+Accepted
+1
+2025.11.27
+39. Combination Sum
+Med.
+Accepted
+1
+2025.11.26
+37. Sudoku Solver
+Hard
+Accepted
+1
+2025.11.25
+51. N-Queens
+Hard
+Accepted
+1
+2025.11.24
+27. Remove Element
+Easy
+Accepted
+1
+2025.11.24
+26. Remove Duplicates from Sorted Array
+Easy
+Accepted
+1
+2025.11.24
+47. Permutations II
+Med.
+Accepted
+3
+2025.11.24
+46. Permutations
+Med.
+Accepted
+1
+2025.11.23
+90. Subsets II
+Med.
+Accepted
+1
+2025.11.22
+704. Binary Search
+Easy
+Accepted
+1
+2025.11.21
+509. Fibonacci Number
+Easy
+Accepted
+1
+2025.11.20
+217. Contains Duplicate
+Easy
+Accepted
+2
+2025.11.20
+18. 4Sum
+Med.
+Accepted
+2
+2025.11.18
+560. Subarray Sum Equals K
+Med.
+Accepted
+1
+2025.11.18
+34. Find First and Last Position of Element in Sorted Array
+Med.
+Accepted
+3
+2025.11.17
+16. 3Sum Closest
+Med.
+Accepted
+1
+2025.11.17
+1979. Find Greatest Common Divisor of Array
+Easy
+Accepted
+2
+2025.11.16
+287. Find the Duplicate Number
+Med.
+Accepted
+1
+2025.11.16
+2965. Find Missing and Repeated Values
+Easy
+Accepted
+1
+2025.11.15
+1. Two Sum
+Easy
+Accepted
+4
+2025.11.14
+14. Longest Common Prefix
+Easy
+Accepted
+1
+2025.11.13
+35. Search Insert Position
+Easy
+Accepted
+1
+2025.11.12
+54. Spiral Matrix
+Med.
+Accepted
+1
+2025.11.12
+240. Search a 2D Matrix II
+Med.
+Accepted
+2
+2025.11.11
+4. Median of Two Sorted Arrays
+Hard
+Accepted
+1
+2025.11.10
+7. Reverse Integer
+Med.
+Accepted
+1
+2025.11.10
+204. Count Primes
+Med.
+Accepted
+1
+2025.11.10
+443. String Compression
+Med.
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+Problems
+
+Contest
+
+Discuss
+
+Interview
+*
+*
+
+Store
+*
+*
+2
+2Streaks
+Excited for next challenge!
+Utkarsh Kushwaha
+Access all features with our Premium subscription!
+My Lists
+Notebook
+Progress
+Points
+
+Try New Features
+
+Orders
+
+My Playgrounds
+
+Settings
+
+Appearance
+
+Sign Out
+Premium
+Practice History
+Solved
+Filter
+2025.11.08
+151. Reverse Words in a String
+Med.
+Accepted
+1
+2025.11.08
+567. Permutation in String
+Med.
+Accepted
+1
+2025.11.07
+541. Reverse String II
+Easy
+Accepted
+2
+2025.11.06
+1910. Remove All Occurrences of a Substring
+Med.
+Accepted
+1
+2025.11.06
+125. Valid Palindrome
+Easy
+Accepted
+1
+2025.11.05
+344. Reverse String
+Easy
+Accepted
+1
+2025.11.03
+31. Next Permutation
+Med.
+Accepted
+2
+2025.11.03
+88. Merge Sorted Array
+Easy
+Accepted
+1
+2025.11.02
+75. Sort Colors
+Med.
+Accepted
+1
+2025.10.26
+540. Single Element in a Sorted Array
+Med.
+Accepted
+1
+2025.10.25
+852. Peak Index in a Mountain Array
+Med.
+Accepted
+1
+2025.10.20
+238. Product of Array Except Self
+Med.
+Accepted
+1
+2025.10.19
+11. Container With Most Water
+Med.
+Accepted
+1
+2025.10.18
+121. Best Time to Buy and Sell Stock
+Easy
+Accepted
+1
+2025.10.16
+169. Majority Element
+Easy
+Accepted
+3
+2025.10.13
+9. Palindrome Number
+Easy
+Accepted
+2
+2025.10.12
+136. Single Number
+Easy
+Accepted
+1
+2025.04.24
+2623. Memoize
+Med.
+Accepted
+1
+2025.04.23
+2666. Allow One Function Call
+Easy
+Accepted
+1
+2025.04.22
+2703. Return Length of Arguments Passed
+Easy
+Accepted
+1
+2025.04.22
+2629. Function Composition
+Easy
+Accepted
+1
+2025.03.23
+2626. Array Reduce Transformation
+Easy
+Accepted
+3
+2025.03.23
+2634. Filter Elements from Array
+Easy
+Accepted
+2
+2025.03.04
+2635. Apply Transform Over Each Element in Array
+Easy
+Accepted
+2
+2025.03.03
+2665. Counter II
+Easy
+Accepted
+1
+2025.03.03
+2704. To Be Or Not To Be
+Easy
+Accepted
+1
+2025.03.03
+2620. Counter
+Easy
+Accepted
+1
+2025.03.03
+2667. Create Hello World Function
+Easy
+Accepted
+1
+Summary
+Total Solved
+428
+Problems
+Beats 98.7%
+Easy
+198
+Med.
+207
+Hard
+23
+Submissions
+733
+Acceptance
+76.1%
+SolvedSubmissions
+07.0107.31
+Easy10
+
+here the list but u can add important promblein in revsion acualy i follow apna college seris till djikstra andafter the rest of grph of love babbra and dp also so now again make pdf and please give spaceing properly and resion also cover it not blinkly but importtant one topic week relate ......
+
+
+Close

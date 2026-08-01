@@ -13,6 +13,8 @@ import {
   Tooltip,
 } from 'recharts'
 import { siteCopy } from '@/lib/site-settings'
+import CodingMilestones, { type CodingMilestone } from '@/components/Achievements/CodingMilestones'
+import codingMilestonesData from '@/data/coding_milestones.json'
 
 type RatingPoint = { name: string; date: number; rating: number }
 
@@ -209,6 +211,11 @@ export default function LiveStats() {
           </div>
         </div>
       )}
+
+      {/* Programming Skill Milestones bento strip — only renders when data exists */}
+      <div className="mt-10">
+        <CodingMilestones items={codingMilestonesData as unknown as CodingMilestone[]} />
+      </div>
     </div>
   )
 }

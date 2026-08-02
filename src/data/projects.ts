@@ -17,6 +17,8 @@ export type Project = {
   role?: string
   year?: string
   status?: string // 'live' | 'archived'
+  /** When true, project is hidden from the portfolio without being deleted. */
+  hidden?: boolean
 }
 
 export const projects: Project[] = projectsData

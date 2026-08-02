@@ -2,9 +2,9 @@
 
 import { projects, type Project } from '@/data/projects'
 import { siteCopy } from '@/lib/site-settings'
-import { Github, ExternalLink, ArrowUpRight, Trophy, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Github, ExternalLink, ArrowUpRight, Trophy, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react'
 import Image from 'next/image'
-import { useState, type ReactNode } from 'react'
+import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
@@ -355,6 +355,29 @@ function ShowcaseCard({ project, index }: { project: Project; index: number }) {
 /* ------------------------------------------------------------------ */
 function CompactCard({ project }: { project: Project }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [hasOverflow, setHasOverflow] = useState(false)
+  const [isAtBottom, setIsAtBottom] = useState(false)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const check = () => {
+      const overflow = el.scrollHeight > el.clientHeight
+      setHasOverflow(overflow)
+      setIsAtBottom(!overflow || el.scrollTop + el.clientHeight >= el.scrollHeight - 4)
+    }
+    check()
+    const ro = new ResizeObserver(check)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  function handleScroll() {
+    const el = scrollRef.current
+    if (!el) return
+    setIsAtBottom(el.scrollTop + el.clientHeight >= el.scrollHeight - 4)
+  }
 
   return (
     <motion.article
@@ -375,7 +398,28 @@ function CompactCard({ project }: { project: Project }) {
 
       {project.award && <AwardBadge award={project.award} />}
 
-      <p className="flex-1 text-sm leading-relaxed text-muted">{project.description}</p>
+      {/* Scrollable content area with fade + indicator */}
+      <div className="relative flex-1 min-h-0">
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="scrollbar-hide max-h-[160px] overflow-y-auto"
+        >
+          <p className="text-sm leading-relaxed text-muted">{project.description}</p>
+        </div>
+
+        {/* Bottom gradient fade — only when overflowing and not at bottom */}
+        {hasOverflow && !isAtBottom && (
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-surface-1/90 to-transparent" />
+        )}
+
+        {/* Scroll indicator chevron */}
+        {hasOverflow && !isAtBottom && (
+          <div className="absolute bottom-0.5 right-0 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500/15 text-brand-400">
+            <ChevronDown className="h-3 w-3 animate-bounce" />
+          </div>
+        )}
+      </div>
 
       <TechTags tech={project.tech} dense />
     </motion.article>
@@ -388,8 +432,9 @@ function CompactCard({ project }: { project: Project }) {
 export default function Projects() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
-  const showcase = projects.filter(isFeatured)
-  const compact = projects.filter((p) => !isFeatured(p))
+  const visible = projects.filter((p) => !p.hidden)
+  const showcase = visible.filter(isFeatured)
+  const compact = visible.filter((p) => !isFeatured(p))
 
   return (
     <div className="relative mx-auto w-full max-w-[var(--container)] px-5 py-16 sm:px-8">

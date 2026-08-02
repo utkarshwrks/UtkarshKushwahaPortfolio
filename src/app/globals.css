@@ -359,3 +359,15 @@ body {
    ========================================================================== */
 html[data-admin] [data-site-chrome] { display: none !important; }
 html[data-admin] main { padding-top: 0 !important; }
+
+/* ============================================================================
+   SCROLLBAR HIDE — used on project cards with internal scroll.
+   Hides the scrollbar visually while keeping scroll functionality intact.
+   ========================================================================== */
+.scrollbar-hide {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / Opera */
+}

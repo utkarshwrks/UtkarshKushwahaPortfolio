@@ -19,6 +19,12 @@ import {
   ChevronRight,
   Trophy,
   ImageIcon,
+  GripVertical,
+  Eye,
+  EyeOff,
+  ArrowUp,
+  ArrowDown,
+  ListOrdered,
 } from 'lucide-react'
 import { COLLECTIONS, type CollectionKey } from '@/lib/content-config'
 import { SCHEMA, blankItem, type Field } from './schema'
@@ -129,6 +135,26 @@ export default function AdminDashboard({ cmsConfigured }: { cmsConfigured: boole
     }
   }
 
+  function move(from: number, to: number) {
+    if (to < 0 || to >= items.length) return
+    setItems((prev) => {
+      const next = [...prev]
+      const [item] = next.splice(from, 1)
+      next.splice(to, 0, item)
+      return next
+    })
+    setDirty(true)
+  }
+
+  function toggleHidden(i: number) {
+    setItems((prev) =>
+      prev.map((it, idx) =>
+        idx === i ? { ...it, hidden: !it.hidden } : it
+      )
+    )
+    setDirty(true)
+  }
+
   async function logout() {
     await fetch('/api/admin/logout', { method: 'POST' })
     window.location.reload()
@@ -216,6 +242,8 @@ export default function AdminDashboard({ cmsConfigured }: { cmsConfigured: boole
             onAdd={startAdd}
             onEdit={startEdit}
             onRemove={remove}
+            onMove={move}
+            onToggleHidden={toggleHidden}
           />
         )}
       </main>
@@ -247,91 +275,271 @@ function ItemList({
   onAdd,
   onEdit,
   onRemove,
+  onMove,
+  onToggleHidden,
 }: {
   tab: CollectionKey
   items: Item[]
   onAdd: () => void
   onEdit: (i: number) => void
   onRemove: (i: number) => void
+  onMove: (from: number, to: number) => void
+  onToggleHidden: (i: number) => void
 }) {
   const { titleKey, subtitleKey } = SCHEMA[tab]
+  const [orderMode, setOrderMode] = useState(false)
+
+  // Only show order mode for projects tab
+  const canOrder = tab === 'projects'
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">{items.length} item(s)</p>
-        <button
-          onClick={onAdd}
-          className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-sm px-3 py-2 rounded-lg"
-        >
-          <Plus className="w-4 h-4" /> Add new
-        </button>
+        <div className="flex items-center gap-2">
+          {canOrder && (
+            <button
+              onClick={() => setOrderMode((v) => !v)}
+              className={`flex items-center gap-2 text-sm px-3 py-2 rounded-lg border transition-colors ${
+                orderMode
+                  ? 'bg-indigo-500/20 border-indigo-500/40 text-indigo-300'
+                  : 'bg-gray-800 border-gray-700 text-gray-300 hover:text-gray-100 hover:bg-gray-700'
+              }`}
+            >
+              <ListOrdered className="w-4 h-4" />
+              {orderMode ? 'Done Ordering' : 'Manage Order & Visibility'}
+            </button>
+          )}
+          {!orderMode && (
+            <button
+              onClick={onAdd}
+              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-sm px-3 py-2 rounded-lg"
+            >
+              <Plus className="w-4 h-4" /> Add new
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="grid gap-3">
+      {orderMode && canOrder ? (
+        <OrderPanel
+          items={items}
+          titleKey={titleKey}
+          onMove={onMove}
+          onToggleHidden={onToggleHidden}
+        />
+      ) : (
+        <div className="grid gap-3">
+          {items.map((it, i) => {
+            const images = Array.isArray(it.images) ? (it.images as string[]) : []
+            const cover = images[0] || (typeof it.logo === 'string' ? it.logo : '')
+            const award = typeof it.award === 'string' ? it.award.trim() : ''
+            const hidden = it.hidden === true
+            return (
+              <div
+                key={i}
+                className={`group flex items-center gap-3 rounded-xl border bg-gray-900 p-3 transition-colors hover:border-emerald-500/30 ${
+                  hidden ? 'border-gray-800/50 opacity-50' : 'border-gray-800'
+                }`}
+              >
+                {/* Thumbnail */}
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-gray-800 bg-gray-950">
+                  {cover ? (
+                    <Image src={cover} alt="" fill className="object-cover" unoptimized />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-gray-700">
+                      <ImageIcon className="h-5 w-5" />
+                    </div>
+                  )}
+                  {images.length > 1 && (
+                    <span className="absolute bottom-0.5 right-0.5 rounded bg-black/70 px-1 text-[9px] font-medium text-white">
+                      {images.length}
+                    </span>
+                  )}
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="truncate font-medium">{String(it[titleKey] || '(untitled)')}</p>
+                    {award && (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300">
+                        <Trophy className="h-3 w-3" /> Award
+                      </span>
+                    )}
+                    {hidden && (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-gray-600/30 bg-gray-600/10 px-1.5 py-0.5 text-[10px] font-semibold text-gray-400">
+                        <EyeOff className="h-3 w-3" /> Hidden
+                      </span>
+                    )}
+                  </div>
+                  {subtitleKey && (
+                    <p className="line-clamp-1 text-sm text-gray-500">{String(it[subtitleKey] || '')}</p>
+                  )}
+                </div>
+
+                <div className="flex shrink-0 items-center gap-1">
+                  <button
+                    onClick={() => onEdit(i)}
+                    className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-emerald-400"
+                    title="Edit"
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => onRemove(i)}
+                    className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-red-400"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            )
+          })}
+          {items.length === 0 && (
+            <div className="rounded-xl border border-dashed border-gray-800 py-12 text-center">
+              <ImageIcon className="mx-auto mb-2 h-6 w-6 text-gray-700" />
+              <p className="text-sm text-gray-600">No items yet. Click “Add new” to create one.</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ----------------------------- Order Panel ----------------------------- */
+function OrderPanel({
+  items,
+  titleKey,
+  onMove,
+  onToggleHidden,
+}: {
+  items: Item[]
+  titleKey: string
+  onMove: (from: number, to: number) => void
+  onToggleHidden: (i: number) => void
+}) {
+  // Drag state
+  const [dragIdx, setDragIdx] = useState<number | null>(null)
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null)
+
+  function handleDragStart(e: React.DragEvent, i: number) {
+    setDragIdx(i)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+  function handleDragOver(e: React.DragEvent, i: number) {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    setDragOverIdx(i)
+  }
+  function handleDrop(e: React.DragEvent, i: number) {
+    e.preventDefault()
+    if (dragIdx !== null && dragIdx !== i) onMove(dragIdx, i)
+    setDragIdx(null)
+    setDragOverIdx(null)
+  }
+  function handleDragEnd() {
+    setDragIdx(null)
+    setDragOverIdx(null)
+  }
+
+  const visibleCount = items.filter((it) => !it.hidden).length
+
+  return (
+    <div>
+      <div className="mb-3 flex items-center gap-2 rounded-lg border border-indigo-500/20 bg-indigo-500/5 px-3 py-2 text-xs text-indigo-300">
+        <GripVertical className="h-3.5 w-3.5" />
+        <span>Drag rows to reorder · use the eye icon to hide/show projects · changes save when you Publish</span>
+        <span className="ml-auto rounded-full bg-indigo-500/20 px-2 py-0.5 font-semibold">
+          {visibleCount} visible
+        </span>
+      </div>
+      <div className="grid gap-2">
         {items.map((it, i) => {
           const images = Array.isArray(it.images) ? (it.images as string[]) : []
           const cover = images[0] || (typeof it.logo === 'string' ? it.logo : '')
-          const award = typeof it.award === 'string' ? it.award.trim() : ''
+          const hidden = it.hidden === true
+          const isDragging = dragIdx === i
+          const isOver = dragOverIdx === i && dragIdx !== i
+
           return (
             <div
               key={i}
-              className="group flex items-center gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3 transition-colors hover:border-emerald-500/30"
+              draggable
+              onDragStart={(e) => handleDragStart(e, i)}
+              onDragOver={(e) => handleDragOver(e, i)}
+              onDrop={(e) => handleDrop(e, i)}
+              onDragEnd={handleDragEnd}
+              className={`flex items-center gap-3 rounded-xl border bg-gray-900 p-3 transition-all select-none ${
+                isDragging ? 'opacity-40 scale-95 border-indigo-500/40' : ''
+              } ${
+                isOver ? 'border-indigo-400/60 bg-indigo-500/10 shadow-[0_0_12px_-4px_rgba(99,102,241,0.4)]' : 'border-gray-800'
+              } ${
+                hidden ? 'opacity-50' : ''
+              }`}
             >
+              {/* Position badge */}
+              <span className="w-6 shrink-0 text-center font-mono text-xs font-bold text-gray-600">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              {/* Drag handle */}
+              <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-gray-600 active:cursor-grabbing" />
+
               {/* Thumbnail */}
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-gray-800 bg-gray-950">
+              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg border border-gray-800 bg-gray-950">
                 {cover ? (
                   <Image src={cover} alt="" fill className="object-cover" unoptimized />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center text-gray-700">
-                    <ImageIcon className="h-5 w-5" />
+                    <ImageIcon className="h-4 w-4" />
                   </div>
                 )}
-                {images.length > 1 && (
-                  <span className="absolute bottom-0.5 right-0.5 rounded bg-black/70 px-1 text-[9px] font-medium text-white">
-                    {images.length}
-                  </span>
-                )}
               </div>
 
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="truncate font-medium">{String(it[titleKey] || '(untitled)')}</p>
-                  {award && (
-                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300">
-                      <Trophy className="h-3 w-3" /> Award
-                    </span>
-                  )}
-                </div>
-                {subtitleKey && (
-                  <p className="line-clamp-1 text-sm text-gray-500">{String(it[subtitleKey] || '')}</p>
-                )}
+              {/* Title */}
+              <p className={`flex-1 truncate font-medium text-sm ${
+                hidden ? 'text-gray-600' : 'text-gray-100'
+              }`}>
+                {String(it[titleKey] || '(untitled)')}
+              </p>
+
+              {/* Up / Down arrows */}
+              <div className="flex shrink-0 flex-col gap-0.5">
+                <button
+                  onClick={() => onMove(i, i - 1)}
+                  disabled={i === 0}
+                  className="rounded p-1 text-gray-600 hover:bg-gray-800 hover:text-gray-300 disabled:opacity-25 disabled:cursor-not-allowed"
+                  title="Move up"
+                >
+                  <ArrowUp className="h-3 w-3" />
+                </button>
+                <button
+                  onClick={() => onMove(i, i + 1)}
+                  disabled={i === items.length - 1}
+                  className="rounded p-1 text-gray-600 hover:bg-gray-800 hover:text-gray-300 disabled:opacity-25 disabled:cursor-not-allowed"
+                  title="Move down"
+                >
+                  <ArrowDown className="h-3 w-3" />
+                </button>
               </div>
 
-              <div className="flex shrink-0 items-center gap-1">
-                <button
-                  onClick={() => onEdit(i)}
-                  className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-emerald-400"
-                  title="Edit"
-                >
-                  <Pencil className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => onRemove(i)}
-                  className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-red-400"
-                  title="Delete"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
+              {/* Eye toggle */}
+              <button
+                onClick={() => onToggleHidden(i)}
+                className={`rounded-lg p-2 transition-colors ${
+                  hidden
+                    ? 'text-gray-600 hover:bg-gray-800 hover:text-gray-300'
+                    : 'text-emerald-400 hover:bg-gray-800 hover:text-emerald-300'
+                }`}
+                title={hidden ? 'Show on portfolio' : 'Hide from portfolio'}
+              >
+                {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
             </div>
           )
         })}
-        {items.length === 0 && (
-          <div className="rounded-xl border border-dashed border-gray-800 py-12 text-center">
-            <ImageIcon className="mx-auto mb-2 h-6 w-6 text-gray-700" />
-            <p className="text-sm text-gray-600">No items yet. Click “Add new” to create one.</p>
-          </div>
-        )}
       </div>
     </div>
   )

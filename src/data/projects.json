@@ -1,5 +1,39 @@
 [
   {
+    "name": "PRAHARI",
+    "slug": "prahari",
+    "featured": true,
+    "award": "🏆 1st Place — SafeClick 2.0 National Hackathon (MP Police Cyber Cell)",
+    "role": "Lead Full-stack Developer",
+    "year": "2026",
+    "status": "live",
+    "tech": [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "Python",
+      "AI/NLP (Groq)",
+      "Geospatial Mapping (Leaflet)",
+      "Tailwind CSS"
+    ],
+    "description": "PRAHARI is a content-based geospatial threat intelligence platform built for the Madhya Pradesh Police Cyber Cell. It transforms marketplace, forum, and paste content into actionable intelligence by extracting locations, wallets, aliases, and contraband using AI-powered NER. The platform geofences jurisdictions, correlates recurring actors, visualizes threats on an interactive map, and generates real-time breach alerts through an officer-friendly dashboard.",
+    "achievements": [
+      "🥇 1st Place — SafeClick 2.0 National Hackathon",
+      "Developed for MP Police Cyber Cell",
+      "Offline-first threat intelligence platform",
+      "Zero-cost deployment architecture",
+      "Real-time geospatial threat detection"
+    ],
+    "github": "https://github.com/utkarshwrks/PRAHARI",
+    "live": "https://prahari-6njh.onrender.com/",
+    "images": [
+      "/parhari1.jpg",
+      "/parahri2.jpg",
+      "/parahri3.jpg"
+    ],
+    "hidden": false
+  },
+  {
     "slug": "votex",
     "name": "Votex",
     "tech": [
@@ -102,38 +136,5 @@
     "github": "https://github.com/utkarshwrks/MINICRM",
     "live": "",
     "images": []
-  },
-  {
-    "name": "PRAHARI",
-    "slug": "prahari",
-    "featured": true,
-    "award": "🏆 1st Place — SafeClick 2.0 National Hackathon (MP Police Cyber Cell)",
-    "role": "Lead Full-stack Developer",
-    "year": "2026",
-    "status": "live",
-    "tech": [
-      "Next.js",
-      "TypeScript",
-      "FastAPI",
-      "Python",
-      "AI/NLP (Groq)",
-      "Geospatial Mapping (Leaflet)",
-      "Tailwind CSS"
-    ],
-    "description": "PRAHARI is a content-based geospatial threat intelligence platform built for the Madhya Pradesh Police Cyber Cell. It transforms marketplace, forum, and paste content into actionable intelligence by extracting locations, wallets, aliases, and contraband using AI-powered NER. The platform geofences jurisdictions, correlates recurring actors, visualizes threats on an interactive map, and generates real-time breach alerts through an officer-friendly dashboard.",
-    "achievements": [
-      "🥇 1st Place — SafeClick 2.0 National Hackathon",
-      "Developed for MP Police Cyber Cell",
-      "Offline-first threat intelligence platform",
-      "Zero-cost deployment architecture",
-      "Real-time geospatial threat detection"
-    ],
-    "github": "https://github.com/utkarshwrks/PRAHARI",
-    "live": "https://prahari-6njh.onrender.com/",
-    "images": [
-      "/parhari1.jpg",
-      "/parahri2.jpg",
-      "/parahri3.jpg"
-    ]
   }
 ]

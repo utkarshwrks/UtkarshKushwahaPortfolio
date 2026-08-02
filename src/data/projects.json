@@ -120,7 +120,7 @@
       "Geospatial Mapping (Leaflet)",
       "Tailwind CSS"
     ],
-    "description": "PRAHARI is a content-based geospatial threat intelligence platform built for the Madhya Pradesh Police Cyber Cell. Instead of attempting to deanonymize the Tor network, it legally analyzes publicly available marketplace, forum, and paste content to extract locations, cryptocurrency wallets, aliases, and contraband using Named Entity Recognition (NER). The platform geofences locations mentioned by criminals, correlates recurring wallets and handles, generates real-time jurisdiction breach alerts, visualizes threats on an interactive map, and provides investigation-ready reports through a dedicated officer dashboard. Built with an offline-first architecture, PRAHARI operates without paid APIs, making it deployable at zero infrastructure cost while remaining transparent, legally defensible, and suitable for district-level cyber intelligence operations.",
+    "description": "PRAHARI is a content-based geospatial threat intelligence platform built for the Madhya Pradesh Police Cyber Cell. It transforms marketplace, forum, and paste content into actionable intelligence by extracting locations, wallets, aliases, and contraband using AI-powered NER. The platform geofences jurisdictions, correlates recurring actors, visualizes threats on an interactive map, and generates real-time breach alerts through an officer-friendly dashboard.",
     "achievements": [
       "🥇 1st Place — SafeClick 2.0 National Hackathon",
       "Developed for MP Police Cyber Cell",

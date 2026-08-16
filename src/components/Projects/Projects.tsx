@@ -143,19 +143,43 @@ function ProjectGallery({ project }: { project: Project }) {
 /* ------------------------------------------------------------------ */
 /* Shared bits                                                         */
 /* ------------------------------------------------------------------ */
+/*
+  Seamless circular marquee
+  ─────────────────────────
+  Strategy: build one "set" (enough copies to be wider than the
+  container), then render [set | set]. The CSS animation moves
+  from translateX(0) → translateX(-50%). When it hits -50% the
+  second set aligns exactly with where the first started, so
+  the loop is invisible — true circular scroll.
+*/
 function TechTags({ tech, dense = false }: { tech: string[]; dense?: boolean }) {
+  // Pad the set so it has at least 6 items — always wider than the card
+  const padCount = Math.max(1, Math.ceil(6 / Math.max(tech.length, 1)))
+  const set = Array.from({ length: padCount * tech.length }, (_, i) => tech[i % tech.length])
+  // [set | set] — animation goes to -50%, seamlessly looping
+  const track = [...set, ...set]
+
   return (
-    <div className="flex flex-wrap gap-2">
-      {tech.map((t) => (
-        <span
-          key={t}
-          className={`rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 text-brand-300 ${
-            dense ? 'px-2.5 py-0.5 text-[11px]' : 'px-3 py-1 text-xs'
-          } font-medium`}
-        >
-          {t}
-        </span>
-      ))}
+    <div className="relative w-full min-w-0 max-w-full overflow-hidden">
+      {/* Fade edges */}
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-8 bg-gradient-to-r from-surface-1/80 to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-8 bg-gradient-to-l from-surface-1/80 to-transparent" />
+
+      <div
+        className="flex gap-2 py-0.5"
+        style={{ animation: 'tech-marquee 10s linear infinite', width: 'max-content' }}
+      >
+        {track.map((t, i) => (
+          <span
+            key={i}
+            className={`whitespace-nowrap rounded-[var(--r-pill)] border border-brand-500/25 bg-brand-500/10 text-brand-300 ${
+              dense ? 'px-2.5 py-0.5 text-[11px]' : 'px-3 py-1 text-xs'
+            } font-medium`}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
     </div>
   )
 }
@@ -266,7 +290,7 @@ function MetaRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <>
       <dt className="font-mono text-[11px] uppercase tracking-wider text-subtle">{label}</dt>
-      <dd className="text-sm text-muted">{children}</dd>
+      <dd className="min-w-0 text-sm text-muted">{children}</dd>
     </>
   )
 }
@@ -314,13 +338,39 @@ function ShowcaseCard({ project, index }: { project: Project; index: number }) {
 
         <div className="flex flex-col gap-2.5">
           <h3 className="text-2xl font-bold text-content sm:text-3xl">{project.name}</h3>
-          <p className="leading-relaxed text-muted">{project.description}</p>
+          {/* Scrollable description — hidden scrollbar, max 5 lines */}
+          <div className="scrollbar-hide max-h-[8rem] overflow-y-auto">
+            <p className="leading-relaxed text-muted">{project.description}</p>
+          </div>
         </div>
 
         {/* C — metadata */}
         <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-5 gap-y-2.5">
           {project.role && <MetaRow label="Role">{project.role}</MetaRow>}
-          <MetaRow label="Stack">{project.tech.join('  ·  ')}</MetaRow>
+          <MetaRow label="Stack">
+            {/* Seamless circular marquee for showcase stack */}
+            {(() => {
+              const padCount = Math.max(1, Math.ceil(6 / Math.max(project.tech.length, 1)))
+              const set = Array.from({ length: padCount * project.tech.length }, (_, i) => project.tech[i % project.tech.length])
+              const track = [...set, ...set]
+              return (
+                <div className="relative w-full min-w-0 max-w-full overflow-hidden">
+                  <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-6 bg-gradient-to-r from-surface-1/80 to-transparent" />
+                  <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-6 bg-gradient-to-l from-surface-1/80 to-transparent" />
+                  <div
+                    className="flex gap-3 text-sm text-muted"
+                    style={{ animation: 'tech-marquee 8s linear infinite', width: 'max-content' }}
+                  >
+                    {track.map((t, i) => (
+                      <span key={i} className="whitespace-nowrap">
+                        {t}<span className="mx-1.5 text-subtle">·</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
+          </MetaRow>
           {project.year && <MetaRow label="Year">{project.year}</MetaRow>}
           {status && (
             <MetaRow label="Status">
@@ -387,7 +437,7 @@ function CompactCard({ project }: { project: Project }) {
       animate={inView ? 'visible' : 'hidden'}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-      className="group flex h-full flex-col gap-3 rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-brand-500/30"
+      className="group flex h-full flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] border border-border bg-surface-1/60 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-brand-500/30"
     >
       <div className="flex items-start justify-between gap-3">
         <h4 className="text-lg font-semibold text-content transition-colors group-hover:text-brand-300">

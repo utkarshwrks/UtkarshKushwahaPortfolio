@@ -25,6 +25,7 @@ export type Field = {
   options?: string[] // for select
   help?: string
   required?: boolean
+  maxLength?: number  // optional char limit (shown as counter in admin + enforced in frontend)
 }
 
 export const SCHEMA: Record<CollectionKey, { titleKey: string; subtitleKey?: string; fields: Field[] }> = {
@@ -40,7 +41,7 @@ export const SCHEMA: Record<CollectionKey, { titleKey: string; subtitleKey?: str
       { key: 'year', label: 'Year', type: 'text', placeholder: '2025', help: 'Optional' },
       { key: 'status', label: 'Status', type: 'select', options: ['', 'live', 'archived'], help: 'Optional — shows a Live / Archived label' },
       { key: 'tech', label: 'Tech stack', type: 'list', help: 'One technology per line', required: true },
-      { key: 'description', label: 'Description', type: 'textarea', required: true },
+      { key: 'description', label: 'Description', type: 'textarea', required: true, maxLength: 300 },
       { key: 'achievements', label: 'Other achievements', type: 'list', help: 'One per line (e.g. "Top 10 — XYZ Hackathon")' },
       { key: 'github', label: 'GitHub URL', type: 'text', placeholder: 'https://github.com/...' },
       { key: 'live', label: 'Live / demo URL', type: 'text', placeholder: 'https://... (or # / blank)' },

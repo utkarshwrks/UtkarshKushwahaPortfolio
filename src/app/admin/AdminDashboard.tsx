@@ -677,9 +677,34 @@ function FieldInput({
 
       {field.type === 'markdown' && <MarkdownField value={value} onChange={onChange} placeholder={field.placeholder} />}
 
-      {field.type === 'textarea' && (
-        <textarea className={`${base} min-h-28`} value={String(value ?? '')} placeholder={field.placeholder} onChange={(e) => onChange(e.target.value)} />
-      )}
+      {field.type === 'textarea' && (() => {
+        const str = String(value ?? '')
+        const len = str.length
+        const max = field.maxLength
+        const over = max !== undefined && len > max
+        const near = max !== undefined && len >= max * 0.85
+        return (
+          <div className="relative">
+            <textarea
+              className={`${base} min-h-28 ${over ? 'border-orange-500/70' : near ? 'border-yellow-600/50' : ''}`}
+              value={str}
+              placeholder={field.placeholder}
+              onChange={(e) => onChange(e.target.value)}
+            />
+            {max !== undefined && (
+              <span
+                className={`absolute bottom-2 right-3 text-[11px] font-mono select-none ${
+                  over ? 'text-orange-400' : near ? 'text-yellow-500' : 'text-gray-600'
+                }`}
+              >
+                {len}/{max}
+                {over && <span className="ml-1 text-orange-400">— exceeds limit, will scroll on site</span>}
+              </span>
+            )}
+          </div>
+        )
+      })()}
+
 
       {field.type === 'select' && (
         <select className={base} value={String(value ?? '')} onChange={(e) => onChange(e.target.value)}>

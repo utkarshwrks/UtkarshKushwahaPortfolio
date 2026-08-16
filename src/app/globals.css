@@ -308,6 +308,12 @@ body {
   to { transform: translateX(-50%); }
 }
 
+/* Tech-stack ticker used in Projects — scrolls left→right like a news headline */
+@keyframes tech-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* Infinite skill ticker: track scrolls one full set (content is duplicated, so
    -50% loops seamlessly). Direction + speed come from CSS vars; hovering the
    row pauses it. Edges fade out via a mask for the "news ticker" look. */

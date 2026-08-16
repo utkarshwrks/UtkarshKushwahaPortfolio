@@ -8,5 +8,15 @@
     "icon": "cpu",
     "color": "",
     "link": ""
+  },
+  {
+    "platform": "LeetCode",
+    "badge": "Top 14.5%",
+    "title": "Top Ranking",
+    "value": "Top 14.74% ",
+    "subtitle": "Medium",
+    "icon": "activity",
+    "color": "",
+    "link": "https://leetcode.com/u/utkarsh-246/"
   }
 ]

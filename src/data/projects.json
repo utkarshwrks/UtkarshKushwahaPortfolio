@@ -34,6 +34,40 @@
     ]
   },
   {
+    "name": "GymHere",
+    "slug": "gymhere",
+    "featured": true,
+    "award": "",
+    "role": "Full-Stack Developer",
+    "year": "2026",
+    "status": "live",
+    "tech": [
+      "Next.js 15",
+      "TypeScript",
+      "PostgreSQL",
+      "Neon",
+      "Drizzle ORM",
+      "Clerk",
+      "Razorpay",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Framer Motion",
+      "Recharts",
+      "Zod",
+      "Upstash Redis",
+      "Vercel"
+    ],
+    "description": "GymHere is a multi-tenant gym management SaaS that centralizes memberships, attendance, billing, CRM, POS, payroll, classes, and member operations. It also provides public gym microsites, member portals, and a metered REST API for scalable gym management.",
+    "achievements": [],
+    "github": "https://github.com/utkarshwrks/gymhere",
+    "live": "https://gymhere.onrender.com/",
+    "images": [
+      "/paste-1786911434844-k2iz.jpg?v=1786911436840",
+      "/paste-1786911598744-31ur.jpg?v=1786911600639",
+      "/paste-1786911628077-y0ow.jpg?v=1786911630296"
+    ]
+  },
+  {
     "name": "CivicChain",
     "slug": "civicchain",
     "featured": true,

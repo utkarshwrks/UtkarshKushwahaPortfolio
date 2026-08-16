@@ -152,6 +152,36 @@
     "featured": true
   },
   {
+    "name": "SkillSync",
+    "slug": "skillsync",
+    "featured": true,
+    "award": "🏆 Top 50 — Peer Global Hackathon",
+    "role": "Full-Stack Developer",
+    "year": "2025",
+    "status": "live",
+    "tech": [
+      "Django",
+      "Django REST Framework",
+      "React",
+      "Python",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Axios",
+      "Gemini AI",
+      "GitHub API",
+      "Vercel",
+      "Render"
+    ],
+    "description": "SkillSync is an AI-powered career platform that analyzes resumes, provides ATS and recruiter-focused improvements, and generates optimized PDFs. It also matches users with live jobs based on their skills, tracks application outcomes, verifies skills through GitHub, and provides real-time market demand and salary insights.",
+    "achievements": [],
+    "github": "https://github.com/utkarshwrks/SkillSync",
+    "live": "skillsync-topaz.vercel.app",
+    "images": [
+      "/paste-1786910885235-8tyl.jpg?v=1786910887249"
+    ]
+  },
+  {
     "slug": "artmart",
     "name": "ArtMart",
     "tech": [

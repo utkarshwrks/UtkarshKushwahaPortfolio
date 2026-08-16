@@ -268,5 +268,33 @@
     "github": "https://github.com/utkarshwrks/MINICRM",
     "live": "",
     "images": []
+  },
+  {
+    "name": "SAYFORGE",
+    "slug": "sayforge",
+    "featured": "",
+    "award": "",
+    "role": "",
+    "year": "2026",
+    "status": "archived",
+    "tech": [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "Groq API",
+      "Monaco Editor",
+      "SAYMAN Blockchain",
+      "secp256k1",
+      "SHA-256",
+      "Render"
+    ],
+    "description": "SAYFORGE is an AI-powered smart-contract studio that converts plain-English requirements into deployable SAYMAN blockchain contracts. It uses Groq for contract generation, a deterministic safety validator for static analysis, and a browser-based wallet for signing and one-click testnet deployment.",
+    "achievements": [],
+    "github": "https://github.com/utkarshwrks/sayforge",
+    "live": "",
+    "images": []
   }
 ]

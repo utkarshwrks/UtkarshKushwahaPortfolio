@@ -136,31 +136,6 @@
     "hidden": false
   },
   {
-    "slug": "votex",
-    "name": "Votex",
-    "tech": [
-      "Next.js",
-      "Firebase",
-      "Node.js",
-      "Blockchain"
-    ],
-    "description": "A secure, full-stack voting platform built for small-to-medium scale elections. Features preloaded voter data, admin controls for authentication and election setup, OTP-based identity verification, role-based session control to ensure only authorized users vote, and an extensible admin panel for adding parties and candidates.",
-    "achievements": [
-      "Top 10 — Brahmax Hackathon"
-    ],
-    "role": "Full-stack developer",
-    "year": "2025",
-    "status": "archived",
-    "github": "https://github.com/Team-Vasiliades/VoteX",
-    "live": "#",
-    "images": [
-      "/vote2.jpg",
-      "/vote1.jpg",
-      "/vote3.jpg"
-    ],
-    "featured": true
-  },
-  {
     "slug": "algovisualizer",
     "name": "AlgoVisualizer",
     "tech": [
@@ -238,6 +213,31 @@
       "/am2.jpg"
     ],
     "featured": true
+  },
+  {
+    "slug": "votex",
+    "name": "Votex",
+    "tech": [
+      "Next.js",
+      "Firebase",
+      "Node.js",
+      "Blockchain"
+    ],
+    "description": "A secure, full-stack voting platform built for small-to-medium scale elections. Features preloaded voter data, admin controls for authentication and election setup, OTP-based identity verification, role-based session control to ensure only authorized users vote, and an extensible admin panel for adding parties and candidates.",
+    "achievements": [
+      "Top 10 — Brahmax Hackathon"
+    ],
+    "role": "Full-stack developer",
+    "year": "2025",
+    "status": "archived",
+    "github": "https://github.com/Team-Vasiliades/VoteX",
+    "live": "#",
+    "images": [
+      "/vote2.jpg",
+      "/vote1.jpg",
+      "/vote3.jpg"
+    ],
+    "featured": false
   },
   {
     "slug": "water-quality",

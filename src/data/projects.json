@@ -34,6 +34,40 @@
     ]
   },
   {
+    "name": "CivicChain",
+    "slug": "civicchain",
+    "featured": true,
+    "award": "",
+    "role": "Full-Stack Developer",
+    "year": "2026",
+    "status": "live",
+    "tech": [
+      "Node.js",
+      "Express.js",
+      "React 18",
+      "Vite",
+      "JavaScript",
+      "SAYMAN Blockchain",
+      "Smart Contracts",
+      "Gemini Vision",
+      "Pinata IPFS",
+      "secp256k1",
+      "JWT",
+      "Three.js",
+      "Framer Motion"
+    ],
+    "description": "CivicChain is a decentralized civic-issue reporting platform where AI verifies citizen reports, IPFS preserves evidence, and blockchain records create tamper-proof accountability. It combines AI-powered fraud detection, rewards, reputation, analytics, and role-based municipal workflows.",
+    "achievements": [],
+    "github": "https://github.com/utkarshwrks/CivicChain",
+    "live": "https://civicchain-4oqo.onrender.com/",
+    "images": [
+      "/image.jpg",
+      "/image.jpg",
+      "/image.jpg",
+      "/image.jpg"
+    ]
+  },
+  {
     "name": "PRAHARI",
     "slug": "prahari",
     "featured": true,

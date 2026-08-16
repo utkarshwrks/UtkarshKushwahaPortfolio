@@ -1,5 +1,39 @@
 [
   {
+    "name": "OpenPulse",
+    "slug": "openpulse",
+    "featured": true,
+    "award": "🏆 3rd Place — FOSS Localhost",
+    "role": "Full-Stack Developer",
+    "year": "2026",
+    "status": "live",
+    "tech": [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "Python",
+      "React",
+      "react-three-fiber",
+      "Three.js",
+      "Zustand",
+      "GitHub API",
+      "httpx",
+      "Vercel",
+      "Render"
+    ],
+    "description": "OpenPulse is an interactive 3D dependency-graph explorer for public GitHub repositories, built with Next.js, FastAPI, and Three.js. It analyzes package dependencies and visualizes relationships, risk, and connectivity in a performant 3D environment, with live deployment on Vercel and Render.",
+    "achievements": [
+      "Best UI — Global Buildathon"
+    ],
+    "github": "https://github.com/saymanlal/OpenPulse",
+    "live": "https://open-pulse.onrender.com/",
+    "images": [
+      "/bc6b1078-7868-4e3b-b0b7-0e698432ae73.jpg",
+      "/14fee0e9-be85-4036-8d23-8eb02a381b5f.jpg",
+      "/79297254-737f-4515-ab15-cd62f4d71f16.jpg"
+    ]
+  },
+  {
     "name": "PRAHARI",
     "slug": "prahari",
     "featured": true,

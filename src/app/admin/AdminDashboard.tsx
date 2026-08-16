@@ -766,11 +766,18 @@ function ImageField({
     : value
       ? [String(value)]
       : []
+
+  // Keep a ref to the latest list so async handleFiles never reads stale data
+  const listRef = useRef(list)
+  listRef.current = list
+  const onChangeRef = useRef(onChange)
+  onChangeRef.current = onChange
+
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
 
   async function handleFiles(files: FileList | null) {
-    if (!files || files.length === 0) return
+    if (!files || files.length === 0 || busy) return
     setBusy(true)
     setErr('')
     try {
@@ -789,12 +796,13 @@ function ImageField({
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.error || 'Upload failed')
-        // Append cache-bust so preview always shows the NEW image
+        // Cache-bust so preview always shows the NEW image
         uploaded.push(`${data.path}?v=${Date.now()}`)
         if (!multiple) break
       }
-      if (multiple) onChange([...list, ...uploaded])
-      else onChange(uploaded[0])
+      // Use ref to get the LATEST list, not the stale closure value
+      if (multiple) onChangeRef.current([...listRef.current, ...uploaded])
+      else onChangeRef.current(uploaded[0])
     } catch (e) {
       setErr((e as Error).message)
     } finally {
@@ -938,17 +946,25 @@ function DropZone({
 
   /* ── Paste (local — works when zone is focused) ── */
   function onPaste(e: React.ClipboardEvent) {
+    if (busy) return
     const items = e.clipboardData?.items
     if (!items) return
+    // Collect image files, deduplicate by size+type to avoid clipboard quirks
+    const seen = new Set<string>()
     const imageFiles: File[] = []
     for (const item of Array.from(items)) {
       if (item.kind === 'file' && item.type.startsWith('image/')) {
         const f = item.getAsFile()
-        if (f) imageFiles.push(f)
+        if (!f) continue
+        const key = `${f.size}-${f.type}`
+        if (seen.has(key)) continue
+        seen.add(key)
+        imageFiles.push(f)
       }
     }
     if (!imageFiles.length) return
     e.preventDefault()
+    e.stopPropagation()
     const dt = new DataTransfer()
     imageFiles.forEach((f) => dt.items.add(f))
     onFiles(dt.files)

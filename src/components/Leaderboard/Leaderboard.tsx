@@ -18,7 +18,9 @@ const ICONS: Record<string, LucideIcon> = {
 }
 
 export default function Leadership() {
-  const leaderships = leadershipData
+  const leaderships = (leadershipData as Array<{ hidden?: boolean; icon: string; title: string; role: string; description: string; link?: string }>).filter(
+    (l) => !l.hidden
+  )
 
   return (
     <div className="w-full py-12">

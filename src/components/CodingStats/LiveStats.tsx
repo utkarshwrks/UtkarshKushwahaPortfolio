@@ -214,7 +214,11 @@ export default function LiveStats() {
 
       {/* Programming Skill Milestones bento strip — only renders when data exists */}
       <div className="mt-10">
-        <CodingMilestones items={codingMilestonesData as unknown as CodingMilestone[]} />
+        <CodingMilestones
+          items={(codingMilestonesData as unknown as (CodingMilestone & { hidden?: boolean })[]).filter(
+            (m) => !m.hidden
+          )}
+        />
       </div>
     </div>
   )

@@ -84,8 +84,9 @@ type Skill = { name: string; icon: IconType }
 
 // Build the category list straight from the data, preserving CATEGORY_META order
 // and gracefully appending any category that isn't pre-registered.
+const visibleSkills = skillsJson.filter((s: any) => !s.hidden)
 const categoryOrder = Object.keys(CATEGORY_META)
-const categories = Array.from(new Set(skillsJson.map((s) => s.category)))
+const categories = Array.from(new Set(visibleSkills.map((s) => s.category)))
   .sort((a, b) => {
     const ia = categoryOrder.indexOf(a)
     const ib = categoryOrder.indexOf(b)
@@ -94,7 +95,7 @@ const categories = Array.from(new Set(skillsJson.map((s) => s.category)))
   .map((key) => ({
     key,
     title: CATEGORY_META[key]?.title ?? key,
-    items: skillsJson
+    items: visibleSkills
       .filter((s) => s.category === key)
       .map<Skill>((s) => ({ name: s.name, icon: iconMap[s.icon] ?? FaCode })),
   }))

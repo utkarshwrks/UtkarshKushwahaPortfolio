@@ -215,7 +215,9 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
 }
 
 export default function ExperienceSection() {
-  const experiences = experiencesData as Experience[]
+  const experiences = (experiencesData as (Experience & { hidden?: boolean })[]).filter(
+    (e) => !e.hidden
+  )
 
   return (
     <section

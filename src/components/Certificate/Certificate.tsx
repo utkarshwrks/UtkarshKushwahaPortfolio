@@ -20,10 +20,12 @@ const iconMap: Record<string, IconType> = {
   certificate: FaCertificate,
 }
 
-const certificatesData = certificatesJson.map((c) => ({
-  ...c,
-  icon: iconMap[c.icon] ?? FaCertificate,
-}))
+const certificatesData = certificatesJson
+  .filter((c: any) => !c.hidden)
+  .map((c) => ({
+    ...c,
+    icon: iconMap[c.icon] ?? FaCertificate,
+  }))
 
 function CertificatesSection() {
   return (

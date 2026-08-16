@@ -480,7 +480,9 @@ function AchievementCarousel({ items, header }: { items: Achievement[]; header: 
 }
 
 export default function Achievements() {
-  const achievements = achievementsData as unknown as Achievement[]
+  const achievements = (achievementsData as unknown as (Achievement & { hidden?: boolean })[]).filter(
+    (a) => !a.hidden
+  )
 
   const SECTIONS: (SectionHeader & { category: string })[] = [
     {

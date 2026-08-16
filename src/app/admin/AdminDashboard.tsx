@@ -289,8 +289,8 @@ function ItemList({
   const { titleKey, subtitleKey } = SCHEMA[tab]
   const [orderMode, setOrderMode] = useState(false)
 
-  // Only show order mode for projects tab
-  const canOrder = tab === 'projects'
+  // Order mode enabled for all collection tabs
+  const canOrder = true
 
   return (
     <div>
@@ -379,6 +379,17 @@ function ItemList({
 
                 <div className="flex shrink-0 items-center gap-1">
                   <button
+                    onClick={() => onToggleHidden(i)}
+                    className={`rounded-lg p-2 transition-colors ${
+                      hidden
+                        ? 'text-amber-400 hover:bg-gray-800 hover:text-amber-300'
+                        : 'text-gray-400 hover:bg-gray-800 hover:text-emerald-400'
+                    }`}
+                    title={hidden ? 'Show item' : 'Hide item'}
+                  >
+                    {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                  <button
                     onClick={() => onEdit(i)}
                     className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-emerald-400"
                     title="Edit"
@@ -450,7 +461,7 @@ function OrderPanel({
     <div>
       <div className="mb-3 flex items-center gap-2 rounded-lg border border-indigo-500/20 bg-indigo-500/5 px-3 py-2 text-xs text-indigo-300">
         <GripVertical className="h-3.5 w-3.5" />
-        <span>Drag rows to reorder · use the eye icon to hide/show projects · changes save when you Publish</span>
+        <span>Drag rows to reorder · use the eye icon to hide/show items · changes save when you Publish</span>
         <span className="ml-auto rounded-full bg-indigo-500/20 px-2 py-0.5 font-semibold">
           {visibleCount} visible
         </span>

@@ -776,15 +776,21 @@ function ImageField({
     try {
       const uploaded: string[] = []
       for (const file of Array.from(files)) {
+        // Pasted clipboard images always arrive as "image.png" — give each a unique name
+        let filename = file.name.replace(/\.[^.]+$/, '.jpg')
+        if (/^image\.(png|jpg|jpeg|bmp|webp)$/i.test(file.name)) {
+          filename = `paste-${Date.now()}-${Math.random().toString(36).slice(2, 6)}.jpg`
+        }
         const dataUrl = await resizeImage(file)
         const res = await fetch('/api/admin/upload', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ filename: file.name.replace(/\.[^.]+$/, '.jpg'), dataUrl }),
+          body: JSON.stringify({ filename, dataUrl }),
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.error || 'Upload failed')
-        uploaded.push(data.path)
+        // Append cache-bust so preview always shows the NEW image
+        uploaded.push(`${data.path}?v=${Date.now()}`)
         if (!multiple) break
       }
       if (multiple) onChange([...list, ...uploaded])
@@ -818,7 +824,9 @@ function ImageField({
               key={`${src}-${i}`}
               className="group relative aspect-square overflow-hidden rounded-xl border border-gray-800 bg-gray-950"
             >
-              <Image src={src} alt="" fill className="object-cover" unoptimized />
+              {/* Use native img to avoid Next.js Image caching issues in admin preview */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
 
               {/* Cover badge on the first image (the one shown first on the site) */}
               {multiple && i === 0 && (

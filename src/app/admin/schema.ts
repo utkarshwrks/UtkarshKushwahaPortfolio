@@ -165,6 +165,7 @@ export function blankItem(key: CollectionKey): Record<string, unknown> {
   const obj: Record<string, unknown> = {}
   for (const f of SCHEMA[key].fields) {
     if (f.type === 'list' || f.type === 'images' || f.type === 'tags') obj[f.key] = []
+    else if (f.type === 'boolean') obj[f.key] = false
     else obj[f.key] = ''
   }
   if (key === 'certificates') obj.icon = 'certificate'

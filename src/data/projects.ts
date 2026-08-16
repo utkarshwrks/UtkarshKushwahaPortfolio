@@ -21,4 +21,4 @@ export type Project = {
   hidden?: boolean
 }
 
-export const projects: Project[] = projectsData
+export const projects: Project[] = projectsData as unknown as Project[]

@@ -272,7 +272,7 @@
   {
     "name": "SAYFORGE",
     "slug": "sayforge",
-    "featured": "",
+    "featured": false,
     "award": "",
     "role": "",
     "year": "2026",

@@ -102,6 +102,14 @@ export default function AdminDashboard({ cmsConfigured }: { cmsConfigured: boole
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
     }
+    // Ensure boolean fields are boolean (not empty string)
+    if (tab in SCHEMA) {
+      for (const f of SCHEMA[tab as CollectionKey].fields) {
+        if (f.type === 'boolean') {
+          d[f.key] = Boolean(d[f.key])
+        }
+      }
+    }
     setItems((prev) => {
       if (editIndex === -1) return [...prev, d]
       return prev.map((it, idx) => (idx === editIndex ? d : it))

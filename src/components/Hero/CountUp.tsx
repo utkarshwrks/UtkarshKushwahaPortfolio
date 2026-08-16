@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 /**
  * Lightweight count-up that animates from 0 → `to` the first time it scrolls
  * into view. Respects prefers-reduced-motion (renders the final value at once).
+ * Also smoothly updates when `to` changes dynamically (e.g. after API fetch).
  */
 export default function CountUp({
   to,
@@ -18,6 +19,7 @@ export default function CountUp({
   const ref = useRef<HTMLSpanElement | null>(null)
   const [value, setValue] = useState(0)
   const started = useRef(false)
+  const prevTo = useRef(to)
 
   useEffect(() => {
     const node = ref.current
@@ -31,6 +33,24 @@ export default function CountUp({
       setValue(to)
       return
     }
+
+    if (started.current && prevTo.current !== to) {
+      const startVal = value
+      const diff = to - startVal
+      prevTo.current = to
+      const start = performance.now()
+      const updateDuration = Math.min(duration, 800)
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / updateDuration)
+        const eased = 1 - Math.pow(1 - t, 3)
+        setValue(Math.round(startVal + diff * eased))
+        if (t < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick)
+      return
+    }
+
+    prevTo.current = to
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -51,7 +71,7 @@ export default function CountUp({
     )
     io.observe(node)
     return () => io.disconnect()
-  }, [to, duration])
+  }, [to, duration, value])
 
   return (
     <span ref={ref}>
@@ -60,3 +80,4 @@ export default function CountUp({
     </span>
   )
 }
+

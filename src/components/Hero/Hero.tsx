@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import TypingText from './TypingText'
 import CountUp from './CountUp'
 import { motion } from 'framer-motion'
@@ -16,10 +17,31 @@ import { projects } from '@/data/projects'
 
 export default function Hero() {
   const { hero, socials } = defaultSettings
+  const [totalProblems, setTotalProblems] = useState<number>(600)
 
-  // ---- Live credibility stats, derived from real project data ----------
+  useEffect(() => {
+    let mounted = true
+    fetch(`/api/stats?t=${Date.now()}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!mounted || !data) return
+        const lc = data.leetcode?.total ?? 0
+        const cf = data.codeforces?.solved ?? 0
+        const total = lc + cf
+        if (total > 0) {
+          setTotalProblems(total)
+        }
+      })
+      .catch(() => {})
+    return () => {
+      mounted = false
+    }
+  }, [])
+
+  // ---- Live credibility stats, derived from real project data + live DSA stats ----------
   const stats = [
     { value: projects.length, suffix: '+', label: 'Projects shipped' },
+    { value: totalProblems, suffix: '+', label: 'Problems solved' },
     {
       value: projects.filter((p) => p.achievements?.length || p.award).length,
       suffix: '',
@@ -128,19 +150,19 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* Live stats — real numbers from project data */}
+          {/* Live stats — real numbers from project data + live coding stats */}
           <motion.div
             variants={fadeUp}
-            className="mt-4 grid w-full max-w-md grid-cols-3 divide-x divide-border rounded-[var(--r-lg)] border border-border bg-surface-1/50 backdrop-blur-sm"
+            className="mt-4 grid w-full max-w-lg grid-cols-4 divide-x divide-border rounded-[var(--r-lg)] border border-border bg-surface-1/50 backdrop-blur-sm"
           >
             {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-0.5 px-2 py-3 text-center">
-                <span className="text-2xl font-bold text-content sm:text-3xl">
+              <div key={s.label} className="flex flex-col items-center gap-0.5 px-1.5 py-3 text-center sm:px-2">
+                <span className="text-xl font-bold text-content sm:text-2xl lg:text-3xl">
                   <span className="text-gradient">
                     <CountUp to={s.value} suffix={s.suffix} />
                   </span>
                 </span>
-                <span className="text-[11px] leading-tight text-muted sm:text-xs">{s.label}</span>
+                <span className="text-[10px] leading-tight text-muted sm:text-xs">{s.label}</span>
               </div>
             ))}
           </motion.div>

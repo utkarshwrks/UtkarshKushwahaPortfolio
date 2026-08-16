@@ -161,8 +161,8 @@ async function getCodeforces(handle: string): Promise<Codeforces> {
 }
 
 export async function GET() {
-  const lcUser = process.env.LEETCODE_USERNAME
-  const cfHandle = process.env.CODEFORCES_HANDLE
+  const lcUser = process.env.LEETCODE_USERNAME || 'utkarsh-246'
+  const cfHandle = process.env.CODEFORCES_HANDLE || 'utkarsh246'
 
   const [leetcode, codeforces] = await Promise.all([
     lcUser ? getLeetCode(lcUser) : Promise.resolve(null),

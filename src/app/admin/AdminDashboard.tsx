@@ -879,7 +879,15 @@ function ImageField({
   )
 }
 
-/* -------- Drag-drop + Paste + Click-to-browse upload zone -------- */
+/* ─────────────────────────────────────────────────────────────────
+   Global drag-drop + paste singleton.
+   Each DropZone registers itself as "active" while hovered / focused.
+   The document-level listeners route events to whichever zone is active.
+   This means Ctrl+V anywhere on the page and dragging from anywhere
+   both work without the user having to click the zone first.
+──────────────────────────────────────────────────────────────────── */
+let _activeDropZone: ((f: FileList | null) => void) | null = null
+
 function DropZone({
   multiple,
   busy,
@@ -892,86 +900,138 @@ function DropZone({
   onFiles: (f: FileList | null) => void
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [dragging, setDragging] = useState(false)
+  const [localDrag, setLocalDrag]     = useState(false) // file is over THIS zone
+  const [globalDrag, setGlobalDrag]   = useState(false) // file is anywhere over the page
+  const onFilesRef = useRef(onFiles)
+  onFilesRef.current = onFiles
 
-  function onDragOver(e: React.DragEvent) {
+  /* ── Global paste (Ctrl+V anywhere on the page) ── */
+  useEffect(() => {
+    function handlePaste(e: ClipboardEvent) {
+      if (_activeDropZone !== onFilesRef.current) return
+      const items = e.clipboardData?.items
+      if (!items) return
+      const imageItems = Array.from(items).filter(
+        (it) => it.kind === 'file' && it.type.startsWith('image/')
+      )
+      if (!imageItems.length) return
+      e.preventDefault()
+      const dt = new DataTransfer()
+      imageItems.forEach((it) => { const f = it.getAsFile(); if (f) dt.items.add(f) })
+      onFilesRef.current(dt.files)
+    }
+    document.addEventListener('paste', handlePaste)
+    return () => document.removeEventListener('paste', handlePaste)
+  }, [])
+
+  /* ── Global drag: show page-level overlay when a file enters the window ── */
+  useEffect(() => {
+    let enterCount = 0 // track nested dragenter/dragleave pairs
+    function onEnter(e: DragEvent) {
+      if (!e.dataTransfer?.types.includes('Files')) return
+      enterCount++
+      setGlobalDrag(true)
+    }
+    function onLeave() {
+      enterCount = Math.max(0, enterCount - 1)
+      if (enterCount === 0) setGlobalDrag(false)
+    }
+    function onDrop() { enterCount = 0; setGlobalDrag(false) }
+    document.addEventListener('dragenter', onEnter)
+    document.addEventListener('dragleave', onLeave)
+    document.addEventListener('drop', onDrop)
+    return () => {
+      document.removeEventListener('dragenter', onEnter)
+      document.removeEventListener('dragleave', onLeave)
+      document.removeEventListener('drop', onDrop)
+    }
+  }, [])
+
+  /* Register as active zone on hover / focus */
+  function activate() { _activeDropZone = onFilesRef.current }
+  function deactivate() { if (_activeDropZone === onFilesRef.current) _activeDropZone = null }
+
+  /* Zone-local drag handlers */
+  function onLocalDragOver(e: React.DragEvent) { e.preventDefault(); setLocalDrag(true) }
+  function onLocalDragLeave() { setLocalDrag(false) }
+  function onLocalDrop(e: React.DragEvent) {
     e.preventDefault()
-    setDragging(true)
-  }
-  function onDragLeave() { setDragging(false) }
-  function onDrop(e: React.DragEvent) {
-    e.preventDefault()
-    setDragging(false)
+    setLocalDrag(false)
+    setGlobalDrag(false)
     onFiles(e.dataTransfer.files)
   }
 
-  /* Clipboard paste — Ctrl+V / Cmd+V when the zone is focused */
-  function onPaste(e: React.ClipboardEvent) {
-    const items = e.clipboardData?.items
-    if (!items) return
-    const imageItems = Array.from(items).filter(
-      (it) => it.kind === 'file' && it.type.startsWith('image/')
-    )
-    if (imageItems.length === 0) return
-    e.preventDefault()
-    const dt = new DataTransfer()
-    imageItems.forEach((it) => {
-      const file = it.getAsFile()
-      if (file) dt.items.add(file)
-    })
-    onFiles(dt.files)
-  }
+  const highlighted = localDrag || (globalDrag && _activeDropZone === onFilesRef.current)
 
   const label = busy
     ? 'Uploading…'
     : multiple
       ? listCount > 0 ? 'Add more images' : 'Drop / paste / click to add images'
-      : listCount > 0 ? 'Drop / paste / click to replace' : 'Drop / paste / click to choose image'
+      : listCount > 0 ? 'Drop / paste / click to replace' : 'Drop / paste / click to choose'
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label="Image upload zone"
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-      onPaste={onPaste}
-      onClick={() => !busy && inputRef.current?.click()}
-      onKeyDown={(e) => e.key === 'Enter' && !busy && inputRef.current?.click()}
-      className={[
-        'flex w-full cursor-pointer select-none flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-7 text-center transition-all duration-200 outline-none',
-        dragging
-          ? 'border-emerald-400 bg-emerald-500/10 scale-[1.01]'
-          : 'border-gray-700 bg-gray-900/60 hover:border-emerald-500/50 hover:bg-gray-800/60 focus:border-emerald-500/70',
-        busy ? 'pointer-events-none opacity-60' : '',
-      ].join(' ')}
-    >
-      {busy ? (
-        <Loader2 className="h-7 w-7 animate-spin text-emerald-400" />
-      ) : (
-        <UploadCloud
-          className={`h-7 w-7 transition-colors ${dragging ? 'text-emerald-400' : 'text-gray-500'}`}
-        />
+    <>
+      {/* Full-page drop overlay — shown whenever a file is dragged over the window */}
+      {globalDrag && (
+        <div
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={onLocalDrop}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+        >
+          <div className="flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-emerald-400 bg-emerald-500/10 px-16 py-12 text-center shadow-2xl">
+            <UploadCloud className="h-12 w-12 text-emerald-400" />
+            <p className="text-xl font-semibold text-emerald-300">Drop image to upload</p>
+            <p className="text-sm text-emerald-400/70">Release anywhere to add to this field</p>
+          </div>
+        </div>
       )}
-      <p className={`text-sm font-medium transition-colors ${dragging ? 'text-emerald-300' : 'text-gray-400'}`}>
-        {dragging ? '🎯 Release to upload!' : label}
-      </p>
-      {!busy && !dragging && (
-        <p className="text-[11px] text-gray-600">
-          Drag &amp; drop &nbsp;·&nbsp; Paste (Ctrl+V) &nbsp;·&nbsp; or click to browse
+
+      {/* The visible drop zone itself */}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="Image upload zone — drag, paste Ctrl+V, or click"
+        onMouseEnter={activate}
+        onFocus={activate}
+        onMouseLeave={deactivate}
+        onBlur={deactivate}
+        onDragOver={onLocalDragOver}
+        onDragLeave={onLocalDragLeave}
+        onDrop={onLocalDrop}
+        onClick={() => !busy && inputRef.current?.click()}
+        onKeyDown={(e) => e.key === 'Enter' && !busy && inputRef.current?.click()}
+        className={[
+          'flex w-full cursor-pointer select-none flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-7 text-center transition-all duration-200 outline-none',
+          highlighted
+            ? 'border-emerald-400 bg-emerald-500/10 scale-[1.01]'
+            : 'border-gray-700 bg-gray-900/60 hover:border-emerald-500/50 hover:bg-gray-800/60 focus:border-emerald-500/70',
+          busy ? 'pointer-events-none opacity-60' : '',
+        ].join(' ')}
+      >
+        {busy ? (
+          <Loader2 className="h-7 w-7 animate-spin text-emerald-400" />
+        ) : (
+          <UploadCloud className={`h-7 w-7 transition-colors ${highlighted ? 'text-emerald-400' : 'text-gray-500'}`} />
+        )}
+        <p className={`text-sm font-medium transition-colors ${highlighted ? 'text-emerald-300' : 'text-gray-400'}`}>
+          {highlighted ? '🎯 Release to upload!' : label}
         </p>
-      )}
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        multiple={multiple}
-        className="hidden"
-        disabled={busy}
-        onChange={(e) => onFiles(e.target.files)}
-      />
-    </div>
+        {!busy && !highlighted && (
+          <p className="text-[11px] text-gray-600">
+            Drag &amp; drop anywhere · Paste (Ctrl+V) · or click to browse
+          </p>
+        )}
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple={multiple}
+          className="hidden"
+          disabled={busy}
+          onChange={(e) => onFiles(e.target.files)}
+        />
+      </div>
+    </>
   )
 }
 

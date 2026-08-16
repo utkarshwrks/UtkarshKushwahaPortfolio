@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import {
   LogOut,
@@ -867,18 +867,7 @@ function ImageField({
         </div>
       )}
 
-      <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-gray-700 bg-gray-900 px-3 py-2.5 text-sm text-gray-300 transition hover:border-emerald-500/50 hover:bg-gray-800">
-        {busy ? <Loader2 className="h-4 w-4 animate-spin text-emerald-400" /> : <UploadCloud className="h-4 w-4 text-emerald-400" />}
-        {busy ? 'Uploading…' : multiple ? (list.length ? 'Add more images' : 'Add images') : list.length ? 'Replace image' : 'Choose image'}
-        <input
-          type="file"
-          accept="image/*"
-          multiple={multiple}
-          className="hidden"
-          disabled={busy}
-          onChange={(e) => handleFiles(e.target.files)}
-        />
-      </label>
+      <DropZone multiple={multiple} busy={busy} onFiles={handleFiles} listCount={list.length} />
       <p className="mt-1.5 text-xs text-gray-600">
         {multiple
           ? 'First image is the cover. Hover a tile to reorder or remove. Auto-resized & committed to '
@@ -886,6 +875,102 @@ function ImageField({
         <code>/public</code> on upload.
       </p>
       {err && <p className="mt-1 text-xs text-red-400">{err}</p>}
+    </div>
+  )
+}
+
+/* -------- Drag-drop + Paste + Click-to-browse upload zone -------- */
+function DropZone({
+  multiple,
+  busy,
+  listCount,
+  onFiles,
+}: {
+  multiple: boolean
+  busy: boolean
+  listCount: number
+  onFiles: (f: FileList | null) => void
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [dragging, setDragging] = useState(false)
+
+  function onDragOver(e: React.DragEvent) {
+    e.preventDefault()
+    setDragging(true)
+  }
+  function onDragLeave() { setDragging(false) }
+  function onDrop(e: React.DragEvent) {
+    e.preventDefault()
+    setDragging(false)
+    onFiles(e.dataTransfer.files)
+  }
+
+  /* Clipboard paste — Ctrl+V / Cmd+V when the zone is focused */
+  function onPaste(e: React.ClipboardEvent) {
+    const items = e.clipboardData?.items
+    if (!items) return
+    const imageItems = Array.from(items).filter(
+      (it) => it.kind === 'file' && it.type.startsWith('image/')
+    )
+    if (imageItems.length === 0) return
+    e.preventDefault()
+    const dt = new DataTransfer()
+    imageItems.forEach((it) => {
+      const file = it.getAsFile()
+      if (file) dt.items.add(file)
+    })
+    onFiles(dt.files)
+  }
+
+  const label = busy
+    ? 'Uploading…'
+    : multiple
+      ? listCount > 0 ? 'Add more images' : 'Drop / paste / click to add images'
+      : listCount > 0 ? 'Drop / paste / click to replace' : 'Drop / paste / click to choose image'
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      aria-label="Image upload zone"
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+      onPaste={onPaste}
+      onClick={() => !busy && inputRef.current?.click()}
+      onKeyDown={(e) => e.key === 'Enter' && !busy && inputRef.current?.click()}
+      className={[
+        'flex w-full cursor-pointer select-none flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-7 text-center transition-all duration-200 outline-none',
+        dragging
+          ? 'border-emerald-400 bg-emerald-500/10 scale-[1.01]'
+          : 'border-gray-700 bg-gray-900/60 hover:border-emerald-500/50 hover:bg-gray-800/60 focus:border-emerald-500/70',
+        busy ? 'pointer-events-none opacity-60' : '',
+      ].join(' ')}
+    >
+      {busy ? (
+        <Loader2 className="h-7 w-7 animate-spin text-emerald-400" />
+      ) : (
+        <UploadCloud
+          className={`h-7 w-7 transition-colors ${dragging ? 'text-emerald-400' : 'text-gray-500'}`}
+        />
+      )}
+      <p className={`text-sm font-medium transition-colors ${dragging ? 'text-emerald-300' : 'text-gray-400'}`}>
+        {dragging ? '🎯 Release to upload!' : label}
+      </p>
+      {!busy && !dragging && (
+        <p className="text-[11px] text-gray-600">
+          Drag &amp; drop &nbsp;·&nbsp; Paste (Ctrl+V) &nbsp;·&nbsp; or click to browse
+        </p>
+      )}
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        multiple={multiple}
+        className="hidden"
+        disabled={busy}
+        onChange={(e) => onFiles(e.target.files)}
+      />
     </div>
   )
 }

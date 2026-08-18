@@ -18,15 +18,5 @@
     "icon": "activity",
     "color": "",
     "link": "https://leetcode.com/u/utkarsh-246/"
-  },
-  {
-    "platform": "Custom",
-    "badge": "🏆",
-    "title": "Flipkart GRID 8.0",
-    "value": "Semi-Finalist",
-    "subtitle": "National-Level Software Engineering Competition",
-    "icon": "trophy",
-    "color": "from-yellow-500 to-orange-500",
-    "link": ""
   }
 ]
